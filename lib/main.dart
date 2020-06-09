@@ -73,7 +73,6 @@ void main() {
     // home: RowColumnDemo(),
     // home: MainPage('Bottom Navigation Bar', BottomNavigationBarDemo()),
     // home: BottomNavigationBarApp(),
-    // home: CustomShapeApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
     home: AmalListPage(),

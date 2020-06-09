@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDuaPage.dart';
 
-class AmalListFloatingActionButton extends StatelessWidget {
+class DuaListFloatingActionButton extends StatelessWidget {
   Widget _buildFabButton(BuildContext context) => FloatingActionButton(
         onPressed: () {
           Navigator.push(

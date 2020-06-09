@@ -310,18 +310,6 @@ class AddDua extends State<AddDuaState> {
     return listView;
   }
 
-  // Widget _buildDuaList() {
-  //   var listView = ListView.builder(
-  //       itemCount: Provider.of<AddDuaViewModel>(this.context, listen: false)
-  //           .zikirs
-  //           .length,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         return _buildDuaItem(context, index);
-  //       });
-
-  //   return listView;
-  // }
-
   Widget _buildFullPage() => Container(
         child: Column(
           children: <Widget>[

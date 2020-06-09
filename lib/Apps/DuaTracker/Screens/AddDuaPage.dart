@@ -174,7 +174,7 @@ class AddDua extends State<AddDuaState> {
                   //     Provider.of<AddDuaViewModel>(context, listen: false)
                   //         .zikirs[currentIndex]
                   //         .zikirName,
-                  
+                  initialValue: model.zikirs[currentIndex].zikirName,
                   onChanged: (String value) {
                     // model.zikirs[currentIndex].zikirName = value;
                     Provider.of<AddDuaViewModel>(context, listen: false)
@@ -184,7 +184,8 @@ class AddDua extends State<AddDuaState> {
                   style: _dataLabelTextStyle(),
                   decoration: InputDecoration(
                     border: _textFieldBorderStyle(),
-                    labelText: 'জিকিরের নাম',
+                    labelText:
+                        'জিকিরের নাম (${Provider.of<AddDuaViewModel>(context, listen: false).zikirs[currentIndex].zikirName})',
                   ),
                 ),
               ),

@@ -69,6 +69,7 @@ import 'screen/CustomShapes/CustomShapeApp.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Change Notifier',
+    
     theme: ThemeData(fontFamily: 'Atma'),
     // home: RowColumnDemo(),
     // home: MainPage('Bottom Navigation Bar', BottomNavigationBarDemo()),

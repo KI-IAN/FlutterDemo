@@ -20,6 +20,7 @@ class AddDuaViewModel extends BaseViewModel {
 
   set zikirs(List<ZikirViewModel> value) {
     this._zikirs = value;
+    // this.InvokeChanges();
   }
 
   List<ZikirViewModel> get zikirs => this._zikirs;
@@ -31,7 +32,7 @@ class AddDuaViewModel extends BaseViewModel {
 
   set totalZikirs(int value) {
     this._totalZikirs = value;
-    notifyListeners();
+    this.InvokeChanges();
   }
 
 //endRegion
@@ -56,6 +57,7 @@ class AddDuaViewModel extends BaseViewModel {
   void removeZikirFromList(int index) {
     zikirs.removeAt(index);
     totalZikirs = zikirs.length;
+    this.InvokeChanges();
     // notifyListeners();
   }
 

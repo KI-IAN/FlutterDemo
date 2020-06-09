@@ -30,6 +30,11 @@ class DuaPageViewModel extends BaseViewModel {
     duaList = getDuaList();
   }
 
+  Future<void> removeDua(int duaID) async {
+    duaList.removeWhere((r) => r.duaID == duaID);
+    this.InvokeChanges();
+  }
+
 //endRegion
 
 //region : DataProvider (Temporary)

@@ -142,7 +142,7 @@ class DuaCardView extends State<DuaListState> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   editButton(),
-                  deleteButton(),
+                  deleteButton(context, currentIndex, model),
                 ],
               )
             ],
@@ -163,7 +163,9 @@ class DuaCardView extends State<DuaListState> {
         ),
       ));
 
-  Widget deleteButton() => Center(
+  Widget deleteButton(
+          BuildContext context, int currentIndex, DuaPageViewModel model) =>
+      Center(
           child: Ink(
         decoration:
             const ShapeDecoration(shape: CircleBorder(), color: Colors.red),
@@ -173,23 +175,40 @@ class DuaCardView extends State<DuaListState> {
           tooltip: 'তথ্য মুছুন',
           color: Colors.white,
           onPressed: () {
-            _showDeleteAlert();
+            _showDeleteAlert(context, currentIndex, model);
           },
         ),
       ));
 
-  Future<void> _showDeleteAlert() async {
+  Future<void> _showDeleteAlert(
+      BuildContext context, int currentIndex, DuaPageViewModel model) async {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('দোয়া মুছুন'),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: _buildAlertBoxDeleteButton(
+                        model, model.duaList[currentIndex].duaID),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: _buildAlertBoxCancelButton(),
+                  )
+                ],
+              )
+            ],
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text(
-                      'এই দোয়াগুলো মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।'),
+                  Text('${model.duaList[currentIndex].duaName} এর ${model.duaList[currentIndex].totalZikirs}' +
+                      ' টি জিকির  মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।'),
                 ],
               ),
             ),
@@ -197,15 +216,33 @@ class DuaCardView extends State<DuaListState> {
         });
   }
 
-//region : ListView
+  Widget _buildAlertBoxCancelButton() => RaisedButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        padding: EdgeInsets.all(10),
+        color: Colors.lightBlue,
+        child: Icon(Icons.cancel, color: Colors.white),
+      );
 
+  Widget _buildAlertBoxDeleteButton(DuaPageViewModel model, int duaId) =>
+      RaisedButton(
+        onPressed: () {
+          model.removeDua(duaId);
+          Navigator.pop(context);
+        },
+        padding: EdgeInsets.all(10),
+        color: Colors.red,
+        child: Icon(Icons.delete_forever, color: Colors.white),
+      );
+
+//region : ListView
 
   Widget listView() => Consumer<DuaPageViewModel>(
         builder: (context, model, child) {
           return RefreshIndicator(
             onRefresh: model.refreshDuaList,
             child: ListView.builder(
-              // itemCount: data.length,
               itemCount: model.duaList.length,
               itemBuilder: (BuildContext context, int index) {
                 return amolCard(context, index, model);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDuaPage.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/AmalList.dart';
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/Screens/StudentPages.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/StudentModel.dart';
@@ -37,6 +36,7 @@ import 'package:fluttertutorial/screen/Navigation/ForthBack/FirstRoute.dart';
 
 import 'package:provider/provider.dart';
 
+import 'Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'screen/CustomShapes/CustomShapeApp.dart';
 
 //void main() async {
@@ -69,14 +69,14 @@ import 'screen/CustomShapes/CustomShapeApp.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Change Notifier',
-    
+
     theme: ThemeData(fontFamily: 'Atma'),
     // home: RowColumnDemo(),
     // home: MainPage('Bottom Navigation Bar', BottomNavigationBarDemo()),
     // home: BottomNavigationBarApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
-    home: AmalListPage(),
+    home: DuaListPage(),
     // home: CircularTextPage(),
   ));
 }

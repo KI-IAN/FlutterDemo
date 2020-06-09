@@ -3,7 +3,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Screens/AmalListFloatingActionBu
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 
-class AmalListPage extends StatelessWidget {
+class DuaListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,18 +11,18 @@ class AmalListPage extends StatelessWidget {
         title: Text('দোয়ার তালিকা'),
         backgroundColor: randomColor(),
       ),
-      body: AmalListState(),
+      body: DuaListState(),
       floatingActionButton: AmalListFloatingActionButton(),
     );
   }
 }
 
-class AmalListState extends StatefulWidget {
+class DuaListState extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => AmalCardView();
+  State<StatefulWidget> createState() => DuaCardView();
 }
 
-class AmalCardView extends State<AmalListState> {
+class DuaCardView extends State<DuaListState> {
   Widget miniCardTotalCompleted() => Container(
         // alignment: Alignment.center,
         height: 80,

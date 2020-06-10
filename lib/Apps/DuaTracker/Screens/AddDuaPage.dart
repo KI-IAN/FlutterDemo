@@ -160,124 +160,128 @@ class AddDua extends State<AddDuaState> {
       );
 
   Widget _buildDuaItem(BuildContext context, int currentIndex,
-          [AddDuaViewModel model]) =>
-      Container(
-        child: Card(
-          // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
-          margin: EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  // initialValue:
-                  //     Provider.of<AddDuaViewModel>(context, listen: false)
-                  //         .zikirs[currentIndex]
-                  //         .zikirName,
-                  initialValue: model.zikirs[currentIndex].zikirName,
-                  onChanged: (String value) {
-                    // model.zikirs[currentIndex].zikirName = value;
-                    Provider.of<AddDuaViewModel>(context, listen: false)
-                        .zikirs[currentIndex]
-                        .zikirName = value;
-                  },
-                  style: _dataLabelTextStyle(),
-                  decoration: InputDecoration(
-                    border: _textFieldBorderStyle(),
-                    labelText:
-                        'জিকিরের নাম (${Provider.of<AddDuaViewModel>(context, listen: false).zikirs[currentIndex].zikirName})',
-                  ),
+      [AddDuaViewModel model]) {
+    return Container(
+      child: Card(
+        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
+        margin: EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextFormField(
+                controller: TextEditingController(
+                  text: model.zikirs[currentIndex].zikirName,
+                ),
+                onChanged: (String value) {
+                  // model.zikirs[currentIndex].zikirName = value;
+                  Provider.of<AddDuaViewModel>(context, listen: false)
+                      .zikirs[currentIndex]
+                      .zikirName = value;
+                },
+                style: _dataLabelTextStyle(),
+                decoration: InputDecoration(
+                  border: _textFieldBorderStyle(),
+                  labelText:
+                      'জিকিরের নাম (${Provider.of<AddDuaViewModel>(context, listen: false).zikirs[currentIndex].zikirName})',
                 ),
               ),
-              Visibility(
-                visible: true,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: TextFormField(
-                            onChanged: (value) {
-                              // model.zikirs[currentIndex]
-                              //     .numberOfTimesWantToRead = int.parse(value);
-                              Provider.of<AddDuaViewModel>(context,
-                                      listen: false)
-                                  .zikirs[currentIndex]
-                                  .numberOfTimesWantToRead = int.parse(value);
-                            },
-                            keyboardType: TextInputType.text,
-                            style: _dataLabelTextStyle(),
-                            decoration: InputDecoration(
-                              labelText: 'পড়তে চাই',
-                              border: _textFieldBorderStyle(),
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          child: Text(
-                            'বার',
-                            style: _captionLabelTextStyle(),
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              Visibility(
-                visible: true,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: TextFormField(
-                            onChanged: (value) {
-                              // model.zikirs[currentIndex].numberOfTimesRead =
-                              //     int.parse(value);
-                              Provider.of<AddDuaViewModel>(context,
-                                      listen: false)
-                                  .zikirs[currentIndex]
-                                  .numberOfTimesRead = int.parse(value);
-                            },
-                            keyboardType: TextInputType.text,
-                            style: _dataLabelTextStyle(),
-                            decoration: InputDecoration(
-                              border: _textFieldBorderStyle(),
-                              labelText: 'পড়েছি',
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          child: Text(
-                            'বার',
-                            style: _captionLabelTextStyle(),
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              Divider(
-                color: Colors.lightBlue,
-                thickness: 1.0,
-              ),
-              Padding(
+            ),
+            Visibility(
+              visible: true,
+              child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _buildDeleteButton(currentIndex),
-                  ],
-                ),
-              )
-            ],
-          ),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: TextFormField(
+                          controller: TextEditingController(
+                              text: model.zikirs[currentIndex].numberOfTimesWantToRead
+                                  .toString()),
+                          onChanged: (value) {
+                            // model.zikirs[currentIndex]
+                            //     .numberOfTimesWantToRead = int.parse(value);
+                            Provider.of<AddDuaViewModel>(context, listen: false)
+                                .zikirs[currentIndex]
+                                .numberOfTimesWantToRead = int.parse(value);
+                          },
+                          keyboardType: TextInputType.text,
+                          style: _dataLabelTextStyle(),
+                          decoration: InputDecoration(
+                            labelText: 'পড়তে চাই',
+                            border: _textFieldBorderStyle(),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Expanded(
+                        child: Text(
+                          'বার',
+                          style: _captionLabelTextStyle(),
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            Visibility(
+              visible: true,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: TextFormField(
+                          controller: TextEditingController(
+                              text: model
+                                  .zikirs[currentIndex].numberOfTimesRead
+                                  .toString()),
+                          onChanged: (value) {
+                            // model.zikirs[currentIndex].numberOfTimesRead =
+                            //     int.parse(value);
+                            Provider.of<AddDuaViewModel>(context, listen: false)
+                                .zikirs[currentIndex]
+                                .numberOfTimesRead = int.parse(value);
+                          },
+                          keyboardType: TextInputType.text,
+                          style: _dataLabelTextStyle(),
+                          decoration: InputDecoration(
+                            border: _textFieldBorderStyle(),
+                            labelText: 'পড়েছি',
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Expanded(
+                        child: Text(
+                          'বার',
+                          style: _captionLabelTextStyle(),
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            Divider(
+              color: Colors.lightBlue,
+              thickness: 1.0,
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _buildDeleteButton(currentIndex),
+                ],
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
+  }
 
   Widget _buildDeleteButton(int currentIndex) => Center(
           child: Ink(

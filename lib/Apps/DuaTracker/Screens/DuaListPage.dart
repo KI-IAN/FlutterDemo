@@ -141,8 +141,8 @@ class DuaCardView extends State<DuaListState> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  editButton(),
                   deleteButton(context, currentIndex, model),
+                  editButton(),
                 ],
               )
             ],

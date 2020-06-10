@@ -50,13 +50,14 @@ class AddDuaViewModel extends BaseViewModel {
 
   void addNewZikirInList() {
     zikirs.add(ZikirViewModel());
-    totalZikirs = zikirs.length;
+    // totalZikirs = zikirs.length;
+    this.InvokeChanges();
     // notifyListeners();
   }
 
   void removeZikirFromList(int index) {
     zikirs.removeAt(index);
-    totalZikirs = zikirs.length;
+    // totalZikirs = zikirs.length;
     this.InvokeChanges();
     // notifyListeners();
   }

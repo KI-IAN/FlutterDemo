@@ -3,10 +3,10 @@ import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 class ZikirViewModel extends BaseViewModel {
 //region: Fields
 
-  String _zikirName;
-  int _numberOfTimesRead;
-  int _numberOfTimesWantToRead;
-  DateTime _duaCreationDateTime;
+  String _zikirName = '';
+  int _numberOfTimesRead = 0;
+  int _numberOfTimesWantToRead = 0;
+  DateTime _duaCreationDateTime = DateTime.now();
 
 //endRegion
 

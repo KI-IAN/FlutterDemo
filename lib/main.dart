@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDuaPage.dart';
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
+import 'package:fluttertutorial/screen/AnimatedList/AnimatedListApp.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/Screens/StudentPages.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/StudentModel.dart';
 import 'package:fluttertutorial/screen/CustomShapes/Sky.dart';
@@ -76,7 +77,8 @@ void main() {
     // home: BottomNavigationBarApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
-    home: DuaListPage(),
+    // home: DuaListPage(),
+    home: AnimatedListApp(),
     // home: CircularTextPage(),
   ));
 }

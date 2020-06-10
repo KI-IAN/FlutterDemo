@@ -14,28 +14,24 @@ class ZikirViewModel extends BaseViewModel {
 
   set zikirName(String value) {
     this._zikirName = value;
-    InvokeChanges();
   }
 
   String get zikirName => _zikirName;
 
   set numberOfTimesRead(int value) {
     this._numberOfTimesRead = value;
-    InvokeChanges();
   }
 
   int get numberOfTimesRead => _numberOfTimesRead;
 
   set numberOfTimesWantToRead(int value) {
     this._numberOfTimesWantToRead = value;
-    InvokeChanges();
   }
 
   int get numberOfTimesWantToRead => _numberOfTimesWantToRead;
 
   set duaCreationDateTime(DateTime value) {
     this._duaCreationDateTime = value;
-    InvokeChanges();
   }
 
   DateTime get duaCreationDateTime => _duaCreationDateTime;

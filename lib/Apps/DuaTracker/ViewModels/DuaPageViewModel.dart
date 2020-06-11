@@ -32,7 +32,7 @@ class DuaPageViewModel extends BaseViewModel {
 
   Future<void> removeDua(int duaID) async {
     duaList.removeWhere((r) => r.duaID == duaID);
-    this.InvokeChanges();
+    // this.InvokeChanges();
   }
 
 //endRegion

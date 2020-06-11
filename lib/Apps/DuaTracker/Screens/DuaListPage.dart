@@ -194,8 +194,8 @@ class DuaCardView extends State<DuaListState> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(5),
-                    child: _buildAlertBoxDeleteButton(
-                        model, model.duaList[currentIndex].duaID),
+                    child: _buildAlertBoxDeleteButton(context, model,
+                        model.duaList[currentIndex].duaID, currentIndex),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
@@ -225,11 +225,19 @@ class DuaCardView extends State<DuaListState> {
         child: Icon(Icons.cancel, color: Colors.white),
       );
 
-  Widget _buildAlertBoxDeleteButton(DuaPageViewModel model, int duaId) =>
+  Widget _buildAlertBoxDeleteButton(BuildContext context,
+          DuaPageViewModel model, int duaId, int currentIndex) =>
       RaisedButton(
         onPressed: () {
-          model.removeDua(duaId);
           Navigator.pop(context);
+          model.removeDua(duaId);
+          animatedListKey.currentState.removeItem(
+              currentIndex,
+              (context, animation) => SizeTransition(
+                    sizeFactor: animation,
+                    child: amolCard(context, currentIndex, model),
+                  ),
+              duration: Duration(milliseconds: 1 * 500));
         },
         padding: EdgeInsets.all(10),
         color: Colors.red,
@@ -255,8 +263,42 @@ class DuaCardView extends State<DuaListState> {
 
 //endRegion
 
+//region : Animated List
+
+  final GlobalKey<AnimatedListState> animatedListKey =
+      GlobalKey<AnimatedListState>();
+
+  Widget _buildAnimatedListView() {
+    return Consumer<DuaPageViewModel>(
+      builder: (context, model, child) {
+        return RefreshIndicator(
+          onRefresh: model.refreshDuaList,
+          child: AnimatedList(
+            key: animatedListKey,
+            initialItemCount: model.duaList.length,
+            itemBuilder: (BuildContext context, int currentIndex,
+                Animation<double> animation) {
+              return _buildAmolCardAnimated(
+                  context, currentIndex, model, animation);
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAmolCardAnimated(BuildContext context, int currentIndex,
+          DuaPageViewModel model, Animation<double> animation) =>
+      SizeTransition(
+        sizeFactor: animation,
+        child: amolCard(context, currentIndex, model),
+      );
+
+//endRegion
+
   @override
   Widget build(BuildContext context) {
-    return listView();
+    // return listView();
+    return _buildAnimatedListView();
   }
 }

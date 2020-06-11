@@ -77,8 +77,8 @@ void main() {
     // home: BottomNavigationBarApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
-    // home: DuaListPage(),
-    home: AnimatedListApp(),
+    home: DuaListPage(),
+    // home: AnimatedListApp(),
     // home: CircularTextPage(),
   ));
 }

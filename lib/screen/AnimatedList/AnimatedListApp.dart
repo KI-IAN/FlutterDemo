@@ -45,15 +45,19 @@ class AnimatedListDemoState extends State<AnimatedListDemo> {
                 onPressed: () {
                   setState(() {
                     if (list.length > 0) {
-                      list.removeLast();
+                      var randomIndex = Random().nextInt(list.length);
+                      var currentItem = list.elementAt(randomIndex);
+                      // list.removeLast();
+                      list.removeAt(randomIndex);
                       _listKey.currentState.removeItem(
-                          list.length - 1,
+                          // list.length,
+                          randomIndex,
                           (context, animation) => Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child: SizeTransition(
                                   sizeFactor: animation,
                                   child: Card(
-                                    child: Text('Item#'),
+                                    child: Text('Item# $currentItem'),
                                   ),
                                 ),
                               ));

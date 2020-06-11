@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListFloatingActionButton.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,7 @@ class DuaListState extends StatefulWidget {
 }
 
 class DuaCardView extends State<DuaListState> {
-  Widget miniCardTotalCompleted(
-          BuildContext context, int currentIndex, DuaPageViewModel model) =>
+  Widget miniCardTotalCompleted(BuildContext context, DuaListViewModel data) =>
       Container(
         // alignment: Alignment.center,
         height: 80,
@@ -35,7 +35,8 @@ class DuaCardView extends State<DuaListState> {
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              '${model.duaList[currentIndex].totalNumberOfTimesZikirRead} / ${model.duaList[currentIndex].totalNumberOfTimesZikirToBeRead}',
+              // '${model.duaList[currentIndex].totalNumberOfTimesZikirRead} / ${model.duaList[currentIndex].totalNumberOfTimesZikirToBeRead}',
+              '${data.totalNumberOfTimesZikirRead} / ${data.totalNumberOfTimesZikirToBeRead}',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 25,
@@ -52,8 +53,7 @@ class DuaCardView extends State<DuaListState> {
         ),
       );
 
-  Widget miniCardTotalDua(
-          BuildContext context, int currentIndex, DuaPageViewModel model) =>
+  Widget miniCardTotalDua(BuildContext context, DuaListViewModel data) =>
       Container(
         // alignment: Alignment.center,
         margin: EdgeInsets.all(0.0),
@@ -62,7 +62,8 @@ class DuaCardView extends State<DuaListState> {
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              '${model.duaList[currentIndex].totalZikirsRead} / ${model.duaList[currentIndex].totalZikirs}',
+              // '${model.duaList[currentIndex].totalZikirsRead} / ${model.duaList[currentIndex].totalZikirs}',
+              '${data.totalZikirsRead} / ${data.totalZikirs}',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 25,
@@ -79,9 +80,7 @@ class DuaCardView extends State<DuaListState> {
         ),
       );
 
-  Widget amolInfo(
-          BuildContext context, int currentIndex, DuaPageViewModel model) =>
-      Container(
+  Widget amolInfo(BuildContext context, DuaListViewModel data) => Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -93,7 +92,8 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              '${model.duaList[currentIndex].duaName}',
+              // '${model.duaList[currentIndex].duaName}',
+              '${data.duaName}',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 20,
@@ -112,14 +112,14 @@ class DuaCardView extends State<DuaListState> {
       );
 
   Widget amolCard(
-          BuildContext context, int currentIndex, DuaPageViewModel model) =>
+          BuildContext context, int currentIndex, DuaListViewModel data) =>
       Card(
         elevation: 3.0,
         child: SizedBox(
           height: 200,
           child: Column(
             children: <Widget>[
-              amolInfo(context, currentIndex, model),
+              amolInfo(context, data),
               Divider(
                 color: Colors.lightBlue,
                 thickness: 1.0,
@@ -129,8 +129,8 @@ class DuaCardView extends State<DuaListState> {
                 // mainAxisSize: MainAxisSize.max,
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  miniCardTotalDua(context, currentIndex, model),
-                  miniCardTotalCompleted(context, currentIndex, model),
+                  miniCardTotalDua(context, data),
+                  miniCardTotalCompleted(context, data),
                 ],
               ),
               // totalProgress,
@@ -141,7 +141,7 @@ class DuaCardView extends State<DuaListState> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  deleteButton(context, currentIndex, model),
+                  deleteButton(context, currentIndex, data),
                   editButton(),
                 ],
               )
@@ -164,7 +164,7 @@ class DuaCardView extends State<DuaListState> {
       ));
 
   Widget deleteButton(
-          BuildContext context, int currentIndex, DuaPageViewModel model) =>
+          BuildContext context, int currentIndex, DuaListViewModel data) =>
       Center(
           child: Ink(
         decoration:
@@ -175,13 +175,13 @@ class DuaCardView extends State<DuaListState> {
           tooltip: 'তথ্য মুছুন',
           color: Colors.white,
           onPressed: () {
-            _showDeleteAlert(context, currentIndex, model);
+            _showDeleteAlert(context, currentIndex, data);
           },
         ),
       ));
 
   Future<void> _showDeleteAlert(
-      BuildContext context, int currentIndex, DuaPageViewModel model) async {
+      BuildContext context, int currentIndex, DuaListViewModel data) async {
     return showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -194,8 +194,8 @@ class DuaCardView extends State<DuaListState> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(5),
-                    child: _buildAlertBoxDeleteButton(context, model,
-                        model.duaList[currentIndex].duaID, currentIndex),
+                    child: _buildAlertBoxDeleteButton(
+                        context, data.duaID, currentIndex, data),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
@@ -207,7 +207,7 @@ class DuaCardView extends State<DuaListState> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('${model.duaList[currentIndex].duaName} এর ${model.duaList[currentIndex].totalZikirs}' +
+                  Text('${data.duaName} এর ${data.totalZikirs}' +
                       ' টি জিকির  মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।'),
                 ],
               ),
@@ -218,24 +218,26 @@ class DuaCardView extends State<DuaListState> {
 
   Widget _buildAlertBoxCancelButton() => RaisedButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pop(this.context);
         },
         padding: EdgeInsets.all(10),
         color: Colors.lightBlue,
         child: Icon(Icons.cancel, color: Colors.white),
       );
 
-  Widget _buildAlertBoxDeleteButton(BuildContext context,
-          DuaPageViewModel model, int duaId, int currentIndex) =>
+  Widget _buildAlertBoxDeleteButton(BuildContext context, int duaId,
+          int currentIndex, DuaListViewModel data) =>
       RaisedButton(
         onPressed: () {
           Navigator.pop(context);
-          model.removeDua(duaId);
+          Provider.of<DuaPageViewModel>(this.context, listen: false)
+              .removeDua(duaId);
           animatedListKey.currentState.removeItem(
               currentIndex,
+              // 0,
               (context, animation) => SizeTransition(
                     sizeFactor: animation,
-                    child: amolCard(context, currentIndex, model),
+                    child: amolCard(context, currentIndex, data),
                   ),
               duration: Duration(milliseconds: 1 * 500));
         },
@@ -253,13 +255,23 @@ class DuaCardView extends State<DuaListState> {
             child: ListView.builder(
               itemCount: model.duaList.length,
               itemBuilder: (BuildContext context, int index) {
-                return amolCard(context, index, model);
+                var currentItem = getDataAt(model, index);
+                return amolCard(context, index, currentItem);
               },
               padding: EdgeInsets.all(10.0),
             ),
           );
         },
       );
+
+//endRegion
+
+//region : Get Data by index
+
+  DuaListViewModel getDataAt(DuaPageViewModel model, int index) {
+    var duaData = model.duaList.elementAt(index);
+    return duaData;
+  }
 
 //endRegion
 
@@ -278,8 +290,10 @@ class DuaCardView extends State<DuaListState> {
             initialItemCount: model.duaList.length,
             itemBuilder: (BuildContext context, int currentIndex,
                 Animation<double> animation) {
+              var currentItem = model.duaList.elementAt(currentIndex);
+
               return _buildAmolCardAnimated(
-                  context, currentIndex, model, animation);
+                  context, currentIndex, model, animation, currentItem);
             },
           ),
         );
@@ -287,12 +301,17 @@ class DuaCardView extends State<DuaListState> {
     );
   }
 
-  Widget _buildAmolCardAnimated(BuildContext context, int currentIndex,
-          DuaPageViewModel model, Animation<double> animation) =>
-      SizeTransition(
-        sizeFactor: animation,
-        child: amolCard(context, currentIndex, model),
-      );
+  Widget _buildAmolCardAnimated(
+      BuildContext context,
+      int currentIndex,
+      DuaPageViewModel model,
+      Animation<double> animation,
+      DuaListViewModel data) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: amolCard(context, currentIndex, data),
+    );
+  }
 
 //endRegion
 

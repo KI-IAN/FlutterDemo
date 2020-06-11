@@ -6,6 +6,7 @@ import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/Screens/Studen
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/StudentModel.dart';
 import 'package:fluttertutorial/screen/CustomShapes/Sky.dart';
 import 'package:fluttertutorial/screen/ExplicitAnimation/TransformAnimation.dart';
+import 'package:fluttertutorial/screen/FormValidation/ValidateForm.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/FadeInDemo.dart';
 import 'package:fluttertutorial/screen/Layouts/BottomNavigationBar.dart';
@@ -77,7 +78,8 @@ void main() {
     // home: BottomNavigationBarApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
-    home: DuaListPage(),
+    // home: DuaListPage(),
+    home: ValidateFormPage(),
     // home: AnimatedListApp(),
     // home: CircularTextPage(),
   ));

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 class AddDuaPage extends StatelessWidget {
@@ -37,11 +36,6 @@ class AddDuaPage extends StatelessWidget {
               child: Icon(Icons.save, color: Colors.white),
             ),
           ),
-          // FloatingActionButton(
-          //   onPressed: () {},
-          //   backgroundColor: Colors.lightGreen,
-          //   child: Icon(Icons.add),
-          // ),
         ],
       );
 
@@ -68,6 +62,7 @@ class AddDuaState extends StatefulWidget {
 }
 
 class AddDua extends State<AddDuaState> {
+  //region : Styling
   TextStyle _dataLabelTextStyle() =>
       TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500);
 
@@ -81,6 +76,7 @@ class AddDua extends State<AddDuaState> {
         borderRadius: BorderRadius.all(Radius.circular(2)),
         borderSide: BorderSide(color: Colors.lightBlue),
       );
+  //endRegion
 
   Widget _buildDuaContainer() => Card(
         child: Column(
@@ -154,16 +150,21 @@ class AddDua extends State<AddDuaState> {
                 onPressed: () {
                   Provider.of<AddDuaViewModel>(this.context, listen: false)
                       .addNewZikirInList();
+                  animatedListKey.currentState.insertItem(
+                      Provider.of<AddDuaViewModel>(this.context, listen: false)
+                              .zikirs
+                              .length -
+                          1);
                 })
           ],
         ),
       );
 
-  Widget _buildDuaItem(BuildContext context, int currentIndex,
-      [AddDuaViewModel model]) {
+  Widget _buildDuaItem(
+      BuildContext context, int currentIndex, ZikirViewModel data) {
     return Container(
       child: Card(
-        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
+        color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
@@ -171,7 +172,7 @@ class AddDua extends State<AddDuaState> {
               padding: EdgeInsets.all(10),
               child: TextFormField(
                 controller: TextEditingController(
-                  text: model.zikirs[currentIndex].zikirName,
+                  text: data.zikirName,
                 ),
                 onChanged: (String value) {
                   // model.zikirs[currentIndex].zikirName = value;
@@ -182,8 +183,7 @@ class AddDua extends State<AddDuaState> {
                 style: _dataLabelTextStyle(),
                 decoration: InputDecoration(
                   border: _textFieldBorderStyle(),
-                  labelText:
-                      'জিকিরের নাম (${Provider.of<AddDuaViewModel>(context, listen: false).zikirs[currentIndex].zikirName})',
+                  labelText: 'জিকিরের নাম (${data.zikirName})',
                 ),
               ),
             ),
@@ -198,11 +198,9 @@ class AddDua extends State<AddDuaState> {
                         flex: 4,
                         child: TextFormField(
                           controller: TextEditingController(
-                              text: model.zikirs[currentIndex].numberOfTimesWantToRead
-                                  .toString()),
+                            text: data.numberOfTimesWantToRead.toString(),
+                          ),
                           onChanged: (value) {
-                            // model.zikirs[currentIndex]
-                            //     .numberOfTimesWantToRead = int.parse(value);
                             Provider.of<AddDuaViewModel>(context, listen: false)
                                 .zikirs[currentIndex]
                                 .numberOfTimesWantToRead = int.parse(value);
@@ -229,39 +227,34 @@ class AddDua extends State<AddDuaState> {
               visible: true,
               child: Padding(
                 padding: EdgeInsets.all(10),
-                child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          controller: TextEditingController(
-                              text: model
-                                  .zikirs[currentIndex].numberOfTimesRead
-                                  .toString()),
-                          onChanged: (value) {
-                            // model.zikirs[currentIndex].numberOfTimesRead =
-                            //     int.parse(value);
-                            Provider.of<AddDuaViewModel>(context, listen: false)
-                                .zikirs[currentIndex]
-                                .numberOfTimesRead = int.parse(value);
-                          },
-                          keyboardType: TextInputType.text,
-                          style: _dataLabelTextStyle(),
-                          decoration: InputDecoration(
-                            border: _textFieldBorderStyle(),
-                            labelText: 'পড়েছি',
-                          ),
-                        ),
+                child: Row(children: <Widget>[
+                  Expanded(
+                    flex: 4,
+                    child: TextFormField(
+                      controller: TextEditingController(
+                        text: data.numberOfTimesRead.toString(),
                       ),
-                      Spacer(),
-                      Expanded(
-                        child: Text(
-                          'বার',
-                          style: _captionLabelTextStyle(),
-                        ),
+                      onChanged: (value) {
+                        Provider.of<AddDuaViewModel>(context, listen: false)
+                            .zikirs[currentIndex]
+                            .numberOfTimesRead = int.parse(value);
+                      },
+                      keyboardType: TextInputType.text,
+                      style: _dataLabelTextStyle(),
+                      decoration: InputDecoration(
+                        border: _textFieldBorderStyle(),
+                        labelText: 'পড়েছি',
                       ),
-                    ]),
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: Text(
+                      'বার',
+                      style: _captionLabelTextStyle(),
+                    ),
+                  ),
+                ]),
               ),
             ),
             Divider(
@@ -294,8 +287,20 @@ class AddDua extends State<AddDuaState> {
           color: Colors.white,
           onPressed: () {
             print('currentIndex : $currentIndex');
+
+            var selectedItem = getDataAt(
+                Provider.of<AddDuaViewModel>(context, listen: false).zikirs,
+                currentIndex);
+
             Provider.of<AddDuaViewModel>(this.context, listen: false)
                 .removeZikirFromList(currentIndex);
+
+            animatedListKey.currentState.removeItem(
+                currentIndex,
+                (context, animation) => SizeTransition(
+                      sizeFactor: animation,
+                      child: _buildDuaItem(context, currentIndex, selectedItem),
+                    ));
           },
         ),
       ));
@@ -305,8 +310,9 @@ class AddDua extends State<AddDuaState> {
       builder: (context, model, child) {
         return ListView.builder(
             itemCount: model.zikirs.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _buildDuaItem(context, index, model);
+            itemBuilder: (BuildContext context, int currentIndex) {
+              var currentData = getDataAt(model.zikirs, currentIndex);
+              return _buildDuaItem(context, currentIndex, currentData);
             });
       },
     );
@@ -314,13 +320,39 @@ class AddDua extends State<AddDuaState> {
     return listView;
   }
 
+// #region : AnimatedList
+
+  GlobalKey<AnimatedListState> animatedListKey = GlobalKey<AnimatedListState>();
+
+  Widget _buildAnimatedDuaList() {
+    var animatedListView = Consumer<AddDuaViewModel>(
+      builder: (BuildContext context, AddDuaViewModel model, Widget child) {
+        return AnimatedList(
+          key: animatedListKey,
+          initialItemCount: model.zikirs.length,
+          itemBuilder: (BuildContext context, int currentIndex,
+              Animation<double> animation) {
+            var currentData = getDataAt(model.zikirs, currentIndex);
+            return SizeTransition(
+                sizeFactor: animation,
+                child: _buildDuaItem(context, currentIndex, currentData));
+          },
+        );
+      },
+    );
+
+    return animatedListView;
+  }
+
+// #endregion
+
   Widget _buildFullPage() => Container(
         child: Column(
           children: <Widget>[
             _buildDuaContainer(),
             _buildAddZikirContainer(),
-            // _buildDuaItem(),
-            Expanded(child: _buildDuaList()),
+
+            Expanded(child: _buildAnimatedDuaList()),
             // _buildDuaItem(this.context, AddDuaViewModel(), 0),
           ],
         ),
@@ -329,5 +361,10 @@ class AddDua extends State<AddDuaState> {
   @override
   Widget build(BuildContext context) {
     return _buildFullPage();
+  }
+
+  ZikirViewModel getDataAt(List<ZikirViewModel> data, int selectedIndex) {
+    var selectedData = data.elementAt(selectedIndex);
+    return selectedData;
   }
 }

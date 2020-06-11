@@ -234,7 +234,6 @@ class DuaCardView extends State<DuaListState> {
               .removeDua(duaId);
           animatedListKey.currentState.removeItem(
               currentIndex,
-              // 0,
               (context, animation) => SizeTransition(
                     sizeFactor: animation,
                     child: amolCard(context, currentIndex, data),

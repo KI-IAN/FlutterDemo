@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
+//region : Validation Logic (Should find a better maintainable way)
+final addDuaFormState = GlobalKey<FormState>();
+//endRegion
+
 class AddDuaPage extends StatelessWidget {
+  BuildContext _currentContext;
+
   Widget _buildAppBar() => AppBar(
         title: Text('নতুন দোয়া'),
         backgroundColor: randomColor(),
       );
 
-  Widget _buildFloatingActionButton(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: Colors.red,
-              padding: EdgeInsets.all(12),
-              child: Icon(
-                Icons.cancel,
-                color: Colors.white,
-              ),
+  Widget _buildFloatingActionButton(BuildContext context) {
+    this._currentContext = context;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: RaisedButton(
+            onPressed: goBackToDuaListPage,
+            color: Colors.red,
+            padding: EdgeInsets.all(12),
+            child: Icon(
+              Icons.cancel,
+              color: Colors.white,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: RaisedButton(
-              onPressed: () {},
-              padding: EdgeInsets.all(12),
-              color: Colors.lightBlue,
-              child: Icon(Icons.save, color: Colors.white),
-            ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: RaisedButton(
+            onPressed: saveDua,
+            padding: EdgeInsets.all(12),
+            color: Colors.lightBlue,
+            child: Icon(Icons.save, color: Colors.white),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   Widget _buildScaffold(BuildContext context) => Scaffold(
         appBar: _buildAppBar(),
@@ -56,6 +65,28 @@ class AddDuaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return _buildScaffold(context);
   }
+
+/* #region : Event Handlers */
+
+  void goBackToDuaListPage() {
+    Navigator.pop(_currentContext);
+  }
+
+  void saveDua() {
+    //validate dua & Zikir list
+    var isFormValid = addDuaFormState.currentState.validate();
+
+    if (isFormValid) {
+      //To know how it works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
+      Navigator.pushAndRemoveUntil(
+          _currentContext,
+          MaterialPageRoute(builder: (context) => DuaListPage()),
+          (route) => false);
+    }
+  }
+
+/* #endregion */
+
 }
 
 class AddDuaState extends StatefulWidget {
@@ -89,6 +120,20 @@ class AddDua extends State<AddDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: TextFormField(
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: 'দোয়ার নাম আবশ্যক'),
+                        MinLengthValidator(1,
+                            errorText:
+                                'দোয়ার নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
+                        MaxLengthValidator(10,
+                            errorText:
+                                'দোয়ার নাম ১০  অক্ষরের বেশি হতে পারবে না'),
+                      ]),
+                      controller: TextEditingController(
+                          text: Provider.of<AddDuaViewModel>(context,
+                                  listen: false)
+                              .dua
+                              .name),
                       onChanged: (value) {
                         Provider.of<AddDuaViewModel>(this.context).dua.name =
                             value;
@@ -96,12 +141,8 @@ class AddDua extends State<AddDuaState> {
                       style: _dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: _textFieldBorderStyle(),
-                        // focusedBorder: InputBorder.none,
-                        // enabledBorder: InputBorder.none,
-                        // errorBorder: InputBorder.none,
-                        // disabledBorder: InputBorder.none,
                         labelText: 'দোয়ার নাম',
-                        // contentPadding: EdgeInsets.all(10)
+                        hintText: 'দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন',
                       ),
                     ),
                   ),
@@ -137,27 +178,36 @@ class AddDua extends State<AddDuaState> {
   Widget _buildAddZikirContainer() => Card(
         margin: EdgeInsets.all(10.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: Text(
-                'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।',
-                style: _secondaryCaptionTextStyle(),
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Text(
+                  'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।',
+                  style: _secondaryCaptionTextStyle(),
+                ),
               ),
             ),
-            IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.lightGreen,
-                ),
-                onPressed: () {
-                  Provider.of<AddDuaViewModel>(this.context, listen: false)
-                      .addNewZikirInList();
-                  animatedListKey.currentState.insertItem(
-                      Provider.of<AddDuaViewModel>(this.context, listen: false)
-                              .zikirs
-                              .length -
-                          1);
-                })
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.lightGreen,
+                    size: 35,
+                  ),
+                  onPressed: () {
+                    Provider.of<AddDuaViewModel>(this.context, listen: false)
+                        .addNewZikirInList();
+                    animatedListKey.currentState.insertItem(
+                        Provider.of<AddDuaViewModel>(this.context,
+                                    listen: false)
+                                .zikirs
+                                .length -
+                            1);
+                  }),
+            )
           ],
         ),
       );
@@ -375,18 +425,18 @@ class AddDua extends State<AddDuaState> {
 // #endregion
 
   Widget _buildFullPage() => Container(
-        child: Column(
-          children: <Widget>[
-            _buildDuaContainer(),
-            _buildAddZikirContainer(),
+        child: Form(
+          key: addDuaFormState,
+          autovalidate: true,
+          child: Column(
+            children: <Widget>[
+              _buildDuaContainer(),
+              _buildAddZikirContainer(),
 
-            Expanded(
-                child: Form(
-                    autovalidate: true,
-                    key: _listValidator,
-                    child: _buildAnimatedDuaList())),
-            // _buildDuaItem(this.context, AddDuaViewModel(), 0),
-          ],
+              Expanded(child: _buildAnimatedDuaList()),
+              // _buildDuaItem(this.context, AddDuaViewModel(), 0),
+            ],
+          ),
         ),
       );
 
@@ -399,9 +449,4 @@ class AddDua extends State<AddDuaState> {
     var selectedData = data.elementAt(selectedIndex);
     return selectedData;
   }
-
-//region : Validation Logic (Should find a better maintainable way)
-  final _listValidator = GlobalKey<FormState>();
-//endRegion
-
 }

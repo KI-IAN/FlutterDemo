@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
 class AddDuaPage extends StatelessWidget {
@@ -171,6 +173,13 @@ class AddDua extends State<AddDuaState> {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
+                  MinLengthValidator(1,
+                      errorText: 'জিকিরের নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
+                  MaxLengthValidator(10,
+                      errorText: 'জিকিরের নাম ১০  অক্ষরের বেশি হতে পারবে না'),
+                ]),
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
@@ -182,9 +191,9 @@ class AddDua extends State<AddDuaState> {
                 },
                 style: _dataLabelTextStyle(),
                 decoration: InputDecoration(
-                  border: _textFieldBorderStyle(),
-                  labelText: 'জিকিরের নাম (${data.zikirName})',
-                ),
+                    border: _textFieldBorderStyle(),
+                    labelText: 'জিকিরের নাম',
+                    hintText: 'সূরার নাম'),
               ),
             ),
             Visibility(
@@ -197,6 +206,13 @@ class AddDua extends State<AddDuaState> {
                       Expanded(
                         flex: 4,
                         child: TextFormField(
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'আবশ্যক'),
+                            RangeValidator(
+                                min: 1,
+                                max: 999,
+                                errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
+                          ]),
                           controller: TextEditingController(
                             text: data.numberOfTimesWantToRead.toString(),
                           ),
@@ -205,12 +221,17 @@ class AddDua extends State<AddDuaState> {
                                 .zikirs[currentIndex]
                                 .numberOfTimesWantToRead = int.parse(value);
                           },
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.numberWithOptions(
+                              decimal: false, signed: false),
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
                           style: _dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: 'পড়তে চাই',
-                            border: _textFieldBorderStyle(),
-                          ),
+                              labelText: 'পড়তে চাই',
+                              border: _textFieldBorderStyle(),
+                              hintText:
+                                  '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)'),
                         ),
                       ),
                       Spacer(),
@@ -231,6 +252,9 @@ class AddDua extends State<AddDuaState> {
                   Expanded(
                     flex: 4,
                     child: TextFormField(
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: 'আবশ্যক'),
+                      ]),
                       controller: TextEditingController(
                         text: data.numberOfTimesRead.toString(),
                       ),
@@ -239,12 +263,16 @@ class AddDua extends State<AddDuaState> {
                             .zikirs[currentIndex]
                             .numberOfTimesRead = int.parse(value);
                       },
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
                       style: _dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        border: _textFieldBorderStyle(),
-                        labelText: 'পড়েছি',
-                      ),
+                          border: _textFieldBorderStyle(),
+                          labelText: 'পড়েছি',
+                          hintText:
+                              '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)'),
                     ),
                   ),
                   Spacer(),
@@ -352,7 +380,11 @@ class AddDua extends State<AddDuaState> {
             _buildDuaContainer(),
             _buildAddZikirContainer(),
 
-            Expanded(child: _buildAnimatedDuaList()),
+            Expanded(
+                child: Form(
+                    autovalidate: true,
+                    key: _listValidator,
+                    child: _buildAnimatedDuaList())),
             // _buildDuaItem(this.context, AddDuaViewModel(), 0),
           ],
         ),
@@ -367,4 +399,9 @@ class AddDua extends State<AddDuaState> {
     var selectedData = data.elementAt(selectedIndex);
     return selectedData;
   }
+
+//region : Validation Logic (Should find a better maintainable way)
+  final _listValidator = GlobalKey<FormState>();
+//endRegion
+
 }

@@ -238,7 +238,8 @@ class DuaCardView extends State<DuaListState> {
                     sizeFactor: animation,
                     child: amolCard(context, currentIndex, data),
                   ),
-              duration: Duration(milliseconds: 1 * 500));
+              duration: Duration(milliseconds: 1 * 700)
+              );
         },
         padding: EdgeInsets.all(10),
         color: Colors.red,

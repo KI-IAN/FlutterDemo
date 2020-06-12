@@ -5,7 +5,7 @@ class ZikirViewModel extends BaseViewModel {
 
   String _zikirName = '';
   int _numberOfTimesRead = 0;
-  int _numberOfTimesWantToRead = 0;
+  int _numberOfTimesWantToRead = 10;
   DateTime _duaCreationDateTime = DateTime.now();
 
 //endRegion

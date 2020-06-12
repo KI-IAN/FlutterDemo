@@ -264,7 +264,7 @@ class AddDua extends State<AddDuaState> {
                                 errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
                           ]),
                           controller: TextEditingController(
-                            text: data.numberOfTimesWantToRead.toString(),
+                            text: data.numberOfTimesWantToRead?.toString(),
                           ),
                           onChanged: (value) {
                             Provider.of<AddDuaViewModel>(context, listen: false)
@@ -306,7 +306,7 @@ class AddDua extends State<AddDuaState> {
                         RequiredValidator(errorText: 'আবশ্যক'),
                       ]),
                       controller: TextEditingController(
-                        text: data.numberOfTimesRead.toString(),
+                        text: data.numberOfTimesRead?.toString(),
                       ),
                       onChanged: (value) {
                         Provider.of<AddDuaViewModel>(context, listen: false)

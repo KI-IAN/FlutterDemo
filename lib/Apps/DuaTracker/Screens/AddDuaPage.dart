@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
@@ -91,15 +93,16 @@ class AddDuaPage extends StatelessWidget {
     var isFormValid = addDuaFormState.currentState.validate();
 
     if (isFormValid) {
-      
       //save dua & zikirs in db
 
-
       //To know how it works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
-      Navigator.pushAndRemoveUntil(
-          _currentContext,
-          MaterialPageRoute(builder: (context) => DuaListPage()),
-          (route) => false);
+      // Navigator.pushAndRemoveUntil(
+      //     _currentContext,
+      //     MaterialPageRoute(builder: (context) => DuaListPage()),
+      //     (route) => false);
+
+      Navigator.of(_currentContext).pushAndRemoveUntil(
+          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left), (route) => false);
     }
   }
 

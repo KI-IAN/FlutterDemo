@@ -1,16 +1,21 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 
-class PageTransition{
 
-
-  Route createRoute(Widget secondPage) {
+class PageTransition {
+  Route createRoute(Widget secondPage, [SlideDirectionEnum slideDirection]) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => secondPage,
       // transitionDuration: Duration(seconds: 5),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(1.0, 0.0);
+        Offset begin = Offset(1.0, 0.0);
+
+        if (slideDirection == SlideDirectionEnum.Right) {
+          begin = Offset(1.0, 0.0);
+        } else if (slideDirection == SlideDirectionEnum.Left) {
+          begin = Offset(1.0, 0.0);
+        }
+
         var end = Offset.zero;
 
         var curve = Curves.ease;
@@ -19,7 +24,7 @@ class PageTransition{
         // var tween = Tween(begin: begin, end: end).chain(curveTween);
         // var offsetAnimation = animation.drive(tween);
 
-        var tween = Tween(begin: begin, end:end);
+        var tween = Tween(begin: begin, end: end);
         var curvedAnimation = CurvedAnimation(parent: animation, curve: curve);
 
         return SlideTransition(
@@ -30,6 +35,4 @@ class PageTransition{
       },
     );
   }
-
-
 }

@@ -28,27 +28,38 @@ class AddDuaPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        // Padding(
+        //   padding: EdgeInsets.all(5),
+        //   child: RaisedButton(
+        //     onPressed: goBackToDuaListPage,
+        //     color: Colors.red,
+        //     padding: EdgeInsets.all(12),
+        //     child: Icon(
+        //       Icons.cancel,
+        //       color: Colors.white,
+        //     ),
+        //   ),
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.all(5),
+        //   child: RaisedButton(
+        //     onPressed: saveDua,
+        //     padding: EdgeInsets.all(12),
+        //     color: Colors.lightGreen,
+        //     child: Icon(Icons.save, color: Colors.white),
+        //   ),
+        // ),
         Padding(
-          padding: EdgeInsets.all(5),
-          child: RaisedButton(
-            onPressed: goBackToDuaListPage,
-            color: Colors.red,
-            padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(0),
+          child: FloatingActionButton(
+            onPressed: saveDua,
             child: Icon(
-              Icons.cancel,
+              Icons.save,
               color: Colors.white,
             ),
+            backgroundColor: Colors.lightGreen,
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(5),
-          child: RaisedButton(
-            onPressed: saveDua,
-            padding: EdgeInsets.all(12),
-            color: Colors.lightBlue,
-            child: Icon(Icons.save, color: Colors.white),
-          ),
-        ),
+        )
       ],
     );
   }
@@ -80,6 +91,10 @@ class AddDuaPage extends StatelessWidget {
     var isFormValid = addDuaFormState.currentState.validate();
 
     if (isFormValid) {
+      
+      //save dua & zikirs in db
+
+      
       //To know how it works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
       Navigator.pushAndRemoveUntil(
           _currentContext,
@@ -261,23 +276,10 @@ class AddDua extends State<AddDuaState> {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                enabled: true,
-                validator: MultiValidator([
-                  RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
-                  MinLengthValidator(1,
-                      errorText: 'জিকিরের নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
-                  MaxLengthValidator(10,
-                      errorText: 'জিকিরের নাম ১০  অক্ষরের বেশি হতে পারবে না'),
-                ]),
+                enabled: false,
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
-                onChanged: (String value) {
-                  // model.zikirs[currentIndex].zikirName = value;
-                  Provider.of<AddDuaViewModel>(context, listen: false)
-                      .zikirs[currentIndex]
-                      .zikirName = value;
-                },
                 style: _dataLabelTextStyle(),
                 decoration: InputDecoration(
                     border: _textFieldBorderStyle(),
@@ -295,22 +297,10 @@ class AddDua extends State<AddDuaState> {
                       Expanded(
                         flex: 4,
                         child: TextFormField(
-                          enabled: true,
-                          validator: MultiValidator([
-                            RequiredValidator(errorText: 'আবশ্যক'),
-                            RangeValidator(
-                                min: 1,
-                                max: 999,
-                                errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
-                          ]),
+                          enabled: false,
                           controller: TextEditingController(
                             text: data.numberOfTimesWantToRead?.toString(),
                           ),
-                          onChanged: (value) {
-                            Provider.of<AddDuaViewModel>(context, listen: false)
-                                .zikirs[currentIndex]
-                                .numberOfTimesWantToRead = int.parse(value);
-                          },
                           keyboardType: TextInputType.numberWithOptions(
                               decimal: false, signed: false),
                           inputFormatters: [
@@ -342,18 +332,10 @@ class AddDua extends State<AddDuaState> {
                   Expanded(
                     flex: 4,
                     child: TextFormField(
-                      enabled: true,
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: 'আবশ্যক'),
-                      ]),
+                      enabled: false,
                       controller: TextEditingController(
                         text: data.numberOfTimesRead?.toString(),
                       ),
-                      onChanged: (value) {
-                        Provider.of<AddDuaViewModel>(context, listen: false)
-                            .zikirs[currentIndex]
-                            .numberOfTimesRead = int.parse(value);
-                      },
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         WhitelistingTextInputFormatter.digitsOnly

@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 
 //region : Validation Logic (Should find a better maintainable way)
 final addDuaFormState = GlobalKey<FormState>();
+
+final addZikirFormState = GlobalKey<FormState>();
+
 //endRegion
 
 class AddDuaPage extends StatelessWidget {
@@ -111,6 +114,10 @@ class AddDua extends State<AddDuaState> {
       );
   //endRegion
 
+  BuildContext _currentContext;
+
+  int _listViewSelectedItemIndex;
+
   Widget _buildDuaContainer() => Card(
         child: Column(
           children: <Widget>[
@@ -198,31 +205,63 @@ class AddDua extends State<AddDuaState> {
                     size: 35,
                   ),
                   onPressed: () {
-                    Provider.of<AddDuaViewModel>(this.context, listen: false)
-                        .addNewZikirInList();
-                    animatedListKey.currentState.insertItem(
-                        Provider.of<AddDuaViewModel>(this.context,
-                                    listen: false)
-                                .zikirs
-                                .length -
-                            1);
+                    Provider.of<AddDuaViewModel>(context, listen: false)
+                        .temporaryZikirData = ZikirViewModel();
+
+                    _showAddZikirForm(
+                        context,
+                        Provider.of<AddDuaViewModel>(context, listen: false)
+                            .temporaryZikirData);
                   }),
             )
           ],
         ),
       );
 
+  Future<void> _showAddZikirForm(
+      BuildContext parentContext, ZikirViewModel zikirdata) async {
+    return showGeneralDialog<void>(
+        //Default context is different for GeneralDialog than its caller.
+        //In ordeer to be able to access same Provider data, we have to replace
+        //the original context of GeneralDialog with the caller Build Context
+        //To know more : https://stackoverflow.com/questions/58815932/flutter-showgeneraldialog-does-not-share-a-context-with-the-location-that-showg
+        context: parentContext,
+        barrierDismissible: false,
+        barrierColor: Colors.black54,
+        transitionDuration: Duration(milliseconds: 1 * 500),
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return Align(
+            alignment: Alignment.center,
+            child: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
+                  child: Form(
+                    key: addZikirFormState,
+                    autovalidate: true,
+                    child: _buildZikirItem(parentContext, zikirdata),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   Widget _buildDuaItem(
       BuildContext context, int currentIndex, ZikirViewModel data) {
     return Container(
       child: Card(
-        color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
+        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
+                enabled: true,
                 validator: MultiValidator([
                   RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
                   MinLengthValidator(1,
@@ -256,6 +295,7 @@ class AddDua extends State<AddDuaState> {
                       Expanded(
                         flex: 4,
                         child: TextFormField(
+                          enabled: true,
                           validator: MultiValidator([
                             RequiredValidator(errorText: 'আবশ্যক'),
                             RangeValidator(
@@ -302,6 +342,7 @@ class AddDua extends State<AddDuaState> {
                   Expanded(
                     flex: 4,
                     child: TextFormField(
+                      enabled: true,
                       validator: MultiValidator([
                         RequiredValidator(errorText: 'আবশ্যক'),
                       ]),
@@ -353,6 +394,190 @@ class AddDua extends State<AddDuaState> {
       ),
     );
   }
+
+  Widget _buildZikirItem(BuildContext context, ZikirViewModel data) {
+    return Container(
+      child: Card(
+        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
+        margin: EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextFormField(
+                enabled: true,
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
+                  MinLengthValidator(1,
+                      errorText: 'জিকিরের নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
+                  MaxLengthValidator(10,
+                      errorText: 'জিকিরের নাম ১০  অক্ষরের বেশি হতে পারবে না'),
+                ]),
+                controller: TextEditingController(
+                  text: data.zikirName,
+                ),
+                onChanged: (String value) {
+                  // model.zikirs[currentIndex].zikirName = value;
+                  // Provider.of<AddDuaViewModel>(context, listen: false)
+                  //     .zikirs[currentIndex]
+                  //     .zikirName = value;
+                  Provider.of<AddDuaViewModel>(context, listen: false)
+                      .temporaryZikirData
+                      .zikirName = value;
+                },
+                style: _dataLabelTextStyle(),
+                decoration: InputDecoration(
+                    border: _textFieldBorderStyle(),
+                    labelText: 'জিকিরের নাম',
+                    hintText: 'সূরার নাম'),
+              ),
+            ),
+            Visibility(
+              visible: true,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: TextFormField(
+                          enabled: true,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'আবশ্যক'),
+                            RangeValidator(
+                                min: 1,
+                                max: 999,
+                                errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
+                          ]),
+                          controller: TextEditingController(
+                            text: data.numberOfTimesWantToRead?.toString(),
+                          ),
+                          onChanged: (value) {
+                            // Provider.of<AddDuaViewModel>(context, listen: false)
+                            //     .zikirs[currentIndex]
+                            //     .numberOfTimesWantToRead = int.parse(value);
+                            Provider.of<AddDuaViewModel>(context, listen: false)
+                                .temporaryZikirData
+                                .numberOfTimesWantToRead = int.parse(value);
+                          },
+                          keyboardType: TextInputType.numberWithOptions(
+                              decimal: false, signed: false),
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          style: _dataLabelTextStyle(),
+                          decoration: InputDecoration(
+                              labelText: 'পড়তে চাই',
+                              border: _textFieldBorderStyle(),
+                              hintText:
+                                  '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)'),
+                        ),
+                      ),
+                      Spacer(),
+                      Expanded(
+                        child: Text(
+                          'বার',
+                          style: _captionLabelTextStyle(),
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            Visibility(
+              visible: true,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(children: <Widget>[
+                  Expanded(
+                    flex: 4,
+                    child: TextFormField(
+                      enabled: true,
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: 'আবশ্যক'),
+                      ]),
+                      controller: TextEditingController(
+                        text: data.numberOfTimesRead?.toString(),
+                      ),
+                      onChanged: (value) {
+                        // Provider.of<AddDuaViewModel>(context, listen: false)
+                        //     .zikirs[currentIndex]
+                        //     .numberOfTimesRead = int.parse(value);
+                        Provider.of<AddDuaViewModel>(context, listen: false)
+                            .temporaryZikirData
+                            .numberOfTimesRead = int.parse(value);
+                      },
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      style: _dataLabelTextStyle(),
+                      decoration: InputDecoration(
+                          border: _textFieldBorderStyle(),
+                          labelText: 'পড়েছি',
+                          hintText:
+                              '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)'),
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: Text(
+                      'বার',
+                      style: _captionLabelTextStyle(),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+            Divider(
+              color: Colors.lightBlue,
+              thickness: 1.0,
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  // _buildDeleteButton(currentIndex),
+                  _buildZikirSaveButton(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildZikirSaveButton() => Center(
+          child: Ink(
+        decoration: const ShapeDecoration(
+            shape: CircleBorder(), color: Colors.lightGreen),
+        child: IconButton(
+          icon: Icon(Icons.save),
+          alignment: Alignment.center,
+          tooltip: 'তথ্য সংরক্ষণ করুন',
+          color: Colors.white,
+          onPressed: () {
+            // print('currentIndex : $currentIndex');
+
+            var isFormValid = addZikirFormState.currentState.validate();
+
+            if (isFormValid) {
+              Provider.of<AddDuaViewModel>(this.context, listen: false)
+                  .addNewZikir();
+
+              Navigator.pop(context);
+
+              animatedListKey.currentState.insertItem(
+                  Provider.of<AddDuaViewModel>(this.context, listen: false)
+                          .zikirs
+                          .length -
+                      1);
+            }
+          },
+        ),
+      ));
 
   Widget _buildDeleteButton(int currentIndex) => Center(
           child: Ink(
@@ -410,6 +635,7 @@ class AddDua extends State<AddDuaState> {
           initialItemCount: model.zikirs.length,
           itemBuilder: (BuildContext context, int currentIndex,
               Animation<double> animation) {
+            this._listViewSelectedItemIndex = currentIndex;
             var currentData = getDataAt(model.zikirs, currentIndex);
             return SizeTransition(
                 sizeFactor: animation,
@@ -442,6 +668,7 @@ class AddDua extends State<AddDuaState> {
 
   @override
   Widget build(BuildContext context) {
+    this._currentContext = context;
     return _buildFullPage();
   }
 

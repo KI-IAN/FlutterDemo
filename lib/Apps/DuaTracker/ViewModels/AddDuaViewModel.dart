@@ -9,9 +9,18 @@ class AddDuaViewModel extends BaseViewModel {
   List<ZikirViewModel> _zikirs;
   int _totalZikirs = 0;
 
+  ZikirViewModel _temporaryZikirData;
+
 //endRegion
 
 //region: Properties
+
+  set temporaryZikirData(ZikirViewModel value) {
+    this._temporaryZikirData = value;
+  }
+
+  ZikirViewModel get temporaryZikirData => this._temporaryZikirData;
+
   set dua(DuaViewModel value) {
     this._dua = value;
   }
@@ -55,6 +64,11 @@ class AddDuaViewModel extends BaseViewModel {
 
   void removeZikirFromList(int index) {
     zikirs.removeAt(index);
+    totalZikirs = zikirs.length;
+  }
+
+  void addNewZikir() {
+    zikirs.add(this.temporaryZikirData);
     totalZikirs = zikirs.length;
   }
 

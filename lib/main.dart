@@ -28,6 +28,7 @@ import 'package:fluttertutorial/screen/MVVMTest/StudentPage.dart';
 import 'package:fluttertutorial/screen/MyAppBar.dart';
 import 'package:fluttertutorial/screen/MyButton.dart';
 import 'package:fluttertutorial/screen/MyScaffold.dart';
+import 'package:fluttertutorial/screen/NavigationAnimation/AnimatingPageRouting.dart';
 import 'package:fluttertutorial/screen/SqfLite/DBHelper/DB.dart';
 import 'package:fluttertutorial/screen/SqfLite/Screens/MyToDoPage.dart';
 import 'package:fluttertutorial/screen/TutorialHome.dart';
@@ -79,6 +80,7 @@ void main() {
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
     home: DuaListPage(),
+    // home: Page1(),
     // home: ValidateFormPage(),
     // home: AnimatedListApp(),
     // home: CircularTextPage(),

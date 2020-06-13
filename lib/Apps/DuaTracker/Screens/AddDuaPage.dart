@@ -94,7 +94,7 @@ class AddDuaPage extends StatelessWidget {
       
       //save dua & zikirs in db
 
-      
+
       //To know how it works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
       Navigator.pushAndRemoveUntil(
           _currentContext,
@@ -236,9 +236,9 @@ class AddDua extends State<AddDuaState> {
   Future<void> _showAddZikirForm(
       BuildContext parentContext, ZikirViewModel zikirdata) async {
     return showGeneralDialog<void>(
-        //Default context is different for GeneralDialog than its caller.
+        //Default Build Context is different for GeneralDialog than its caller.
         //In ordeer to be able to access same Provider data, we have to replace
-        //the original context of GeneralDialog with the caller Build Context
+        //the original context of GeneralDialog with the caller's Build Context
         //To know more : https://stackoverflow.com/questions/58815932/flutter-showgeneraldialog-does-not-share-a-context-with-the-location-that-showg
         context: parentContext,
         barrierDismissible: false,

@@ -102,7 +102,7 @@ class AddDuaPage extends StatelessWidget {
       //     (route) => false);
 
       Navigator.of(_currentContext).pushAndRemoveUntil(
-          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Right), (route) => false);
+          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left), (route) => false);
     }
   }
 

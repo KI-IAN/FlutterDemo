@@ -30,27 +30,6 @@ class AddDuaPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        // Padding(
-        //   padding: EdgeInsets.all(5),
-        //   child: RaisedButton(
-        //     onPressed: goBackToDuaListPage,
-        //     color: Colors.red,
-        //     padding: EdgeInsets.all(12),
-        //     child: Icon(
-        //       Icons.cancel,
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        // ),
-        // Padding(
-        //   padding: EdgeInsets.all(5),
-        //   child: RaisedButton(
-        //     onPressed: saveDua,
-        //     padding: EdgeInsets.all(12),
-        //     color: Colors.lightGreen,
-        //     child: Icon(Icons.save, color: Colors.white),
-        //   ),
-        // ),
         Padding(
           padding: EdgeInsets.all(0),
           child: FloatingActionButton(

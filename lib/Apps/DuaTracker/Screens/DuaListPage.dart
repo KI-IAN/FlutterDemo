@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListFloatingActionButton.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
@@ -142,7 +144,7 @@ class DuaCardView extends State<DuaListState> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   deleteButton(context, currentIndex, data),
-                  editButton(),
+                  editButton(data.duaID),
                 ],
               )
             ],
@@ -150,7 +152,7 @@ class DuaCardView extends State<DuaListState> {
         ),
       );
 
-  Widget editButton() => Center(
+  Widget editButton(int duaID) => Center(
           child: Ink(
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightBlue),
@@ -159,7 +161,9 @@ class DuaCardView extends State<DuaListState> {
           alignment: Alignment.center,
           tooltip: 'তথ্য পরিবর্তন করুন',
           color: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(PageTransition().createRoute(EditDuaPage(duaID)));
+          },
         ),
       ));
 

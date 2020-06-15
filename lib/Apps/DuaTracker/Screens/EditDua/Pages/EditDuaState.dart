@@ -82,7 +82,7 @@ class EditDua extends State<EditDuaState> {
                     builder: (context, model, child) {
                       return Expanded(
                           child: Text(
-                        '${model.totalZikirsInUIList}',
+                        '${model.totalZikirsInUIList} / ${model.totalZikirsInDBList}',
                         style: EditDuaPageStyles.dataLabelTextStyle(),
                       ));
                     },
@@ -121,7 +121,8 @@ class EditDua extends State<EditDuaState> {
                     Provider.of<EditDuaPageViewModel>(context, listen: false)
                         .temporaryZikirData = EditZikirViewModel();
 
-                    currentBuildContext = this.context; //It does not work!!!!!!!
+                    currentBuildContext =
+                        this.context; //It does not work!!!!!!!
 
                     _showAddZikirForm(
                         context,
@@ -534,7 +535,8 @@ class EditDua extends State<EditDuaState> {
                   Spacer(),
                   Expanded(
                     child: Text(
-                      'বার',
+                      // 'বার',
+                      EditDuaPageTexts.editDuaPageTimesLabel,
                       style: EditDuaPageStyles.captionLabelTextStyle(),
                     ),
                   ),
@@ -551,6 +553,7 @@ class EditDua extends State<EditDuaState> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   _buildDeleteButton(currentIndex),
+                  Text(data.crudFlagName),
                 ],
               ),
             )
@@ -559,8 +562,6 @@ class EditDua extends State<EditDuaState> {
       ),
     );
   }
-
-
 
   Widget _buildFullPage() => Container(
         child: Form(
@@ -580,7 +581,8 @@ class EditDua extends State<EditDuaState> {
 
   Widget _buildAnimatedDuaList() {
     var animatedListView = Consumer<EditDuaPageViewModel>(
-      builder: (BuildContext context, EditDuaPageViewModel model, Widget child) {
+      builder:
+          (BuildContext context, EditDuaPageViewModel model, Widget child) {
         return AnimatedList(
           key: animatedListKey,
           initialItemCount: model.zikirUIList.length,
@@ -600,11 +602,9 @@ class EditDua extends State<EditDuaState> {
     return animatedListView;
   }
 
-
   @override
   Widget build(BuildContext context) {
     currentBuildContext = context;
     return _buildFullPage();
-
   }
 }

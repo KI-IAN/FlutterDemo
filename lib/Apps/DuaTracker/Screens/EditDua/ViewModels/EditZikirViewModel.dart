@@ -27,6 +27,9 @@ class EditZikirViewModel extends ZikirViewModel {
 
   CRUDFlagEnum get crudFlag => this._crudFlag;
 
+  String get crudFlagName =>
+      crudFlag.toString().substring(crudFlag.toString().indexOf('.') + 1);
+
   UniqueKey get zikirUniqueID => this._zikirUniqueID;
 
 // #endRegion

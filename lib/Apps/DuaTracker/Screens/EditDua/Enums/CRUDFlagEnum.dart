@@ -1,6 +1,8 @@
 enum CRUDFlagEnum {
   Unmodified,
   Modified,
-  Created,
+  New,
   Deleted,
+
+
 }

@@ -85,12 +85,41 @@ class EditDuaPageViewModel extends BaseViewModel {
 
     // _zikirDBList = data.getZikirs(duaID);
     // _zikirUIList = data.getZikirs(duaID);
-
   }
 
 // #endRegion
 
 // #region : Event Handler Functions
+
+  void updateZikir() {
+//Update data in both UIList & DBList
+    var selectedDataIndexUIList = zikirUIList.indexWhere(
+        (element) => element.zikirUniqueID == temporaryZikirData.zikirUniqueID);
+
+    var selectedDataIndexDBList = zikirDBList.indexWhere(
+        (element) => element.zikirUniqueID == temporaryZikirData.zikirUniqueID);
+
+    var itemExistInDB = temporaryZikirData.crudFlag != CRUDFlagEnum.New;
+
+    //Update data in DBList
+    if (itemExistInDB) {
+      zikirDBList.elementAt(selectedDataIndexDBList).crudFlag =
+          CRUDFlagEnum.Modified;
+    }
+    zikirDBList.elementAt(selectedDataIndexDBList)
+      ..zikirName = temporaryZikirData.zikirName
+      ..numberOfTimesWantToRead = temporaryZikirData.numberOfTimesWantToRead
+      ..numberOfTimesRead = temporaryZikirData.numberOfTimesRead;
+
+    //Update data in UIList
+    zikirUIList.elementAt(selectedDataIndexUIList)
+      ..zikirName = temporaryZikirData.zikirName
+      ..numberOfTimesWantToRead = temporaryZikirData.numberOfTimesWantToRead
+      ..numberOfTimesRead = temporaryZikirData.numberOfTimesRead;
+
+      //force update the list view
+      totalZikirsInUIList = zikirUIList.length;
+  }
 
   void addNewZikir() {
     this.temporaryZikirData.crudFlag = CRUDFlagEnum.New;
@@ -116,8 +145,7 @@ class EditDuaPageViewModel extends BaseViewModel {
 
     //When zikir is newly creted, but does not exist in database
     //delete the item from zikirDBList
-    bool itemNotExistInDB =
-        deletedItemInDBList.crudFlag == CRUDFlagEnum.New;
+    bool itemNotExistInDB = deletedItemInDBList.crudFlag == CRUDFlagEnum.New;
 
     if (itemNotExistInDB) {
       zikirDBList.remove(deletedItemInDBList);

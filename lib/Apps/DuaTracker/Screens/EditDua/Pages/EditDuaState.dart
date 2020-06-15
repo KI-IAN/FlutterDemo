@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Enums/FormCRUDModeEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPageStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Validations/EditDuaPageValidator.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageViewModel.dart';
@@ -18,6 +19,8 @@ class EditDua extends State<EditDuaState> {
 
   BuildContext _currentBuildContext;
 
+  FormCRUDModeEnum _currentFormMode = FormCRUDModeEnum.Read;
+
 // #endRegion
 
 // #region : Global Keys
@@ -31,6 +34,10 @@ class EditDua extends State<EditDuaState> {
   set currentBuildContext(BuildContext context) => this._currentBuildContext;
 
   BuildContext get currentBuildContext => this._currentBuildContext;
+
+  set currentFormMode(value) => this._currentFormMode = value;
+
+  FormCRUDModeEnum get currentFormMode => this._currentFormMode;
 
 // #endRegion
 
@@ -59,7 +66,6 @@ class EditDua extends State<EditDuaState> {
                       decoration: InputDecoration(
                         border: EditDuaPageStyles.textFieldBorderStyle(),
                         labelText: EditDuaPageTexts.editDuaPageDuaNameLabel,
-                        // hintText: 'দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন',
                         hintText: EditDuaPageTexts.editDuaPageDuaNameHintText,
                       ),
                     ),
@@ -73,7 +79,6 @@ class EditDua extends State<EditDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      // 'মোট জিকির',
                       EditDuaPageTexts.editDuaPageTotalZikirLabel,
                       style: EditDuaPageStyles.captionLabelTextStyle(),
                     ),
@@ -103,7 +108,6 @@ class EditDua extends State<EditDuaState> {
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: Text(
-                  // 'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।',
                   EditDuaPageTexts.createNewZikirLabel,
                   style: EditDuaPageStyles.secondaryCaptionTextStyle(),
                 ),
@@ -121,8 +125,8 @@ class EditDua extends State<EditDuaState> {
                     Provider.of<EditDuaPageViewModel>(context, listen: false)
                         .temporaryZikirData = EditZikirViewModel();
 
-                    currentBuildContext =
-                        this.context; //It does not work!!!!!!!
+                    //Update Current Form Mode
+                    currentFormMode = FormCRUDModeEnum.Create;
 
                     _showAddZikirForm(
                         context,
@@ -159,7 +163,6 @@ class EditDua extends State<EditDuaState> {
                   child: Form(
                     key: addZikirFormState,
                     autovalidate: true,
-                    // child: _buildZikirItem(parentContext, zikirdata),
                     child: _buildZikirItem(parentContext, zikirdata),
                   ),
                 ),
@@ -172,7 +175,6 @@ class EditDua extends State<EditDuaState> {
   Widget _buildZikirItem(BuildContext context, EditZikirViewModel data) {
     return Container(
       child: Card(
-        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
@@ -180,26 +182,12 @@ class EditDua extends State<EditDuaState> {
               padding: EdgeInsets.all(10),
               child: TextFormField(
                 enabled: true,
-                // validator: MultiValidator([
-                //   RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
-                //   MinLengthValidator(1,
-                //       errorText: 'জিকিরের নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
-                //   MaxLengthValidator(10,
-                //       errorText: 'জিকিরের নাম ১০  অক্ষরের বেশি হতে পারবে না'),
-                // ]),
                 validator: (value) =>
                     EditDuaPageValidator.zikirNameValidator(value),
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
                 onChanged: (String value) {
-                  // model.zikirs[currentIndex].zikirName = value;
-                  // Provider.of<AddDuaViewModel>(context, listen: false)
-                  //     .zikirs[currentIndex]
-                  //     .zikirName = value;
-                  // Provider.of<AddDuaViewModel>(context, listen: false)
-                  //     .temporaryZikirData
-                  //     .zikirName = value;
                   Provider.of<EditDuaPageViewModel>(context, listen: false)
                       .temporaryZikirData
                       .zikirName = value;
@@ -207,9 +195,7 @@ class EditDua extends State<EditDuaState> {
                 style: EditDuaPageStyles.dataLabelTextStyle(),
                 decoration: InputDecoration(
                   border: EditDuaPageStyles.textFieldBorderStyle(),
-                  // labelText: 'জিকিরের নাম',
                   labelText: EditDuaPageTexts.editDuaPageZikirNameLabel,
-                  // hintText: 'সূরার নাম'
                   hintText: EditDuaPageTexts.editDuaPageZikirHintText,
                 ),
               ),
@@ -225,25 +211,12 @@ class EditDua extends State<EditDuaState> {
                         flex: 4,
                         child: TextFormField(
                           enabled: true,
-                          // validator: MultiValidator([
-                          //   RequiredValidator(errorText: 'আবশ্যক'),
-                          //   RangeValidator(
-                          //       min: 1,
-                          //       max: 999,
-                          //       errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
-                          // ]),
                           validator: (value) => EditDuaPageValidator
                               .numberOfTimesWantToReadValidator(value),
                           controller: TextEditingController(
                             text: data.numberOfTimesWantToRead?.toString(),
                           ),
                           onChanged: (value) {
-                            // Provider.of<AddDuaViewModel>(context, listen: false)
-                            //     .zikirs[currentIndex]
-                            //     .numberOfTimesWantToRead = int.parse(value);
-                            // Provider.of<AddDuaViewModel>(context, listen: false)
-                            //     .temporaryZikirData
-                            //     .numberOfTimesWantToRead = int.parse(value);
                             Provider.of<EditDuaPageViewModel>(context,
                                     listen: false)
                                 .temporaryZikirData
@@ -256,12 +229,9 @@ class EditDua extends State<EditDuaState> {
                           ],
                           style: EditDuaPageStyles.dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            // labelText: 'পড়তে চাই',
                             labelText: EditDuaPageTexts
                                 .editDuaPageNumberOfTimesWantToReadLabel,
                             border: EditDuaPageStyles.textFieldBorderStyle(),
-                            // hintText:
-                            //     '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)'
                             hintText: EditDuaPageTexts
                                 .editDuaPageNumberOfTimesWantToReadHintText,
                           ),
@@ -270,7 +240,6 @@ class EditDua extends State<EditDuaState> {
                       Spacer(),
                       Expanded(
                         child: Text(
-                          // 'বার',
                           EditDuaPageTexts.editDuaPageTimesLabel,
                           style: EditDuaPageStyles.captionLabelTextStyle(),
                         ),
@@ -287,9 +256,6 @@ class EditDua extends State<EditDuaState> {
                     flex: 4,
                     child: TextFormField(
                       enabled: true,
-                      // validator: MultiValidator([
-                      //   RequiredValidator(errorText: 'আবশ্যক'),
-                      // ]),
                       validator: (value) =>
                           EditDuaPageValidator.numberOfTimesReadValidator(
                               value),
@@ -297,12 +263,6 @@ class EditDua extends State<EditDuaState> {
                         text: data.numberOfTimesRead?.toString(),
                       ),
                       onChanged: (value) {
-                        // Provider.of<AddDuaViewModel>(context, listen: false)
-                        //     .zikirs[currentIndex]
-                        //     .numberOfTimesRead = int.parse(value);
-                        // Provider.of<AddDuaViewModel>(context, listen: false)
-                        //     .temporaryZikirData
-                        //     .numberOfTimesRead = int.parse(value);
                         Provider.of<EditDuaPageViewModel>(context,
                                 listen: false)
                             .temporaryZikirData
@@ -315,11 +275,8 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles.dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles.textFieldBorderStyle(),
-                        // labelText: 'পড়েছি',
                         labelText:
                             EditDuaPageTexts.editDuaPageNumberOfTimesReadLabel,
-                        // hintText:
-                        //     '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)'
                         hintText: EditDuaPageTexts
                             .editDuaPageNumberOfTimesReadHintText,
                       ),
@@ -328,7 +285,6 @@ class EditDua extends State<EditDuaState> {
                   Spacer(),
                   Expanded(
                     child: Text(
-                      // 'বার',
                       EditDuaPageTexts.editDuaPageTimesLabel,
                       style: EditDuaPageStyles.captionLabelTextStyle(),
                     ),
@@ -345,8 +301,12 @@ class EditDua extends State<EditDuaState> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  // _buildDeleteButton(currentIndex),
-                  _buildZikirSaveButton(),
+                  Visibility(
+                    child: _buildZikirFormEditButton(),
+                    visible: (currentFormMode == FormCRUDModeEnum.Update),
+                    maintainSize: false,
+                    replacement: _buildZikirFormSaveButton(),
+                  ),
                 ],
               ),
             )
@@ -356,44 +316,57 @@ class EditDua extends State<EditDuaState> {
     );
   }
 
-  Widget _buildZikirSaveButton() => Center(
+  Widget _buildZikirFormSaveButton() => Center(
           child: Ink(
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightGreen),
         child: IconButton(
           icon: Icon(Icons.save),
           alignment: Alignment.center,
-          // tooltip: 'তথ্য সংরক্ষণ করুন',
           tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            // print('currentIndex : $currentIndex');
-
             var isFormValid = addZikirFormState.currentState.validate();
 
             if (isFormValid) {
-              // Provider.of<AddDuaViewModel>(this.context, listen: false)
-              //     .addNewZikir();
-
-              //  Provider.of<AddDuaViewModel>(this.context, listen: false)
-              //       .addNewZikir();
-
               Provider.of<EditDuaPageViewModel>(this.context, listen: false)
                   .addNewZikir();
 
               Navigator.pop(context);
-
-              // animatedListKey.currentState.insertItem(
-              //     Provider.of<AddDuaViewModel>(this.context, listen: false)
-              //             .zikirs
-              //             .length -
-              //         1);
 
               animatedListKey.currentState.insertItem(
                   Provider.of<EditDuaPageViewModel>(this.context, listen: false)
                           .zikirUIList
                           .length -
                       1);
+            }
+          },
+        ),
+      ));
+
+  Widget _buildZikirFormEditButton() => Center(
+          child: Ink(
+        decoration: const ShapeDecoration(
+            shape: CircleBorder(), color: Colors.lightBlue),
+        child: IconButton(
+          icon: Icon(Icons.edit),
+          alignment: Alignment.center,
+          tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
+          color: Colors.white,
+          onPressed: () {
+            var isFormValid = addZikirFormState.currentState.validate();
+
+            if (isFormValid) {
+              Provider.of<EditDuaPageViewModel>(this.context, listen: false)
+                  .updateZikir();
+
+              Navigator.pop(context);
+
+              // animatedListKey.currentState.insertItem(
+              //     Provider.of<EditDuaPageViewModel>(this.context, listen: false)
+              //             .zikirUIList
+              //             .length -
+              //         1);
             }
           },
         ),
@@ -406,22 +379,13 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
-          tooltip: 'তথ্য মুছুন',
+          tooltip: EditDuaPageTexts.editDuaPageZikirDeleteButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            print('currentIndex : $currentIndex');
-
-            // var selectedItem = getDataAt(
-            //     Provider.of<AddDuaViewModel>(context, listen: false).zikirs,
-            //     currentIndex);
-
             var selectedItem =
                 Provider.of<EditDuaPageViewModel>(context, listen: false)
                     .zikirUIList
                     .elementAt(currentIndex);
-
-            // Provider.of<AddDuaViewModel>(this.context, listen: false)
-            //     .removeZikirFromList(currentIndex);
 
             Provider.of<EditDuaPageViewModel>(this.context, listen: false)
                 .removeZikirFromList(currentIndex);
@@ -436,11 +400,38 @@ class EditDua extends State<EditDuaState> {
         ),
       ));
 
+  Widget _buildEditButton(int currentIndex, EditZikirViewModel data) => Center(
+          child: Ink(
+        decoration: const ShapeDecoration(
+            shape: CircleBorder(), color: Colors.lightBlue),
+        child: IconButton(
+          icon: Icon(Icons.edit),
+          alignment: Alignment.center,
+          tooltip: EditDuaPageTexts.editDuaPageZikirEditButtonToolTip,
+          color: Colors.white,
+          onPressed: () {
+            Provider.of<EditDuaPageViewModel>(context, listen: false)
+                .temporaryZikirData = data;
+
+            //Update current Form Mode
+            currentFormMode = FormCRUDModeEnum.Update;
+
+            _showAddZikirForm(context, data);
+
+            // animatedListKey.currentState.removeItem(
+            //     currentIndex,
+            //     (context, animation) => SizeTransition(
+            //           sizeFactor: animation,
+            //           child: _buildDuaItem(context, currentIndex, selectedItem),
+            //         ));
+          },
+        ),
+      ));
+
   Widget _buildDuaItem(
       BuildContext context, int currentIndex, EditZikirViewModel data) {
     return Container(
       child: Card(
-        // color: (currentIndex % 2 == 0) ? Colors.white : Colors.yellow[50],
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
@@ -454,8 +445,6 @@ class EditDua extends State<EditDuaState> {
                 style: EditDuaPageStyles.dataLabelTextStyle(),
                 decoration: InputDecoration(
                     border: EditDuaPageStyles.textFieldBorderStyle(),
-                    // labelText: 'জিকিরের নাম',
-                    // hintText: 'সূরার নাম'
                     labelText: EditDuaPageTexts.editDuaPageZikirNameLabel,
                     hintText: EditDuaPageTexts.editDuaPageZikirHintText),
               ),
@@ -482,9 +471,6 @@ class EditDua extends State<EditDuaState> {
                           style: EditDuaPageStyles.dataLabelTextStyle(),
                           decoration: InputDecoration(
                             border: EditDuaPageStyles.textFieldBorderStyle(),
-                            // labelText: 'পড়তে চাই',
-                            // hintText:
-                            //     '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)'
                             labelText: EditDuaPageTexts
                                 .editDuaPageNumberOfTimesWantToReadLabel,
                             hintText: EditDuaPageTexts
@@ -495,7 +481,6 @@ class EditDua extends State<EditDuaState> {
                       Spacer(),
                       Expanded(
                         child: Text(
-                          // 'বার',
                           EditDuaPageTexts.editDuaPageTimesLabel,
                           style: EditDuaPageStyles.captionLabelTextStyle(),
                         ),
@@ -522,9 +507,6 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles.dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles.textFieldBorderStyle(),
-                        // labelText: 'পড়েছি',
-                        // hintText:
-                        //     '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)'
                         labelText:
                             EditDuaPageTexts.editDuaPageNumberOfTimesReadLabel,
                         hintText: EditDuaPageTexts
@@ -535,7 +517,6 @@ class EditDua extends State<EditDuaState> {
                   Spacer(),
                   Expanded(
                     child: Text(
-                      // 'বার',
                       EditDuaPageTexts.editDuaPageTimesLabel,
                       style: EditDuaPageStyles.captionLabelTextStyle(),
                     ),
@@ -553,6 +534,7 @@ class EditDua extends State<EditDuaState> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   _buildDeleteButton(currentIndex),
+                  _buildEditButton(currentIndex, data),
                   Text(data.crudFlagName),
                 ],
               ),
@@ -571,9 +553,7 @@ class EditDua extends State<EditDuaState> {
             children: <Widget>[
               _buildDuaContainer(),
               _buildAddZikirContainer(),
-
               Expanded(child: _buildAnimatedDuaList()),
-              // _buildDuaItem(this.context, AddDuaViewModel(), 0),
             ],
           ),
         ),
@@ -588,8 +568,6 @@ class EditDua extends State<EditDuaState> {
           initialItemCount: model.zikirUIList.length,
           itemBuilder: (BuildContext context, int currentIndex,
               Animation<double> animation) {
-            // this._listViewSelectedItemIndex = currentIndex;
-            // var selectedData = getDataAt(model.zikirs, currentIndex);
             var selectedData = model.zikirUIList.elementAt(currentIndex);
             return SizeTransition(
                 sizeFactor: animation,

@@ -117,8 +117,8 @@ class EditDuaPageViewModel extends BaseViewModel {
       ..numberOfTimesWantToRead = temporaryZikirData.numberOfTimesWantToRead
       ..numberOfTimesRead = temporaryZikirData.numberOfTimesRead;
 
-      //force update the list view
-      totalZikirsInUIList = zikirUIList.length;
+    //force update the list view
+    totalZikirsInUIList = zikirUIList.length;
   }
 
   void addNewZikir() {
@@ -159,6 +159,10 @@ class EditDuaPageViewModel extends BaseViewModel {
           .crudFlag = CRUDFlagEnum.Deleted;
       totalZikirsInDBList = zikirDBList.length;
     }
+  }
+
+  void updateDatabase() {
+    // var testCall = 10;
   }
 
 // #endRegion

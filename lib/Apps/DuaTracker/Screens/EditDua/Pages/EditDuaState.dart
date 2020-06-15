@@ -161,7 +161,7 @@ class EditDua extends State<EditDuaState> {
                   padding:
                       EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
                   child: Form(
-                    key: addZikirFormState,
+                    key: zikirFormState,
                     autovalidate: true,
                     child: _buildZikirItem(parentContext, zikirdata),
                   ),
@@ -326,7 +326,7 @@ class EditDua extends State<EditDuaState> {
           tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            var isFormValid = addZikirFormState.currentState.validate();
+            var isFormValid = zikirFormState.currentState.validate();
 
             if (isFormValid) {
               Provider.of<EditDuaPageViewModel>(this.context, listen: false)
@@ -354,7 +354,7 @@ class EditDua extends State<EditDuaState> {
           tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            var isFormValid = addZikirFormState.currentState.validate();
+            var isFormValid = zikirFormState.currentState.validate();
 
             if (isFormValid) {
               Provider.of<EditDuaPageViewModel>(this.context, listen: false)

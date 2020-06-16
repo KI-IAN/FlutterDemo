@@ -15,9 +15,15 @@ class DuaListPage extends StatelessWidget {
         title: Text('দোয়ার তালিকা'),
         backgroundColor: randomColor(),
       ),
-      body: ChangeNotifierProvider<DuaPageViewModel>(
-          create: (BuildContext context) => DuaPageViewModel(),
-          child: DuaListState()),
+      // body: ChangeNotifierProvider<DuaPageViewModel>(
+      //     create: (BuildContext context) => DuaPageViewModel(),
+      //     child: DuaListState()),
+      body: FutureProvider<DuaPageViewModel>(
+        create: (BuildContext context) {
+          return DuaPageViewModel().getDuaPageData();
+        },
+        child: DuaListState(),
+      ),
       floatingActionButton: DuaListFloatingActionButton(),
     );
   }
@@ -162,7 +168,8 @@ class DuaCardView extends State<DuaListState> {
           tooltip: 'তথ্য পরিবর্তন করুন',
           color: Colors.white,
           onPressed: () {
-            Navigator.of(context).push(PageTransition().createRoute(EditDuaPage(duaID)));
+            Navigator.of(context)
+                .push(PageTransition().createRoute(EditDuaPage(duaID)));
           },
         ),
       ));
@@ -242,8 +249,7 @@ class DuaCardView extends State<DuaListState> {
                     sizeFactor: animation,
                     child: amolCard(context, currentIndex, data),
                   ),
-              duration: Duration(milliseconds: 1 * 700)
-              );
+              duration: Duration(milliseconds: 1 * 700));
         },
         padding: EdgeInsets.all(10),
         color: Colors.red,

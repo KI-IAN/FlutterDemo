@@ -41,6 +41,7 @@ import 'package:provider/provider.dart';
 
 import 'Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'screen/CustomShapes/CustomShapeApp.dart';
+import 'package:flutter/widgets.dart';
 
 //void main() async {
 //
@@ -69,7 +70,13 @@ import 'screen/CustomShapes/CustomShapeApp.dart';
 //  runApp(NonMaterialApp());
 //}
 
-void main() {
+void main() async {
+  // runApp(MyApp());
+
+  // Avoid errors caused by flutter upgrade.
+  // Importing 'package:flutter/widgets.dart' is required.
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MaterialApp(
     title: 'Change Notifier',
 

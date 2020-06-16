@@ -76,7 +76,8 @@ class AddDuaPage extends StatelessWidget {
 
       //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
       Navigator.of(_currentContext).pushAndRemoveUntil(
-          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left), (route) => false);
+          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left),
+          (route) => false);
     }
   }
 
@@ -134,7 +135,7 @@ class AddDua extends State<AddDuaState> {
                               .dua
                               .name),
                       onChanged: (value) {
-                        Provider.of<AddDuaViewModel>(this.context).dua.name =
+                        Provider.of<AddDuaViewModel>(this.context,listen: false).dua.name =
                             value;
                       },
                       style: _dataLabelTextStyle(),
@@ -188,6 +189,31 @@ class AddDua extends State<AddDuaState> {
                 ),
               ),
             ),
+            //Experimental Save button
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: IconButton(
+                icon: Icon(
+                  Icons.save,
+                  color: Colors.lightGreen,
+                ),
+                onPressed: () {
+                  var isFormValid = addDuaFormState.currentState.validate();
+
+                  if (isFormValid) {
+                    Provider.of<AddDuaViewModel>(context, listen: false)
+                        .addDuaInDB();
+
+                    //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
+                    Navigator.of(_currentContext).pushAndRemoveUntil(
+                        PageTransition().createRoute(
+                            DuaListPage(), SlideDirectionEnum.Left),
+                        (route) => false);
+                  }
+                },
+              ),
+            ),
+
             Padding(
               padding: EdgeInsets.all(5),
               child: IconButton(

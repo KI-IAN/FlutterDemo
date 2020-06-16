@@ -1,3 +1,5 @@
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/Dua.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaRepository.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
@@ -73,5 +75,19 @@ class AddDuaViewModel extends BaseViewModel {
   }
 
 //endRegion
+
+
+// #region : Data Access
+
+void addDuaInDB(){
+
+DuaRepository duaRepo = DuaRepository();
+
+duaRepo.insert(Dua(name: dua.name));
+
+
+}
+
+// #endRegion
 
 }

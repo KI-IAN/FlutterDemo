@@ -58,7 +58,8 @@ class EditDua extends State<EditDuaState> {
                               .dua
                               .name),
                       onChanged: (value) {
-                        Provider.of<EditDuaPageViewModel>(this.context)
+                        Provider.of<EditDuaPageViewModel>(this.context,
+                                listen: false)
                             .dua
                             .name = value;
                       },

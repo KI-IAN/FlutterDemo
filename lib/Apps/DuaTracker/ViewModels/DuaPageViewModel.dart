@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Helper/DuaListPageHelper.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 
@@ -20,14 +22,24 @@ class DuaPageViewModel extends BaseViewModel {
 //region : Constructor
 
   DuaPageViewModel() {
-    duaList = getDuaList();
+    // duaList = getDuaList() as List<DuaListViewModel>;
   }
 
 //endRegion
 
+// Testing :
+
+  Future<DuaPageViewModel> getDuaPageData() async {
+    DuaPageViewModel duaPage = DuaPageViewModel();
+    duaPage.duaList = await getDuaList() ;
+    return duaPage;
+  }
+
+//
+
 //region : Event Handlers
   Future<void> refreshDuaList() async {
-    duaList = getDuaList();
+    duaList = getDuaList() as List<DuaListViewModel>;
   }
 
   Future<void> removeDua(int duaID) async {
@@ -37,39 +49,51 @@ class DuaPageViewModel extends BaseViewModel {
 
 //endRegion
 
+// #region : Data Access
+
+  Future<List<DuaListViewModel>> getDuaList() async {
+    DuaListPageHelper duaHelper = DuaListPageHelper();
+
+    var data = await duaHelper.getDuas();
+
+    return data;
+  }
+
+// #endRegion
+
 //region : DataProvider (Temporary)
 
-  List<DuaListViewModel> getDuaList() {
-    List<DuaListViewModel> duas = List<DuaListViewModel>();
+  // List<DuaListViewModel> getDuaList() {
+  //   List<DuaListViewModel> duas = List<DuaListViewModel>();
 
-    int totalData = Random().nextInt(50);
+  //   int totalData = Random().nextInt(50);
 
-    for (int index = 0; index < totalData; index++) {
-      var tempDua = DuaListViewModel();
+  //   for (int index = 0; index < totalData; index++) {
+  //     var tempDua = DuaListViewModel();
 
-      var minimumZikir = 1;
-      var minimumZikirRead = 1;
+  //     var minimumZikir = 1;
+  //     var minimumZikirRead = 1;
 
-      var totalZikir = minimumZikir + Random().nextInt(10);
-      var totalZikirsRead = Random().nextInt(totalZikir + 1);
-      var totalNumberOfTimesZikirToBeRead =
-          minimumZikirRead + Random().nextInt(1000);
-      var totalNumberOfTimesZikirRead =
-          Random().nextInt(totalNumberOfTimesZikirToBeRead + 1);
+  //     var totalZikir = minimumZikir + Random().nextInt(10);
+  //     var totalZikirsRead = Random().nextInt(totalZikir + 1);
+  //     var totalNumberOfTimesZikirToBeRead =
+  //         minimumZikirRead + Random().nextInt(1000);
+  //     var totalNumberOfTimesZikirRead =
+  //         Random().nextInt(totalNumberOfTimesZikirToBeRead + 1);
 
-      tempDua
-        ..duaID = index + 1
-        ..duaName = 'দোয়া # ${index + 1}'
-        ..totalZikirs = totalZikir
-        ..totalZikirsRead = totalZikirsRead
-        ..totalNumberOfTimesZikirToBeRead = totalNumberOfTimesZikirToBeRead
-        ..totalNumberOfTimesZikirRead = totalNumberOfTimesZikirRead;
+  //     tempDua
+  //       ..duaID = index + 1
+  //       ..duaName = 'দোয়া # ${index + 1}'
+  //       ..totalZikirs = totalZikir
+  //       ..totalZikirsRead = totalZikirsRead
+  //       ..totalNumberOfTimesZikirToBeRead = totalNumberOfTimesZikirToBeRead
+  //       ..totalNumberOfTimesZikirRead = totalNumberOfTimesZikirRead;
 
-      duas.add(tempDua);
-    }
+  //     duas.add(tempDua);
+  //   }
 
-    return duas;
-  }
+  //   return duas;
+  // }
 
 //endRegion
 

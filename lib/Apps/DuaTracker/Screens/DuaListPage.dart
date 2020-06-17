@@ -240,16 +240,17 @@ class DuaCardView extends State<DuaListState> {
           int currentIndex, DuaListViewModel data) =>
       RaisedButton(
         onPressed: () {
-          Navigator.pop(context);
           Provider.of<DuaPageViewModel>(this.context, listen: false)
               .removeDua(duaId);
+          Navigator.pop(context);
           animatedListKey.currentState.removeItem(
-              currentIndex,
-              (context, animation) => SizeTransition(
-                    sizeFactor: animation,
-                    child: amolCard(context, currentIndex, data),
-                  ),
-              duration: Duration(milliseconds: 1 * 700));
+            currentIndex,
+            (context, animation) => SizeTransition(
+              sizeFactor: animation,
+              child: amolCard(context, currentIndex, data),
+            ),
+            // duration: Duration(milliseconds: 1 * 700)
+          );
         },
         padding: EdgeInsets.all(10),
         color: Colors.red,
@@ -310,7 +311,6 @@ class DuaCardView extends State<DuaListState> {
       },
     );
   }
-
 
   Widget _buildAmolCardAnimated(
       BuildContext context,

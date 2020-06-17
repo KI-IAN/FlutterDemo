@@ -41,12 +41,16 @@ class DuaPageViewModel extends BaseViewModel {
   Future<void> refreshDuaList() async {
     DuaPageViewModel duaPage = DuaPageViewModel();
     duaPage.duaList = await getDuaList();
-   
   }
 
-  Future<void> removeDua(int duaID) async {
-    duaList.removeWhere((r) => r.duaID == duaID);
-    // this.InvokeChanges();
+  Future<void> removeDua(int duaId) async {
+    //remove Dua & Zikirs from DB first
+    DuaListPageHelper duaHelper = DuaListPageHelper();
+
+    await duaHelper.removeDuaFromDB(duaId);
+
+    //only then remove from list
+    duaList.removeWhere((r) => r.duaID == duaId);
   }
 
 //endRegion

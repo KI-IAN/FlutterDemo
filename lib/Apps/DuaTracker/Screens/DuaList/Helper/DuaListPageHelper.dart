@@ -1,6 +1,7 @@
 import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/Dua.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaRepository.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaTrackerDBContext.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/ZikirRepository.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 
 class DuaListPageHelper {
@@ -21,6 +22,39 @@ class DuaListPageHelper {
     }
 
     return duaList;
+  }
+
+  Future<void> removeDuaFromDB(int duaId) async {
+    DuaRepository duaRepo = DuaRepository();
+
+    ZikirRepository zikirRepo = ZikirRepository();
+
+    //get all zikirIDs
+    List<int> zikirIDs = await getZikirIds(duaId);
+
+    //remove all zikirs first
+    for(int index = 0; index < zikirIDs.length; index++ ){
+
+      await zikirRepo.delete(zikirIDs.elementAt(index));
+    }
+
+    //remove dua
+    await duaRepo.delete(duaId);
+
+  }
+
+  Future<List<int>> getZikirIds(int duaId) async {
+    var db = await DuaTrackerDBContext().initializeDatabase();
+
+    var query = '''Select zikir.id as zikirId from dua
+inner join zikir on zikir.duaID = dua.id
+where dua.id = $duaId''';
+
+    List<Map<String, dynamic>> zikirIds = await db.rawQuery(query);
+
+    return List.generate(zikirIds.length, (index) {
+      return zikirIds.elementAt(index)['zikirId'];
+    });
   }
 
   Future<List<DuaListViewModel>> getDuaList() async {

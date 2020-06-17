@@ -125,13 +125,14 @@ class EditDua extends State<EditDuaState> {
                     color: Colors.lightBlue,
                     size: 35,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     var isEditFormValid =
                         editDuaFormState.currentState.validate();
 
                     if (isEditFormValid) {
                       //update in Database
-                      Provider.of<EditDuaPageViewModel>(context)
+                      await Provider.of<EditDuaPageViewModel>(context,
+                              listen: false)
                           .updateDatabase();
 
                       Navigator.of(this.context).pushAndRemoveUntil(

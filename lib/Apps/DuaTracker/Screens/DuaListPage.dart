@@ -16,12 +16,6 @@ class DuaListPage extends StatelessWidget {
         title: Text('দোয়ার তালিকা'),
         backgroundColor: randomColor(),
       ),
-      // body: FutureProvider<DuaPageViewModel>(
-      //   create: (BuildContext context) {
-      //     return DuaPageViewModel().getDuaPageData();
-      //   },
-      //   child: DuaListState(),
-      // ),
       body: FutureBuilder(
         future: DuaListPageFutureProviderVM().getDuaListPageData(),
         builder: (context, snapshot) {
@@ -54,7 +48,6 @@ class DuaCardView extends State<DuaListState> {
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              // '${model.duaList[currentIndex].totalNumberOfTimesZikirRead} / ${model.duaList[currentIndex].totalNumberOfTimesZikirToBeRead}',
               '${data.totalNumberOfTimesZikirRead} / ${data.totalNumberOfTimesZikirToBeRead}',
               style: TextStyle(
                   color: Colors.blue,
@@ -81,7 +74,6 @@ class DuaCardView extends State<DuaListState> {
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              // '${model.duaList[currentIndex].totalZikirsRead} / ${model.duaList[currentIndex].totalZikirs}',
               '${data.totalZikirsRead} / ${data.totalZikirs}',
               style: TextStyle(
                   color: Colors.blue,
@@ -111,7 +103,6 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              // '${model.duaList[currentIndex].duaName}',
               '${data.duaName}',
               style: TextStyle(
                   color: Colors.blue,
@@ -146,7 +137,6 @@ class DuaCardView extends State<DuaListState> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 // mainAxisSize: MainAxisSize.max,
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   miniCardTotalDua(context, data),
                   miniCardTotalCompleted(context, data),
@@ -339,7 +329,6 @@ class DuaCardView extends State<DuaListState> {
 
   @override
   Widget build(BuildContext context) {
-    // return listView();
     return _buildAnimatedListView();
   }
 }

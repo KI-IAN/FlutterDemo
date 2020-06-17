@@ -1,6 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/DummyData/DataRepository.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaTrackerDBContext.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Enums/CRUDFlagEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Helper/EditDuaPageHelper.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaViewModel.dart';
@@ -172,7 +170,8 @@ class EditDuaPageViewModel extends BaseViewModel {
   }
 
   Future<void> updateDatabase() async {
-    // var testCall = 10;
+    editDuaPageHelper = EditDuaPageHelper();
+    await editDuaPageHelper.updateDuaList(dua, zikirDBList);
   }
 
 // #endRegion

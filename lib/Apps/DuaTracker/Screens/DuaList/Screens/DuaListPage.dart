@@ -25,7 +25,7 @@ class DuaListPage extends StatelessWidget {
               child: DuaListState(),
             );
           } else {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),

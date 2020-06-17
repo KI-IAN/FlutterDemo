@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDuaPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
 import 'package:fluttertutorial/screen/AnimatedList/AnimatedListApp.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/Screens/StudentPages.dart';
@@ -39,7 +39,6 @@ import 'package:fluttertutorial/screen/Navigation/ForthBack/FirstRoute.dart';
 
 import 'package:provider/provider.dart';
 
-import 'Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'screen/CustomShapes/CustomShapeApp.dart';
 import 'package:flutter/widgets.dart';
 

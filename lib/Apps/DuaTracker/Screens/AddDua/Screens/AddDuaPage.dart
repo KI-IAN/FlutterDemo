@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';

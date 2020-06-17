@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/DuaListPageFutureProviderVM.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';

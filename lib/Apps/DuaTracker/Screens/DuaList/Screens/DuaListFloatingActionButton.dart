@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDuaPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Screens/AddDuaPage.dart';
 
 class DuaListFloatingActionButton extends StatelessWidget {
   Widget _buildFabButton(BuildContext context) => FloatingActionButton(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Enums/FormCRUDModeEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPageStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Validations/EditDuaPageValidator.dart';
@@ -88,7 +91,7 @@ class EditDua extends State<EditDuaState> {
                     builder: (context, model, child) {
                       return Expanded(
                           child: Text(
-                        '${model.totalZikirsInUIList} / ${model.totalZikirsInDBList}',
+                        '${model?.totalZikirsInUIList} / ${model?.totalZikirsInDBList}',
                         style: EditDuaPageStyles.dataLabelTextStyle(),
                       ));
                     },
@@ -113,6 +116,30 @@ class EditDua extends State<EditDuaState> {
                   style: EditDuaPageStyles.secondaryCaptionTextStyle(),
                 ),
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.lightBlue,
+                    size: 35,
+                  ),
+                  onPressed: () {
+                    var isEditFormValid =
+                        editDuaFormState.currentState.validate();
+
+                    if (isEditFormValid) {
+                      //update in Database
+                      Provider.of<EditDuaPageViewModel>(context)
+                          .updateDatabase();
+
+                      Navigator.of(this.context).pushAndRemoveUntil(
+                          PageTransition().createRoute(
+                              DuaListPage(), SlideDirectionEnum.Left),
+                          (route) => false);
+                    }
+                  }),
             ),
             Padding(
               padding: EdgeInsets.all(5),

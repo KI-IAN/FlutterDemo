@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/DummyData/DataRepository.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaTrackerDBContext.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Enums/CRUDFlagEnum.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Helper/EditDuaPageHelper.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditZikirViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
@@ -8,11 +10,13 @@ import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 class EditDuaPageViewModel extends BaseViewModel {
 // #region : Fields
 
+  int _duaId;
+
   EditDuaViewModel _dua;
 
-  List<EditZikirViewModel> _zikirDBList;
+  List<EditZikirViewModel> _zikirDBList = List<EditZikirViewModel>();
 
-  List<EditZikirViewModel> _zikirUIList;
+  List<EditZikirViewModel> _zikirUIList = List<EditZikirViewModel>();
 
   int _totalZikirsInDBList = 0;
 
@@ -23,6 +27,10 @@ class EditDuaPageViewModel extends BaseViewModel {
 // #endRegion
 
 // #region : Properties
+
+  set duaId(int value) => this._duaId = value;
+
+  int get duaId => this._duaId;
 
   set temporaryZikirData(EditZikirViewModel value) {
     this._temporaryZikirData = value;
@@ -72,19 +80,21 @@ class EditDuaPageViewModel extends BaseViewModel {
 
 // #endRegion
 
+// #region : DI Fields
+
+  EditDuaPageHelper _editDuaPageHelper;
+
+  set editDuaPageHelper(EditDuaPageHelper value) =>
+      this._editDuaPageHelper = value;
+
+  EditDuaPageHelper get editDuaPageHelper => this._editDuaPageHelper;
+
+// #endRegion
+
 // #region : Constructors
 
   EditDuaPageViewModel(@required int duaID) {
-    var data = DummyDataRepository();
-
-    _dua = data.getDua(duaID);
-    var zikirs = data.getZikirs(duaID);
-
-    _zikirDBList = zikirs;
-    _zikirUIList = zikirs.toList();
-
-    // _zikirDBList = data.getZikirs(duaID);
-    // _zikirUIList = data.getZikirs(duaID);
+    this.duaId = duaID;
   }
 
 // #endRegion
@@ -161,7 +171,7 @@ class EditDuaPageViewModel extends BaseViewModel {
     }
   }
 
-  void updateDatabase() {
+  Future<void> updateDatabase() async {
     // var testCall = 10;
   }
 

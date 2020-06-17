@@ -11,11 +11,17 @@ class EditZikirViewModel extends ZikirViewModel {
 
   int _duaID;
 
+  String _duaName;
+
   UniqueKey _zikirUniqueID = UniqueKey();
 
 // #endRegion
 
 // #region: Properties
+
+  set duaName(String value) => this._duaName = value;
+
+  String get duaName => this._duaName;
 
   set duaID(int value) => this._duaID = value;
   int get duaID => this._duaID;

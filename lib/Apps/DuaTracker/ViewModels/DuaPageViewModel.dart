@@ -38,9 +38,15 @@ class DuaPageViewModel extends BaseViewModel {
 //
 
 //region : Event Handlers
-  Future<void> refreshDuaList() async {
+  // Future<void> refreshDuaList() async {
+  //   DuaPageViewModel duaPage = DuaPageViewModel();
+  //   duaPage.duaList = await getDuaList();
+  // }
+
+  Future<DuaPageViewModel> refreshDuaList() async {
     DuaPageViewModel duaPage = DuaPageViewModel();
     duaPage.duaList = await getDuaList();
+    return duaPage;
   }
 
   Future<void> removeDua(int duaId) async {

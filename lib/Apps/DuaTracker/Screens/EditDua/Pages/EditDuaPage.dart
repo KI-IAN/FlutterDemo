@@ -4,6 +4,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaState.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPageStyles.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageFutureVMProvider.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/UITexts/EditDuaPageTexts.dart';
 import 'package:provider/provider.dart';
@@ -90,12 +91,19 @@ class EditDuaPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return ChangeNotifierProvider<EditDuaPageViewModel>(
-      create: (BuildContext context) {
-        this.changeNotifierProviderBuildContext = context;
-        return EditDuaPageViewModel(this.duaID);
+    //Solution to async operation / FutureProvider is FutureBuilder!!!
+    //Check : https://www.youtube.com/watch?v=ek8ZPdWj4Qo
+    return FutureBuilder(
+      future: EditDuaPageFutureVMProvider(this.duaID).getDuaDetails(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ChangeNotifierProvider<EditDuaPageViewModel>(
+            create: (context) => snapshot.data,
+            child: EditDuaState());
+        } else {
+          return CircularProgressIndicator();
+        }
       },
-      child: EditDuaState(),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/DuaListPageFutureProviderVM.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
@@ -15,14 +16,24 @@ class DuaListPage extends StatelessWidget {
         title: Text('দোয়ার তালিকা'),
         backgroundColor: randomColor(),
       ),
-      // body: ChangeNotifierProvider<DuaPageViewModel>(
-      //     create: (BuildContext context) => DuaPageViewModel(),
-      //     child: DuaListState()),
-      body: FutureProvider<DuaPageViewModel>(
-        create: (BuildContext context) {
-          return DuaPageViewModel().getDuaPageData();
+      // body: FutureProvider<DuaPageViewModel>(
+      //   create: (BuildContext context) {
+      //     return DuaPageViewModel().getDuaPageData();
+      //   },
+      //   child: DuaListState(),
+      // ),
+      body: FutureBuilder(
+        future: DuaListPageFutureProviderVM().getDuaListPageData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ChangeNotifierProvider<DuaPageViewModel>(
+              create: (context) => snapshot.data,
+              child: DuaListState(),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
         },
-        child: DuaListState(),
       ),
       floatingActionButton: DuaListFloatingActionButton(),
     );

@@ -135,8 +135,10 @@ class AddDua extends State<AddDuaState> {
                               .dua
                               .name),
                       onChanged: (value) {
-                        Provider.of<AddDuaViewModel>(this.context,listen: false).dua.name =
-                            value;
+                        Provider.of<AddDuaViewModel>(this.context,
+                                listen: false)
+                            .dua
+                            .name = value;
                       },
                       style: _dataLabelTextStyle(),
                       decoration: InputDecoration(
@@ -197,11 +199,11 @@ class AddDua extends State<AddDuaState> {
                   Icons.save,
                   color: Colors.lightGreen,
                 ),
-                onPressed: () {
+                onPressed: () async {
                   var isFormValid = addDuaFormState.currentState.validate();
 
                   if (isFormValid) {
-                    Provider.of<AddDuaViewModel>(context, listen: false)
+                    await Provider.of<AddDuaViewModel>(context, listen: false)
                         .addDuaInDB();
 
                     //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes

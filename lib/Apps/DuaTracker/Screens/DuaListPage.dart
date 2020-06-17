@@ -311,6 +311,7 @@ class DuaCardView extends State<DuaListState> {
     );
   }
 
+
   Widget _buildAmolCardAnimated(
       BuildContext context,
       int currentIndex,

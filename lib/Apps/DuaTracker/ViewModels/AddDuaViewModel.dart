@@ -1,5 +1,7 @@
 import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/Dua.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/DuaRepository.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/Zikir.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/ZikirRepository.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
@@ -76,17 +78,23 @@ class AddDuaViewModel extends BaseViewModel {
 
 //endRegion
 
-
 // #region : Data Access
 
-void addDuaInDB(){
+  Future<void> addDuaInDB() async {
+    DuaRepository duaRepo = DuaRepository();
+    ZikirRepository zikirRepo = ZikirRepository();
 
-DuaRepository duaRepo = DuaRepository();
+    var duaID = await duaRepo.insert(Dua(name: dua.name));
 
-duaRepo.insert(Dua(name: dua.name));
-
-
-}
+//once dua is created successfully, it's time to insert zikirs
+    for (int index = 0; index < zikirs.length; index++) {
+      await zikirRepo.insert(Zikir(
+          name: zikirs.elementAt(index).zikirName,
+          duaID: duaID,
+          timesToBeRead: zikirs.elementAt(index).numberOfTimesWantToRead,
+          timesRead: zikirs.elementAt(index).numberOfTimesRead));
+    }
+  }
 
 // #endRegion
 

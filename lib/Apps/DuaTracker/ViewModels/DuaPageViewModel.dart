@@ -31,7 +31,7 @@ class DuaPageViewModel extends BaseViewModel {
 
   Future<DuaPageViewModel> getDuaPageData() async {
     DuaPageViewModel duaPage = DuaPageViewModel();
-    duaPage.duaList = await getDuaList() ;
+    duaPage.duaList = await getDuaList();
     return duaPage;
   }
 
@@ -39,7 +39,9 @@ class DuaPageViewModel extends BaseViewModel {
 
 //region : Event Handlers
   Future<void> refreshDuaList() async {
-    duaList = getDuaList() as List<DuaListViewModel>;
+    DuaPageViewModel duaPage = DuaPageViewModel();
+    duaPage.duaList = await getDuaList();
+   
   }
 
   Future<void> removeDua(int duaID) async {
@@ -54,7 +56,7 @@ class DuaPageViewModel extends BaseViewModel {
   Future<List<DuaListViewModel>> getDuaList() async {
     DuaListPageHelper duaHelper = DuaListPageHelper();
 
-    var data = await duaHelper.getDuas();
+    var data = await duaHelper.getDuaList();
 
     return data;
   }

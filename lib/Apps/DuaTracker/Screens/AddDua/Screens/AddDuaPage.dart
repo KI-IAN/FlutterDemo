@@ -26,27 +26,6 @@ class AddDuaPage extends StatelessWidget {
         backgroundColor: randomColor(),
       );
 
-  Widget _buildFloatingActionButton(BuildContext context) {
-    this._currentContext = context;
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(0),
-          child: FloatingActionButton(
-            onPressed: saveDua,
-            child: Icon(
-              Icons.save,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.lightGreen,
-          ),
-        )
-      ],
-    );
-  }
-
   Widget _buildScaffold(BuildContext context) => Scaffold(
         appBar: _buildAppBar(),
         body: ChangeNotifierProvider<AddDuaViewModel>(
@@ -561,21 +540,6 @@ class AddDua extends State<AddDuaState> {
           },
         ),
       ));
-
-  Widget _buildDuaList() {
-    var listView = Consumer<AddDuaViewModel>(
-      builder: (context, model, child) {
-        return ListView.builder(
-            itemCount: model.zikirs.length,
-            itemBuilder: (BuildContext context, int currentIndex) {
-              var currentData = getDataAt(model.zikirs, currentIndex);
-              return _buildDuaItem(context, currentIndex, currentData);
-            });
-      },
-    );
-
-    return listView;
-  }
 
 // #region : AnimatedList
 

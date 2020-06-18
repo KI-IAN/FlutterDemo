@@ -60,12 +60,23 @@ where dua.id = $duaId''';
   Future<List<DuaListViewModel>> getDuaList() async {
     var db = await DuaTrackerDBContext().initializeDatabase();
 
+//To Know more about Nested query and accessing outer query column value
+//Check : https://stackoverflow.com/questions/14754071/accessing-parent-column-info-in-a-sub-query
+
     var query = '''Select dua.name as duaName, dua.id as duaID,
-CAST('0' as INTEGER) as totalZikirRead,
 ifnull(Sum(zikir.timesRead),0) as timesRead, ifnull(Sum(zikir.timesToBeRead),0) as timesToBeRead,
-ifnull(count(zikir.id),0) as totalZikir from dua
+ifnull(count(zikir.id),0) as totalZikir, ifnull(readCount.totalZikirRead, 0) as totalZikirRead
+from dua 
 left join zikir on dua.id = zikir.duaID
-GROUP by dua.id''';
+left JOIN
+(Select Count(*) as totalZikirRead, dua.id from dua 
+left join zikir on zikir.duaID = dua.id
+where zikir.timesRead > 0
+and dua.id = duaID
+group by dua.id
+) as readCount on readCount.id = dua.id
+GROUP by dua.id
+order by dua.id DESC;''';
 
     List<Map<String, dynamic>> data = await db.rawQuery(query);
 

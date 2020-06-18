@@ -289,9 +289,17 @@ class EditDua extends State<EditDuaState> {
                     flex: 4,
                     child: TextFormField(
                       enabled: true,
-                      validator: (value) =>
-                          EditDuaPageValidator.numberOfTimesReadValidator(
-                              value),
+                      validator: (value) {
+                        var zikirMaxTimeToBeRead =
+                            Provider.of<EditDuaPageViewModel>(context,
+                                        listen: false)
+                                    .temporaryZikirData
+                                    .numberOfTimesWantToRead ??
+                                0;
+
+                        return EditDuaPageValidator.numberOfTimesReadValidator(
+                            value, zikirMaxTimeToBeRead);
+                      },
                       controller: TextEditingController(
                         text: data.numberOfTimesRead?.toString(),
                       ),

@@ -403,11 +403,6 @@ class EditDua extends State<EditDuaState> {
 
               Navigator.pop(context);
 
-              // animatedListKey.currentState.insertItem(
-              //     Provider.of<EditDuaPageViewModel>(this.context, listen: false)
-              //             .zikirUIList
-              //             .length -
-              //         1);
             }
           },
         ),
@@ -459,12 +454,6 @@ class EditDua extends State<EditDuaState> {
 
             _showAddZikirForm(context, data);
 
-            // animatedListKey.currentState.removeItem(
-            //     currentIndex,
-            //     (context, animation) => SizeTransition(
-            //           sizeFactor: animation,
-            //           child: _buildDuaItem(context, currentIndex, selectedItem),
-            //         ));
           },
         ),
       ));

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Enums/CRUDFlagEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Helper/EditDuaPageHelper.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaViewModel.dart';
@@ -63,7 +62,7 @@ class EditDuaPageViewModel extends BaseViewModel {
 
   set totalZikirsInUIList(int value) {
     this._totalZikirsInUIList = value;
-    this.InvokeChanges();
+    this.invokeChanges();
   }
 
   int get totalZikirsInDBList {
@@ -73,7 +72,7 @@ class EditDuaPageViewModel extends BaseViewModel {
 
   set totalZikirsInDBList(int value) {
     this._totalZikirsInDBList = value;
-    this.InvokeChanges();
+    this.invokeChanges();
   }
 
 
@@ -98,7 +97,7 @@ class EditDuaPageViewModel extends BaseViewModel {
 
 // #region : Constructors
 
-  EditDuaPageViewModel(@required int duaID) {
+  EditDuaPageViewModel(int duaID) {
     this.duaId = duaID;
   }
 

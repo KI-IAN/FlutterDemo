@@ -51,7 +51,7 @@ class AddDuaViewModel extends BaseViewModel {
 
   set totalZikirs(int value) {
     this._totalZikirs = value;
-    this.InvokeChanges();
+    this.invokeChanges();
   }
 
 //endRegion

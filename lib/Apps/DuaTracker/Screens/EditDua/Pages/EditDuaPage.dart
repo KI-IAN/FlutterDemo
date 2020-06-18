@@ -66,12 +66,6 @@ class EditDuaPage extends StatelessWidget {
               var isEditFormValid = editDuaFormState.currentState.validate();
 
               if (isEditFormValid) {
-                //Update Database
-                // //Having issue with PROVIDER's Context!!!!!!!!!!!!
-                // Provider.of<EditDuaPageViewModel>(
-                //         this.changeNotifierProviderBuildContext,
-                //         listen: false)
-                //     .updateDatabase();
 
                 Navigator.of(this.currentWidgetBuildContext).pushAndRemoveUntil(
                     PageTransition()

@@ -22,7 +22,6 @@ class AddDuaPage extends StatelessWidget {
   BuildContext _currentContext;
 
   Widget _buildAppBar() => AppBar(
-        // title: Text('নতুন দোয়া'),
         title: Text(AddDuaPageTexts().addDuaPageTitleBarText),
         backgroundColor: randomColor(),
       );
@@ -94,22 +93,6 @@ class AddDuaState extends StatefulWidget {
 }
 
 class AddDua extends State<AddDuaState> {
-  //region : Styling
-  // TextStyle _dataLabelTextStyle() =>
-  //     TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500);
-
-  // TextStyle _captionLabelTextStyle() =>
-  //     TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500);
-
-  // TextStyle _secondaryCaptionTextStyle() =>
-  //     TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500);
-
-  // OutlineInputBorder _textFieldBorderStyle() => OutlineInputBorder(
-  //       borderRadius: BorderRadius.all(Radius.circular(2)),
-  //       borderSide: BorderSide(color: Colors.lightBlue),
-  //     );
-  //endRegion
-
   BuildContext _currentContext;
 
   int _listViewSelectedItemIndex;
@@ -125,15 +108,6 @@ class AddDua extends State<AddDuaState> {
                     child: TextFormField(
                       validator: (value) =>
                           AddDuaPageValidator().duaNameValidator(value),
-                      // validator: MultiValidator([
-                      //   RequiredValidator(errorText: 'দোয়ার নাম আবশ্যক'),
-                      //   MinLengthValidator(1,
-                      //       errorText:
-                      //           'দোয়ার নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
-                      //   MaxLengthValidator(10,
-                      //       errorText:
-                      //           'দোয়ার নাম ১০  অক্ষরের বেশি হতে পারবে না'),
-                      // ]),
                       controller: TextEditingController(
                           text: Provider.of<AddDuaViewModel>(context,
                                   listen: false)
@@ -148,8 +122,6 @@ class AddDua extends State<AddDuaState> {
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: AddDuaPageStyles().textFieldBorderStyle(),
-                        // labelText: 'দোয়ার নাম',
-                        // hintText: 'দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন',
                         labelText: AddDuaPageTexts().editDuaPageDuaNameLabel,
                         hintText: AddDuaPageTexts().editDuaPageDuaNameHintText,
                       ),
@@ -164,7 +136,6 @@ class AddDua extends State<AddDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      // 'মোট জিকির',
                       AddDuaPageTexts().editDuaPageTotalZikirLabel,
                       style: AddDuaPageStyles().captionLabelTextStyle(),
                     ),
@@ -300,8 +271,6 @@ class AddDua extends State<AddDuaState> {
                 style: AddDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                   border: AddDuaPageStyles().textFieldBorderStyle(),
-                  // labelText: 'জিকিরের নাম',
-                  // hintText: 'সূরার নাম'
                   labelText: AddDuaPageTexts().editDuaPageZikirNameLabel,
                   hintText: AddDuaPageTexts().editDuaPageZikirHintText,
                 ),
@@ -328,8 +297,6 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            // labelText: 'পড়তে চাই',
-                            // hintText: '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)',
                             labelText: AddDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadLabel,
                             hintText: AddDuaPageTexts()
@@ -367,9 +334,6 @@ class AddDua extends State<AddDuaState> {
                       ],
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        // labelText: 'পড়েছি',
-                        // hintText:
-                        //     '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)',
                         labelText:
                             AddDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
                         hintText: AddDuaPageTexts()
@@ -419,23 +383,12 @@ class AddDua extends State<AddDuaState> {
               padding: EdgeInsets.all(10),
               child: TextFormField(
                 enabled: true,
-                // validator: MultiValidator([
-                //   RequiredValidator(errorText: 'জিকিরের নাম আবশ্যক'),
-                //   MinLengthValidator(1,
-                //       errorText: 'জিকিরের নাম অন্তত এক অক্ষর বিশিষ্ট হতে হবে'),
-                //   MaxLengthValidator(10,
-                //       errorText: 'জিকিরের নাম ১০  অক্ষরের বেশি হতে পারবে না'),
-                // ]),
                 validator: (value) =>
                     AddDuaPageValidator().zikirNameValidator(value),
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
                 onChanged: (String value) {
-                  // model.zikirs[currentIndex].zikirName = value;
-                  // Provider.of<AddDuaViewModel>(context, listen: false)
-                  //     .zikirs[currentIndex]
-                  //     .zikirName = value;
                   Provider.of<AddDuaViewModel>(context, listen: false)
                       .temporaryZikirData
                       .zikirName = value;
@@ -443,8 +396,6 @@ class AddDua extends State<AddDuaState> {
                 style: AddDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                     border: AddDuaPageStyles().textFieldBorderStyle(),
-                    // labelText: 'জিকিরের নাম',
-                    // hintText: 'সূরার নাম'
                     labelText: AddDuaPageTexts().editDuaPageZikirNameLabel,
                     hintText: AddDuaPageTexts().editDuaPageZikirHintText),
               ),
@@ -460,22 +411,12 @@ class AddDua extends State<AddDuaState> {
                         flex: 4,
                         child: TextFormField(
                           enabled: true,
-                          // validator: MultiValidator([
-                          //   RequiredValidator(errorText: 'আবশ্যক'),
-                          //   RangeValidator(
-                          //       min: 1,
-                          //       max: 999,
-                          //       errorText: '১ - ৯৯৯ এর মাঝে যে কোন সংখ্যা')
-                          // ]),
                           validator: (value) => AddDuaPageValidator()
                               .numberOfTimesWantToReadValidator(value),
                           controller: TextEditingController(
                             text: data.numberOfTimesWantToRead?.toString(),
                           ),
                           onChanged: (value) {
-                            // Provider.of<AddDuaViewModel>(context, listen: false)
-                            //     .zikirs[currentIndex]
-                            //     .numberOfTimesWantToRead = int.parse(value);
                             Provider.of<AddDuaViewModel>(context, listen: false)
                                 .temporaryZikirData
                                 .numberOfTimesWantToRead = int.parse(value);
@@ -487,8 +428,6 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            // labelText: 'পড়তে চাই',
-                            // hintText: '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)',
                             labelText: AddDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadLabel,
                             hintText: AddDuaPageTexts()
@@ -517,9 +456,6 @@ class AddDua extends State<AddDuaState> {
                     flex: 4,
                     child: TextFormField(
                       enabled: true,
-                      // validator: MultiValidator([
-                      //   RequiredValidator(errorText: 'আবশ্যক'),
-                      // ]),
                       validator: (value) {
                         var zikirMaxTimeToBeRead =
                             Provider.of<AddDuaViewModel>(context, listen: false)
@@ -533,9 +469,6 @@ class AddDua extends State<AddDuaState> {
                         text: data.numberOfTimesRead?.toString(),
                       ),
                       onChanged: (value) {
-                        // Provider.of<AddDuaViewModel>(context, listen: false)
-                        //     .zikirs[currentIndex]
-                        //     .numberOfTimesRead = int.parse(value);
                         Provider.of<AddDuaViewModel>(context, listen: false)
                             .temporaryZikirData
                             .numberOfTimesRead = int.parse(value);
@@ -546,9 +479,6 @@ class AddDua extends State<AddDuaState> {
                       ],
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        // labelText: 'পড়েছি',
-                        // hintText:
-                        //     '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)',
                         labelText:
                             AddDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
                         hintText: AddDuaPageTexts()
@@ -577,7 +507,6 @@ class AddDua extends State<AddDuaState> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  // _buildDeleteButton(currentIndex),
                   _buildZikirSaveButton(),
                 ],
               ),
@@ -595,12 +524,9 @@ class AddDua extends State<AddDuaState> {
         child: IconButton(
           icon: Icon(Icons.save),
           alignment: Alignment.center,
-          // tooltip: 'তথ্য সংরক্ষণ করুন',
           tooltip: AddDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            // print('currentIndex : $currentIndex');
-
             var isFormValid = addZikirFormState.currentState.validate();
 
             if (isFormValid) {
@@ -630,8 +556,6 @@ class AddDua extends State<AddDuaState> {
           tooltip: AddDuaPageTexts().editDuaPageZikirDeleteButtonToolTip,
           color: Colors.white,
           onPressed: () {
-            print('currentIndex : $currentIndex');
-
             var selectedItem = getDataAt(
                 Provider.of<AddDuaViewModel>(context, listen: false).zikirs,
                 currentIndex);
@@ -699,9 +623,7 @@ class AddDua extends State<AddDuaState> {
             children: <Widget>[
               _buildDuaContainer(),
               _buildAddZikirContainer(),
-
               Expanded(child: _buildAnimatedDuaList()),
-              // _buildDuaItem(this.context, AddDuaViewModel(), 0),
             ],
           ),
         ),

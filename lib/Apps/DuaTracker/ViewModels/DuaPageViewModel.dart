@@ -9,7 +9,7 @@ class DuaPageViewModel extends BaseViewModel {
 
   set duaList(List<DuaListViewModel> value) {
     _duaList = value;
-    this.InvokeChanges();
+    this.invokeChanges();
   }
 
   List<DuaListViewModel> get duaList => _duaList;

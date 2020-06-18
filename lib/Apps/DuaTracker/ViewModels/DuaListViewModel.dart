@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 
 class DuaListViewModel extends BaseViewModel {

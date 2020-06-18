@@ -51,8 +51,8 @@ class EditDuaPage extends StatelessWidget {
 // #endRegion
 
   Widget _buildAppBar() => AppBar(
-        title: Text(EditDuaPageTexts.editDuaPageTitleBar),
-        backgroundColor: EditDuaPageStyles.randomColor(),
+        title: Text(EditDuaPageTexts().editDuaPageTitleBar),
+        backgroundColor: EditDuaPageStyles().randomColor(),
       );
 
   Widget _buildFAB() {

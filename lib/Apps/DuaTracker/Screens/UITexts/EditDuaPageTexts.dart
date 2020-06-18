@@ -1,50 +1,48 @@
-
 class EditDuaPageTexts {
+  ///দোয়া সম্পাদনা
+  String editDuaPageTitleBar = 'দোয়া সম্পাদনা';
 
-///দোয়া সম্পাদনা
-static String editDuaPageTitleBar = 'দোয়া সম্পাদনা';
+  ///দোয়ার নাম
+  String editDuaPageDuaNameLabel = 'দোয়ার নাম';
 
-///দোয়ার নাম
-static String editDuaPageDuaNameLabel = 'দোয়ার নাম';
+  ///দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন
+  String editDuaPageDuaNameHintText = 'দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন';
 
-///দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন
-static String editDuaPageDuaNameHintText = 'দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন';
+  ///মোট জিকির
+  String editDuaPageTotalZikirLabel = 'মোট জিকির';
 
-///মোট জিকির
-static String editDuaPageTotalZikirLabel = 'মোট জিকির';
+  ///'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।'
+  String createNewZikirLabel = 'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।';
 
-///'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।'
-static String createNewZikirLabel =  'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।';
+  ///জিকিরের নাম
+  String editDuaPageZikirNameLabel = 'জিকিরের নাম';
 
-///জিকিরের নাম
-static String editDuaPageZikirNameLabel = 'জিকিরের নাম';
+  ///সূরার নাম
+  String editDuaPageZikirHintText = 'সূরার নাম';
 
-///সূরার নাম
-static String editDuaPageZikirHintText = 'সূরার নাম';
+  ///পড়তে চাই
+  String editDuaPageNumberOfTimesWantToReadLabel = 'পড়তে চাই';
 
-///পড়তে চাই
-static String editDuaPageNumberOfTimesWantToReadLabel = 'পড়তে চাই';
+  ///১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)
+  String editDuaPageNumberOfTimesWantToReadHintText =
+      '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)';
 
-///১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)
-static String editDuaPageNumberOfTimesWantToReadHintText = '১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)';
+  ///বার
+  String editDuaPageTimesLabel = 'বার';
 
-///বার
-static String editDuaPageTimesLabel = 'বার';
+  ///পড়েছি
+  String editDuaPageNumberOfTimesReadLabel = 'পড়েছি';
 
-///পড়েছি
-static String editDuaPageNumberOfTimesReadLabel = 'পড়েছি';
+  ///৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)
+  String editDuaPageNumberOfTimesReadHintText =
+      '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)';
 
-///৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)
-static String editDuaPageNumberOfTimesReadHintText = '৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)';
+  ///তথ্য সংরক্ষণ করুন
+  String editDuaPageZikirSaveButtonToolTip = 'তথ্য সংরক্ষণ করুন';
 
-///তথ্য সংরক্ষণ করুন
-static String editDuaPageZikirSaveButtonToolTip = 'তথ্য সংরক্ষণ করুন';
+  ///তথ্য মুছুন
+  String editDuaPageZikirDeleteButtonToolTip = 'তথ্য মুছুন';
 
-//তথ্য মুছুন
-static String editDuaPageZikirDeleteButtonToolTip = 'তথ্য মুছুন' ;
-
-///তথ্য সম্পাদনা করুন
-static String editDuaPageZikirEditButtonToolTip = 'তথ্য সম্পাদনা করুন';
-
-
+  ///তথ্য সম্পাদনা করুন
+  String editDuaPageZikirEditButtonToolTip = 'তথ্য সম্পাদনা করুন';
 }

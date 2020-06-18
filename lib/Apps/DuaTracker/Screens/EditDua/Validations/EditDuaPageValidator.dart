@@ -1,7 +1,7 @@
 import 'package:form_field_validator/form_field_validator.dart';
 
 class EditDuaPageValidator {
-  static String duaNameValidator(String value) {
+   String duaNameValidator(String value) {
     int minLength = 1;
     int maxLength = 50;
 
@@ -16,7 +16,7 @@ class EditDuaPageValidator {
     return validator.call(value);
   }
 
-  static String zikirNameValidator(String value) {
+   String zikirNameValidator(String value) {
     int minLength = 1;
     int maxLength = 50;
 
@@ -31,7 +31,7 @@ class EditDuaPageValidator {
     return validator.call(value);
   }
 
-  static String numberOfTimesWantToReadValidator(String value) {
+  String numberOfTimesWantToReadValidator(String value) {
     int minValue = 1;
     int maxValue = 10000;
 
@@ -46,7 +46,7 @@ class EditDuaPageValidator {
     return validator.call(value);
   }
 
-  static String numberOfTimesReadValidator(String value, int maxTimesValue) {
+   String numberOfTimesReadValidator(String value, int maxTimesValue) {
     int minValue = 0;
     int maxValue = maxTimesValue;
 

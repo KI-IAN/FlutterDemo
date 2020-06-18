@@ -54,7 +54,7 @@ class EditDua extends State<EditDuaState> {
                   Expanded(
                     child: TextFormField(
                       validator: (value) =>
-                          EditDuaPageValidator.duaNameValidator(value),
+                          EditDuaPageValidator().duaNameValidator(value),
                       controller: TextEditingController(
                           text: Provider.of<EditDuaPageViewModel>(context,
                                   listen: false)
@@ -66,11 +66,11 @@ class EditDua extends State<EditDuaState> {
                             .dua
                             .name = value;
                       },
-                      style: EditDuaPageStyles.dataLabelTextStyle(),
+                      style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        border: EditDuaPageStyles.textFieldBorderStyle(),
-                        labelText: EditDuaPageTexts.editDuaPageDuaNameLabel,
-                        hintText: EditDuaPageTexts.editDuaPageDuaNameHintText,
+                        border: EditDuaPageStyles().textFieldBorderStyle(),
+                        labelText: EditDuaPageTexts().editDuaPageDuaNameLabel,
+                        hintText: EditDuaPageTexts().editDuaPageDuaNameHintText,
                       ),
                     ),
                   ),
@@ -83,8 +83,8 @@ class EditDua extends State<EditDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts.editDuaPageTotalZikirLabel,
-                      style: EditDuaPageStyles.captionLabelTextStyle(),
+                      EditDuaPageTexts().editDuaPageTotalZikirLabel,
+                      style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
                   Consumer<EditDuaPageViewModel>(
@@ -92,7 +92,7 @@ class EditDua extends State<EditDuaState> {
                       return Expanded(
                           child: Text(
                         '${model?.totalZikirsInUIList} / ${model?.totalZikirsInDBList}',
-                        style: EditDuaPageStyles.dataLabelTextStyle(),
+                        style: EditDuaPageStyles().dataLabelTextStyle(),
                       ));
                     },
                   ),
@@ -115,7 +115,7 @@ class EditDua extends State<EditDuaState> {
                   builder: (context, model, child) {
                     return Text(
                       model.zikirCreateDescription,
-                      style: EditDuaPageStyles.secondaryCaptionTextStyle(),
+                      style: EditDuaPageStyles().secondaryCaptionTextStyle(),
                     );
                   },
                 ),
@@ -216,7 +216,7 @@ class EditDua extends State<EditDuaState> {
               child: TextFormField(
                 enabled: true,
                 validator: (value) =>
-                    EditDuaPageValidator.zikirNameValidator(value),
+                    EditDuaPageValidator().zikirNameValidator(value),
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
@@ -225,11 +225,11 @@ class EditDua extends State<EditDuaState> {
                       .temporaryZikirData
                       .zikirName = value;
                 },
-                style: EditDuaPageStyles.dataLabelTextStyle(),
+                style: EditDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
-                  border: EditDuaPageStyles.textFieldBorderStyle(),
-                  labelText: EditDuaPageTexts.editDuaPageZikirNameLabel,
-                  hintText: EditDuaPageTexts.editDuaPageZikirHintText,
+                  border: EditDuaPageStyles().textFieldBorderStyle(),
+                  labelText: EditDuaPageTexts().editDuaPageZikirNameLabel,
+                  hintText: EditDuaPageTexts().editDuaPageZikirHintText,
                 ),
               ),
             ),
@@ -244,7 +244,7 @@ class EditDua extends State<EditDuaState> {
                         flex: 4,
                         child: TextFormField(
                           enabled: true,
-                          validator: (value) => EditDuaPageValidator
+                          validator: (value) => EditDuaPageValidator()
                               .numberOfTimesWantToReadValidator(value),
                           controller: TextEditingController(
                             text: data.numberOfTimesWantToRead?.toString(),
@@ -260,12 +260,12 @@ class EditDua extends State<EditDuaState> {
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly
                           ],
-                          style: EditDuaPageStyles.dataLabelTextStyle(),
+                          style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: EditDuaPageTexts
+                            labelText: EditDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadLabel,
-                            border: EditDuaPageStyles.textFieldBorderStyle(),
-                            hintText: EditDuaPageTexts
+                            border: EditDuaPageStyles().textFieldBorderStyle(),
+                            hintText: EditDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadHintText,
                           ),
                         ),
@@ -273,8 +273,8 @@ class EditDua extends State<EditDuaState> {
                       Spacer(),
                       Expanded(
                         child: Text(
-                          EditDuaPageTexts.editDuaPageTimesLabel,
-                          style: EditDuaPageStyles.captionLabelTextStyle(),
+                          EditDuaPageTexts().editDuaPageTimesLabel,
+                          style: EditDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
                     ]),
@@ -297,7 +297,7 @@ class EditDua extends State<EditDuaState> {
                                     .numberOfTimesWantToRead ??
                                 0;
 
-                        return EditDuaPageValidator.numberOfTimesReadValidator(
+                        return EditDuaPageValidator().numberOfTimesReadValidator(
                             value, zikirMaxTimeToBeRead);
                       },
                       controller: TextEditingController(
@@ -313,12 +313,12 @@ class EditDua extends State<EditDuaState> {
                       inputFormatters: [
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
-                      style: EditDuaPageStyles.dataLabelTextStyle(),
+                      style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        border: EditDuaPageStyles.textFieldBorderStyle(),
+                        border: EditDuaPageStyles().textFieldBorderStyle(),
                         labelText:
-                            EditDuaPageTexts.editDuaPageNumberOfTimesReadLabel,
-                        hintText: EditDuaPageTexts
+                            EditDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
+                        hintText: EditDuaPageTexts()
                             .editDuaPageNumberOfTimesReadHintText,
                       ),
                     ),
@@ -326,8 +326,8 @@ class EditDua extends State<EditDuaState> {
                   Spacer(),
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts.editDuaPageTimesLabel,
-                      style: EditDuaPageStyles.captionLabelTextStyle(),
+                      EditDuaPageTexts().editDuaPageTimesLabel,
+                      style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
                 ]),
@@ -364,7 +364,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.save),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
+          tooltip: EditDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
             var isFormValid = zikirFormState.currentState.validate();
@@ -392,7 +392,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts.editDuaPageZikirSaveButtonToolTip,
+          tooltip: EditDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
           color: Colors.white,
           onPressed: () {
             var isFormValid = zikirFormState.currentState.validate();
@@ -420,7 +420,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts.editDuaPageZikirDeleteButtonToolTip,
+          tooltip: EditDuaPageTexts().editDuaPageZikirDeleteButtonToolTip,
           color: Colors.white,
           onPressed: () {
             var selectedItem =
@@ -448,7 +448,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts.editDuaPageZikirEditButtonToolTip,
+          tooltip: EditDuaPageTexts().editDuaPageZikirEditButtonToolTip,
           color: Colors.white,
           onPressed: () {
             Provider.of<EditDuaPageViewModel>(context, listen: false)
@@ -483,11 +483,11 @@ class EditDua extends State<EditDuaState> {
                 controller: TextEditingController(
                   text: data.zikirName,
                 ),
-                style: EditDuaPageStyles.dataLabelTextStyle(),
+                style: EditDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
-                    border: EditDuaPageStyles.textFieldBorderStyle(),
-                    labelText: EditDuaPageTexts.editDuaPageZikirNameLabel,
-                    hintText: EditDuaPageTexts.editDuaPageZikirHintText),
+                    border: EditDuaPageStyles().textFieldBorderStyle(),
+                    labelText: EditDuaPageTexts().editDuaPageZikirNameLabel,
+                    hintText: EditDuaPageTexts().editDuaPageZikirHintText),
               ),
             ),
             Visibility(
@@ -509,12 +509,12 @@ class EditDua extends State<EditDuaState> {
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly
                           ],
-                          style: EditDuaPageStyles.dataLabelTextStyle(),
+                          style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            border: EditDuaPageStyles.textFieldBorderStyle(),
-                            labelText: EditDuaPageTexts
+                            border: EditDuaPageStyles().textFieldBorderStyle(),
+                            labelText: EditDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadLabel,
-                            hintText: EditDuaPageTexts
+                            hintText: EditDuaPageTexts()
                                 .editDuaPageNumberOfTimesWantToReadHintText,
                           ),
                         ),
@@ -522,8 +522,8 @@ class EditDua extends State<EditDuaState> {
                       Spacer(),
                       Expanded(
                         child: Text(
-                          EditDuaPageTexts.editDuaPageTimesLabel,
-                          style: EditDuaPageStyles.captionLabelTextStyle(),
+                          EditDuaPageTexts().editDuaPageTimesLabel,
+                          style: EditDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
                     ]),
@@ -545,12 +545,12 @@ class EditDua extends State<EditDuaState> {
                       inputFormatters: [
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
-                      style: EditDuaPageStyles.dataLabelTextStyle(),
+                      style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        border: EditDuaPageStyles.textFieldBorderStyle(),
+                        border: EditDuaPageStyles().textFieldBorderStyle(),
                         labelText:
-                            EditDuaPageTexts.editDuaPageNumberOfTimesReadLabel,
-                        hintText: EditDuaPageTexts
+                            EditDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
+                        hintText: EditDuaPageTexts()
                             .editDuaPageNumberOfTimesReadHintText,
                       ),
                     ),
@@ -558,8 +558,8 @@ class EditDua extends State<EditDuaState> {
                   Spacer(),
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts.editDuaPageTimesLabel,
-                      style: EditDuaPageStyles.captionLabelTextStyle(),
+                      EditDuaPageTexts().editDuaPageTimesLabel,
+                      style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
                 ]),

@@ -49,8 +49,6 @@ class AddDuaPage extends StatelessWidget {
 
   Widget _buildScaffold(BuildContext context) => Scaffold(
         appBar: _buildAppBar(),
-        floatingActionButton: _buildFloatingActionButton(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         body: ChangeNotifierProvider<AddDuaViewModel>(
           create: (context) => AddDuaViewModel(),
           child: AddDuaState(),
@@ -174,30 +172,7 @@ class AddDua extends State<AddDuaState> {
                 ),
               ),
             ),
-            //Experimental Save button
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: IconButton(
-                icon: Icon(
-                  Icons.save,
-                  color: Colors.lightGreen,
-                ),
-                onPressed: () async {
-                  var isFormValid = addDuaFormState.currentState.validate();
 
-                  if (isFormValid) {
-                    await Provider.of<AddDuaViewModel>(context, listen: false)
-                        .addDuaInDB();
-
-                    //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
-                    Navigator.of(_currentContext).pushAndRemoveUntil(
-                        PageTransition().createRoute(
-                            DuaListPage(), SlideDirectionEnum.Left),
-                        (route) => false);
-                  }
-                },
-              ),
-            ),
 
             Padding(
               padding: EdgeInsets.all(5),
@@ -220,6 +195,19 @@ class AddDua extends State<AddDuaState> {
           ],
         ),
       );
+
+  void saveInDB() async {
+    var isFormValid = addDuaFormState.currentState.validate();
+
+    if (isFormValid) {
+      await Provider.of<AddDuaViewModel>(context, listen: false).addDuaInDB();
+
+      //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
+      Navigator.of(_currentContext).pushAndRemoveUntil(
+          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left),
+          (route) => false);
+    }
+  }
 
   Future<void> _showAddZikirForm(
       BuildContext parentContext, ZikirViewModel zikirdata) async {
@@ -460,7 +448,8 @@ class AddDua extends State<AddDuaState> {
                         var zikirMaxTimeToBeRead =
                             Provider.of<AddDuaViewModel>(context, listen: false)
                                     .temporaryZikirData
-                                    .numberOfTimesWantToRead ?? 0;
+                                    .numberOfTimesWantToRead ??
+                                0;
 
                         return AddDuaPageValidator().numberOfTimesReadValidator(
                             value, zikirMaxTimeToBeRead);
@@ -632,7 +621,26 @@ class AddDua extends State<AddDuaState> {
   @override
   Widget build(BuildContext context) {
     this._currentContext = context;
-    return _buildFullPage();
+    return Stack(
+      children: <Widget>[
+        _buildFullPage(),
+        _buildFABSave(),
+      ],
+    );
+  }
+
+  Widget _buildFABSave() {
+    return Container(
+        padding: EdgeInsets.all(15),
+        alignment: Alignment.bottomRight,
+        child: FloatingActionButton(
+            backgroundColor: Colors.lightGreen,
+            onPressed: saveInDB,
+            child: Icon(
+              Icons.save,
+              color: Colors.white,
+            )),
+      );
   }
 
   ZikirViewModel getDataAt(List<ZikirViewModel> data, int selectedIndex) {

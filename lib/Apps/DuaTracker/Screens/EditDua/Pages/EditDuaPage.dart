@@ -103,8 +103,7 @@ class EditDuaPage extends StatelessWidget {
   Widget _buildScaffold() {
     return Scaffold(
       appBar: _buildAppBar(),
-      floatingActionButton: _buildFAB(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
       body: _buildBody(),
     );
   }

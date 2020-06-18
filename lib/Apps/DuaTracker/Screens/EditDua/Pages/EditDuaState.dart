@@ -125,31 +125,6 @@ class EditDua extends State<EditDuaState> {
               padding: EdgeInsets.all(5),
               child: IconButton(
                   icon: Icon(
-                    Icons.edit,
-                    color: Colors.lightBlue,
-                    size: 35,
-                  ),
-                  onPressed: () async {
-                    var isEditFormValid =
-                        editDuaFormState.currentState.validate();
-
-                    if (isEditFormValid) {
-                      //update in Database
-                      await Provider.of<EditDuaPageViewModel>(context,
-                              listen: false)
-                          .updateDatabase();
-
-                      Navigator.of(this.context).pushAndRemoveUntil(
-                          PageTransition().createRoute(
-                              DuaListPage(), SlideDirectionEnum.Left),
-                          (route) => false);
-                    }
-                  }),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: IconButton(
-                  icon: Icon(
                     Icons.add,
                     color: Colors.lightGreen,
                     size: 35,
@@ -171,6 +146,20 @@ class EditDua extends State<EditDuaState> {
           ],
         ),
       );
+
+  void editInDB() async {
+    var isEditFormValid = editDuaFormState.currentState.validate();
+
+    if (isEditFormValid) {
+      //update in Database
+      await Provider.of<EditDuaPageViewModel>(context, listen: false)
+          .updateDatabase();
+
+      Navigator.of(this.context).pushAndRemoveUntil(
+          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left),
+          (route) => false);
+    }
+  }
 
   Future<void> _showAddZikirForm(
       BuildContext parentContext, EditZikirViewModel zikirdata) async {
@@ -297,8 +286,9 @@ class EditDua extends State<EditDuaState> {
                                     .numberOfTimesWantToRead ??
                                 0;
 
-                        return EditDuaPageValidator().numberOfTimesReadValidator(
-                            value, zikirMaxTimeToBeRead);
+                        return EditDuaPageValidator()
+                            .numberOfTimesReadValidator(
+                                value, zikirMaxTimeToBeRead);
                       },
                       controller: TextEditingController(
                         text: data.numberOfTimesRead?.toString(),
@@ -316,8 +306,8 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText:
-                            EditDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
+                        labelText: EditDuaPageTexts()
+                            .editDuaPageNumberOfTimesReadLabel,
                         hintText: EditDuaPageTexts()
                             .editDuaPageNumberOfTimesReadHintText,
                       ),
@@ -402,7 +392,6 @@ class EditDua extends State<EditDuaState> {
                   .updateZikir();
 
               Navigator.pop(context);
-
             }
           },
         ),
@@ -453,7 +442,6 @@ class EditDua extends State<EditDuaState> {
             currentFormMode = FormCRUDModeEnum.Update;
 
             _showAddZikirForm(context, data);
-
           },
         ),
       ));
@@ -537,8 +525,8 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText:
-                            EditDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
+                        labelText: EditDuaPageTexts()
+                            .editDuaPageNumberOfTimesReadLabel,
                         hintText: EditDuaPageTexts()
                             .editDuaPageNumberOfTimesReadHintText,
                       ),
@@ -589,6 +577,20 @@ class EditDua extends State<EditDuaState> {
         ),
       );
 
+  Widget _buildFABEdit() {
+    return Container(
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomRight,
+      child: FloatingActionButton(
+          backgroundColor: Colors.lightBlue,
+          onPressed: editInDB,
+          child: Icon(
+            Icons.edit,
+            color: Colors.white,
+          )),
+    );
+  }
+
   Widget _buildAnimatedDuaList() {
     var animatedListView = Consumer<EditDuaPageViewModel>(
       builder:
@@ -613,6 +615,11 @@ class EditDua extends State<EditDuaState> {
   @override
   Widget build(BuildContext context) {
     currentBuildContext = context;
-    return _buildFullPage();
+    return Stack(
+      children: <Widget>[
+        _buildFullPage(),
+        _buildFABEdit(),
+      ],
+    );
   }
 }

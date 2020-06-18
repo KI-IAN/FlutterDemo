@@ -19,6 +19,12 @@ class AddDuaViewModel extends BaseViewModel {
 
 //region: Properties
 
+  String get zikirCreateDescription {
+    return zikirs.length == 0
+        ? 'কোন জিকির নেই। নতুন জিকির তৈরি করি।'
+        : '${zikirs.length} টি জিকির আছে। আরো নতুন জিকির তৈরি করি।';
+  }
+
   set temporaryZikirData(ZikirViewModel value) {
     this._temporaryZikirData = value;
   }

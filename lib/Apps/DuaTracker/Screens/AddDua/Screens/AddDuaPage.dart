@@ -185,9 +185,13 @@ class AddDua extends State<AddDuaState> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(5),
-                child: Text(
-                  'এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।',
-                  style: _secondaryCaptionTextStyle(),
+                child: Consumer<AddDuaViewModel>(
+                  builder: (context, model, widget) {
+                    return Text(
+                      model.zikirCreateDescription,
+                      style: _secondaryCaptionTextStyle(),
+                    );
+                  },
                 ),
               ),
             ),

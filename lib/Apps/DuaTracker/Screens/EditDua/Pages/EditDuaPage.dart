@@ -98,10 +98,9 @@ class EditDuaPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ChangeNotifierProvider<EditDuaPageViewModel>(
-            create: (context) => snapshot.data,
-            child: EditDuaState());
+              create: (context) => snapshot.data, child: EditDuaState());
         } else {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );

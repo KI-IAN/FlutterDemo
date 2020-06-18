@@ -76,6 +76,13 @@ class EditDuaPageViewModel extends BaseViewModel {
     this.InvokeChanges();
   }
 
+
+  String get zikirCreateDescription {
+    return zikirUIList.length == 0
+        ? 'কোন জিকির নেই। নতুন জিকির তৈরি করি।'
+        : '${zikirUIList.length} টি জিকির আছে। আরো নতুন জিকির তৈরি করি।';
+  }
+
 // #endRegion
 
 // #region : DI Fields

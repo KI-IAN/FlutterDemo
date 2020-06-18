@@ -111,9 +111,13 @@ class EditDua extends State<EditDuaState> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(5),
-                child: Text(
-                  EditDuaPageTexts.createNewZikirLabel,
-                  style: EditDuaPageStyles.secondaryCaptionTextStyle(),
+                child: Consumer<EditDuaPageViewModel>(
+                  builder: (context, model, child) {
+                    return Text(
+                      model.zikirCreateDescription,
+                      style: EditDuaPageStyles.secondaryCaptionTextStyle(),
+                    );
+                  },
                 ),
               ),
             ),

@@ -1,13 +1,28 @@
 {
-
-"duaListPage_duaName":"দোয়ার নাম",
-"duaListPage_totalZikir":"টি জিকির",
-"duaListPage_totalReadCount":"বার পড়েছি",
-"duaListPage_Title":"দোয়ার তালিকা",
-"duaListPage_editDataTooltip":"তথ্য পরিবর্তন করুন",
-"duaListPage_deleteDataTooltip":"তথ্য মুছুন",
-"duaListPage_deleteDuaButton":"দোয়া মুছুন",
-"duaListPage_deleteDuaAlert":" টি জিকির  মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।"
-
+    "duaListPage_duaName": "দোয়ার নাম",
+    "duaListPage_totalZikir": "টি জিকির",
+    "duaListPage_totalReadCount": "বার পড়েছি",
+    "duaListPage_Title": "দোয়ার তালিকা",
+    "duaListPage_editDataTooltip": "তথ্য পরিবর্তন করুন",
+    "duaListPage_deleteDataTooltip": "তথ্য মুছুন",
+    "duaListPage_deleteDuaButton": "দোয়া মুছুন",
+    "duaListPage_deleteDuaAlert": " টি জিকির  মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।",
+    "editDuaPage_TitleBar": "দোয়া সম্পাদনা",
+    "editDuaPage_DuaNameLabel": "দোয়ার নাম",
+    "editDuaPage_DuaNameHintText": "দোয়া কেন পড়ছেন সেই কারণটির নাম লিখুন",
+    "editDuaPage_TotalZikirLabel": "মোট জিকির",
+    "createNewZikirLabel": "এখনো কোন জিকির নেই। নতুন জিকির তৈরি করি।",
+    "editDuaPage_ZikirNameLabel": "জিকিরের নাম",
+    "editDuaPage_ZikirHintText": "সূরার নাম",
+    "editDuaPage_NumberOfTimesWantToReadLabel": "পড়তে চাই",
+    "editDuaPage_NumberOfTimesWantToReadHintText": "১০০ (যতবার পড়তে চান সেই সংখ্যাটি লিখুন)",
+    "editDuaPage_TimesLabel": "বার",
+    "editDuaPage_NumberOfTimesReadLabel": "পড়েছি",
+    "editDuaPage_NumberOfTimesReadHintText": "৫০ (যতবার এখন পর্যন্ত পড়েছেন সেই সংখ্যাটি লিখুন)",
+    "editDuaPage_ZikirSaveButtonToolTip": "তথ্য সংরক্ষণ করুন",
+    "editDuaPage_ZikirDeleteButtonToolTip": "তথ্য মুছুন",
+    "editDuaPage_ZikirEditButtonToolTip": "তথ্য সম্পাদনা করুন",
+    "addDuaPage_TitleBarText":"নতুন দোয়া",
+    "duaListPage_createDuaButtonToolTip":"নতুন দোয়া"
 
 }

@@ -6,7 +6,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaSta
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPageStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageFutureVMProvider.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageViewModel.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/UITexts/EditDuaPageTexts.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:provider/provider.dart';
 
 //region : Validation Logic (Should find a better maintainable way)
@@ -51,7 +51,7 @@ class EditDuaPage extends StatelessWidget {
 // #endRegion
 
   Widget _buildAppBar() => AppBar(
-        title: Text(EditDuaPageTexts().editDuaPageTitleBar),
+        title: Text( getLanguageText('editDuaPage_TitleBar')),
         backgroundColor: EditDuaPageStyles().randomColor(),
       );
 

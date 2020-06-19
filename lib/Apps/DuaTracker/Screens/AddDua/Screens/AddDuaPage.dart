@@ -5,9 +5,9 @@ import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Styles/AddDuaPageStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Validations/AddDuaPageValidators.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/UITexts/AddDuaPageTexts.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class AddDuaPage extends StatelessWidget {
   BuildContext _currentContext;
 
   Widget _buildAppBar() => AppBar(
-        title: Text(AddDuaPageTexts().addDuaPageTitleBarText),
+        title: Text(getLanguageText('addDuaPage_TitleBarText')),
         backgroundColor: randomColor(),
       );
 
@@ -99,8 +99,8 @@ class AddDua extends State<AddDuaState> {
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: AddDuaPageStyles().textFieldBorderStyle(),
-                        labelText: AddDuaPageTexts().editDuaPageDuaNameLabel,
-                        hintText: AddDuaPageTexts().editDuaPageDuaNameHintText,
+                        labelText: getLanguageText('editDuaPage_DuaNameLabel'),
+                        hintText: getLanguageText('editDuaPage_DuaNameHintText'),
                       ),
                     ),
                   ),
@@ -113,7 +113,7 @@ class AddDua extends State<AddDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      AddDuaPageTexts().editDuaPageTotalZikirLabel,
+                      getLanguageText('editDuaPage_TotalZikirLabel'),
                       style: AddDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
@@ -238,8 +238,8 @@ class AddDua extends State<AddDuaState> {
                 style: AddDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                   border: AddDuaPageStyles().textFieldBorderStyle(),
-                  labelText: AddDuaPageTexts().editDuaPageZikirNameLabel,
-                  hintText: AddDuaPageTexts().editDuaPageZikirHintText,
+                  labelText: getLanguageText('editDuaPage_ZikirNameLabel'),
+                  hintText: getLanguageText('editDuaPage_ZikirHintText'),
                 ),
               ),
             ),
@@ -264,10 +264,8 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: AddDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadLabel,
-                            hintText: AddDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadHintText,
+                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
                             border: AddDuaPageStyles().textFieldBorderStyle(),
                           ),
                         ),
@@ -276,7 +274,7 @@ class AddDua extends State<AddDuaState> {
                       Expanded(
                         child: Text(
                           // 'বার',
-                          AddDuaPageTexts().editDuaPageTimesLabel,
+                          getLanguageText('editDuaPage_TimesLabel'),
                           style: AddDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
@@ -302,9 +300,8 @@ class AddDua extends State<AddDuaState> {
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         labelText:
-                            AddDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
-                        hintText: AddDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadHintText,
+                            getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
                         border: AddDuaPageStyles().textFieldBorderStyle(),
                       ),
                     ),
@@ -313,7 +310,7 @@ class AddDua extends State<AddDuaState> {
                   Expanded(
                     child: Text(
                       // 'বার',
-                      AddDuaPageTexts().editDuaPageTimesLabel,
+                      getLanguageText('editDuaPage_TimesLabel'),
                       style: AddDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
@@ -363,8 +360,8 @@ class AddDua extends State<AddDuaState> {
                 style: AddDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                     border: AddDuaPageStyles().textFieldBorderStyle(),
-                    labelText: AddDuaPageTexts().editDuaPageZikirNameLabel,
-                    hintText: AddDuaPageTexts().editDuaPageZikirHintText),
+                    labelText: getLanguageText('editDuaPage_ZikirNameLabel'),
+                    hintText: getLanguageText('editDuaPage_ZikirHintText')),
               ),
             ),
             Visibility(
@@ -395,10 +392,8 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: AddDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadLabel,
-                            hintText: AddDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadHintText,
+                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
                             border: AddDuaPageStyles().textFieldBorderStyle(),
                           ),
                         ),
@@ -407,7 +402,7 @@ class AddDua extends State<AddDuaState> {
                       Expanded(
                         child: Text(
                           // 'বার',
-                          AddDuaPageTexts().editDuaPageTimesLabel,
+                          getLanguageText('editDuaPage_TimesLabel'),
                           style: AddDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
@@ -448,9 +443,8 @@ class AddDua extends State<AddDuaState> {
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         labelText:
-                            AddDuaPageTexts().editDuaPageNumberOfTimesReadLabel,
-                        hintText: AddDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadHintText,
+                            getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
                         border: AddDuaPageStyles().textFieldBorderStyle(),
                       ),
                     ),
@@ -459,7 +453,7 @@ class AddDua extends State<AddDuaState> {
                   Expanded(
                     child: Text(
                       // 'বার',
-                      AddDuaPageTexts().editDuaPageTimesLabel,
+                      getLanguageText('editDuaPage_TimesLabel'),
                       style: AddDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
@@ -492,7 +486,7 @@ class AddDua extends State<AddDuaState> {
         child: IconButton(
           icon: Icon(Icons.save),
           alignment: Alignment.center,
-          tooltip: AddDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             var isFormValid = addZikirFormState.currentState.validate();
@@ -521,7 +515,7 @@ class AddDua extends State<AddDuaState> {
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
           // tooltip: 'তথ্য মুছুন',
-          tooltip: AddDuaPageTexts().editDuaPageZikirDeleteButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirDeleteButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             var selectedItem = getDataAt(

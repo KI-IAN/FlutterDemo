@@ -6,5 +6,22 @@
     "duaListPage_editDataTooltip": "Edit Data",
     "duaListPage_deleteDataTooltip": "Delete Data",
     "duaListPage_deleteDuaButton": "Delete Dua",
-    "duaListPage_deleteDuaAlert": " টি জিকির  মুছে ফেলবেন? Once deleted it can't be undone."
+    "duaListPage_deleteDuaAlert": " টি জিকির  মুছে ফেলবেন? Once deleted it can't be undone.",
+    "editDuaPage_TitleBar": "Edit Dua",
+    "editDuaPage_DuaNameLabel": "Dua Name",
+    "editDuaPage_DuaNameHintText": "Reason for saying this dua",
+    "editDuaPage_TotalZikirLabel": "Total Zikir",
+    "createNewZikirLabel": "No zikir is created. Let's create a zikir.",
+    "editDuaPage_ZikirNameLabel": "Zikir Name",
+    "editDuaPage_ZikirHintText": "Name of zikir",
+    "editDuaPage_NumberOfTimesWantToReadLabel": "Want to Read",
+    "editDuaPage_NumberOfTimesWantToReadHintText": "100 (number of times want to read)",
+    "editDuaPage_TimesLabel": "times",
+    "editDuaPage_NumberOfTimesReadLabel": "Already Read",
+    "editDuaPage_NumberOfTimesReadHintText": "50 (number of times already read)",
+    "editDuaPage_ZikirSaveButtonToolTip": "Save Data",
+    "editDuaPage_ZikirDeleteButtonToolTip": "Delete Data",
+    "editDuaPage_ZikirEditButtonToolTip": "Edit Data",
+    "addDuaPage_TitleBarText": "New Dua",
+    "duaListPage_createDuaButtonToolTip":"New Dua"
 }

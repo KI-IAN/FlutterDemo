@@ -8,9 +8,9 @@ import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPa
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Validations/EditDuaPageValidator.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditZikirViewModel.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Screens/UITexts/EditDuaPageTexts.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:provider/provider.dart';
-import 'EditDuaPage.dart';
+import 'editDuaPage.dart';
 
 class EditDuaState extends StatefulWidget {
   @override
@@ -69,8 +69,8 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText: EditDuaPageTexts().editDuaPageDuaNameLabel,
-                        hintText: EditDuaPageTexts().editDuaPageDuaNameHintText,
+                        labelText: getLanguageText('editDuaPage_DuaNameLabel'),
+                        hintText: getLanguageText('editDuaPage_DuaNameHintText'),
                       ),
                     ),
                   ),
@@ -83,7 +83,7 @@ class EditDua extends State<EditDuaState> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts().editDuaPageTotalZikirLabel,
+                      getLanguageText('editDuaPage_TotalZikirLabel'),
                       style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
@@ -217,8 +217,8 @@ class EditDua extends State<EditDuaState> {
                 style: EditDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                   border: EditDuaPageStyles().textFieldBorderStyle(),
-                  labelText: EditDuaPageTexts().editDuaPageZikirNameLabel,
-                  hintText: EditDuaPageTexts().editDuaPageZikirHintText,
+                  labelText: getLanguageText('editDuaPage_ZikirNameLabel'),
+                  hintText: getLanguageText('editDuaPage_ZikirHintText'),
                 ),
               ),
             ),
@@ -251,18 +251,16 @@ class EditDua extends State<EditDuaState> {
                           ],
                           style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: EditDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadLabel,
+                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
                             border: EditDuaPageStyles().textFieldBorderStyle(),
-                            hintText: EditDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadHintText,
+                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
                           ),
                         ),
                       ),
                       Spacer(),
                       Expanded(
                         child: Text(
-                          EditDuaPageTexts().editDuaPageTimesLabel,
+                          getLanguageText('editDuaPage_TimesLabel'),
                           style: EditDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
@@ -306,17 +304,15 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText: EditDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadLabel,
-                        hintText: EditDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadHintText,
+                        labelText: getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
                       ),
                     ),
                   ),
                   Spacer(),
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts().editDuaPageTimesLabel,
+                      getLanguageText('editDuaPage_TimesLabel'),
                       style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),
@@ -354,7 +350,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.save),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             var isFormValid = zikirFormState.currentState.validate();
@@ -382,7 +378,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts().editDuaPageZikirSaveButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             var isFormValid = zikirFormState.currentState.validate();
@@ -404,7 +400,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts().editDuaPageZikirDeleteButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirDeleteButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             var selectedItem =
@@ -432,7 +428,7 @@ class EditDua extends State<EditDuaState> {
         child: IconButton(
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
-          tooltip: EditDuaPageTexts().editDuaPageZikirEditButtonToolTip,
+          tooltip: getLanguageText('editDuaPage_ZikirEditButtonToolTip'),
           color: Colors.white,
           onPressed: () {
             Provider.of<EditDuaPageViewModel>(context, listen: false)
@@ -463,8 +459,8 @@ class EditDua extends State<EditDuaState> {
                 style: EditDuaPageStyles().dataLabelTextStyle(),
                 decoration: InputDecoration(
                     border: EditDuaPageStyles().textFieldBorderStyle(),
-                    labelText: EditDuaPageTexts().editDuaPageZikirNameLabel,
-                    hintText: EditDuaPageTexts().editDuaPageZikirHintText),
+                    labelText: getLanguageText('editDuaPage_ZikirNameLabel'),
+                    hintText: getLanguageText('editDuaPage_ZikirHintText')),
               ),
             ),
             Visibility(
@@ -489,17 +485,15 @@ class EditDua extends State<EditDuaState> {
                           style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
                             border: EditDuaPageStyles().textFieldBorderStyle(),
-                            labelText: EditDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadLabel,
-                            hintText: EditDuaPageTexts()
-                                .editDuaPageNumberOfTimesWantToReadHintText,
+                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
                           ),
                         ),
                       ),
                       Spacer(),
                       Expanded(
                         child: Text(
-                          EditDuaPageTexts().editDuaPageTimesLabel,
+                          getLanguageText('editDuaPage_TimesLabel'),
                           style: EditDuaPageStyles().captionLabelTextStyle(),
                         ),
                       ),
@@ -525,17 +519,15 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText: EditDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadLabel,
-                        hintText: EditDuaPageTexts()
-                            .editDuaPageNumberOfTimesReadHintText,
+                        labelText: getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
                       ),
                     ),
                   ),
                   Spacer(),
                   Expanded(
                     child: Text(
-                      EditDuaPageTexts().editDuaPageTimesLabel,
+                      getLanguageText('editDuaPage_TimesLabel'),
                       style: EditDuaPageStyles().captionLabelTextStyle(),
                     ),
                   ),

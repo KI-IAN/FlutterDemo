@@ -5,6 +5,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Repository/DAL/ZikirRepository.d
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 
 class AddDuaViewModel extends BaseViewModel {
 //region : Fields
@@ -21,8 +22,11 @@ class AddDuaViewModel extends BaseViewModel {
 
   String get zikirCreateDescription {
     return zikirs.length == 0
-        ? 'কোন জিকির নেই। নতুন জিকির তৈরি করি।'
-        : '${zikirs.length} টি জিকির আছে। আরো নতুন জিকির তৈরি করি।';
+        ? getLanguageText('createNewZikirLabel')
+        : getLanguageText('createNewZikir_AddMoreZikirLabel')
+            .toString()
+            .replaceAll('[totalZikir]', '${zikirs.length}')
+            .replaceAll('[pluralForm]', "${zikirs.length > 1 ? 's' : ''}");
   }
 
   set temporaryZikirData(ZikirViewModel value) {

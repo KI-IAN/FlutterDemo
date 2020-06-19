@@ -52,7 +52,7 @@ class EditDuaPage extends StatelessWidget {
 
   Widget _buildAppBar() => AppBar(
         title: Text( getLanguageText('editDuaPage_TitleBar')),
-        backgroundColor: EditDuaPageStyles().randomColor(),
+        backgroundColor: Colors.lightBlue[300],
       );
 
   Widget _buildFAB() {

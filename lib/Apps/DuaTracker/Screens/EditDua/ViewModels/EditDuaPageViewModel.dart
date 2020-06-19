@@ -3,6 +3,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Helper/EditDuaPa
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditZikirViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 
 class EditDuaPageViewModel extends BaseViewModel {
 // #region : Fields
@@ -77,9 +78,12 @@ class EditDuaPageViewModel extends BaseViewModel {
 
 
   String get zikirCreateDescription {
-    return zikirUIList.length == 0
-        ? 'কোন জিকির নেই। নতুন জিকির তৈরি করি।'
-        : '${zikirUIList.length} টি জিকির আছে। আরো নতুন জিকির তৈরি করি।';
+        return zikirUIList.length == 0
+        ? getLanguageText('createNewZikirLabel')
+        : getLanguageText('createNewZikir_AddMoreZikirLabel')
+            .toString()
+            .replaceAll('[totalZikir]', '${zikirUIList.length}')
+            .replaceAll('[pluralForm]', "${zikirUIList.length > 1 ? 's' : ''}");
   }
 
 // #endRegion

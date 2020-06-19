@@ -15,7 +15,6 @@ class DuaListPage extends StatefulWidget {
 }
 
 class DuaListPageState extends State<DuaListPage> {
-
   @override
   Widget build(BuildContext context) {
     //Initializing Multilanguage plugin
@@ -24,7 +23,7 @@ class DuaListPageState extends State<DuaListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(getLanguageText('duaListPage_Title')),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.blueGrey[300],
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.all(10),
@@ -40,7 +39,7 @@ class DuaListPageState extends State<DuaListPage> {
           ),
           Padding(
             padding: EdgeInsets.all(10),
-                      child: RaisedButton(
+            child: RaisedButton(
               child: Text('EN'),
               elevation: 20,
               onPressed: () async {
@@ -117,7 +116,7 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              getLanguageText('duaListPage_totalZikir'),
+              getLanguageText('duaListPage_totalZikir').toString(),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
@@ -255,8 +254,12 @@ class DuaCardView extends State<DuaListState> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('${data.duaName} এর ${data.totalZikirs}' +
-                      getLanguageText('duaListPage_deleteDuaAlert')),
+                  Text(getLanguageText('duaListPage_deleteDuaAlert')
+                      .toString()
+                      .replaceAll('[DuaName]', '${data.duaName}')
+                      .replaceAll('[totalZikirCount]', '${data.totalZikirs}')
+                      .replaceAll(
+                          '[pluralForm]', "${data.totalZikirs > 1 ? 's' : ''}"))
                 ],
               ),
             ),

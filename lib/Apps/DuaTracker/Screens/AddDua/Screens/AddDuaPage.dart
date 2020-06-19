@@ -23,7 +23,7 @@ class AddDuaPage extends StatelessWidget {
 
   Widget _buildAppBar() => AppBar(
         title: Text(getLanguageText('addDuaPage_TitleBarText')),
-        backgroundColor: randomColor(),
+        backgroundColor: Colors.lightGreen[400],
       );
 
   Widget _buildScaffold(BuildContext context) => Scaffold(

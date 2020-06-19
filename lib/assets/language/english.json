@@ -23,5 +23,16 @@
     "editDuaPage_ZikirDeleteButtonToolTip": "Delete Data",
     "editDuaPage_ZikirEditButtonToolTip": "Edit Data",
     "addDuaPage_TitleBarText": "New Dua",
-    "duaListPage_createDuaButtonToolTip":"New Dua"
+    "duaListPage_createDuaButtonToolTip":"New Dua",
+    "duaName_requiredValidation":"Dua name is mandatory",
+    "duaName_MinLengthValidation":"Should be at least [minLength] character long",
+    "duaName_MaxLengthValidation":"Should not exceed [maxLength] character",
+    "zikirName_requiredValidation":"Zikir name is mandatory",
+    "zikirName_MinLengthValidation":"Should be at least [minLength] character long",
+    "zikirName_MaxLengthValidation":"Should not exceed [maxLength] character",
+    "timeToRead_RequiredValidaton":"Mandatory",
+    "timeToRead_RangeValidation":"Should be between [minValue] - [maxValue]",
+    "timeRead_RequiredValidaton":"Mandatory",
+    "timeRead_RangeValidation":"Should be between [minValue] - [maxValue]"
+
 }

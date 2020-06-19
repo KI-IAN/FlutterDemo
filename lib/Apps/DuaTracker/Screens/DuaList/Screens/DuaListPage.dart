@@ -15,10 +15,6 @@ class DuaListPage extends StatefulWidget {
 }
 
 class DuaListPageState extends State<DuaListPage> {
-//# region : Testing only
-  bool isEnglish = true;
-  var isEnglishIcon = Icon(Icons.headset);
-//# endRegion
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +23,7 @@ class DuaListPageState extends State<DuaListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        // title: Text('দোয়ার তালিকা'),
         title: Text(getLanguageText('duaListPage_Title')),
-        // backgroundColor: randomColor(),
         backgroundColor: Colors.lightGreen,
         actions: <Widget>[
           Padding(

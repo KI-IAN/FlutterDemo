@@ -53,7 +53,7 @@ class AddDuaPage extends StatelessWidget {
     if (isFormValid) {
       //save dua & zikirs in db
 
-      //To know how it pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
+      //To know how  pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
       Navigator.of(_currentContext).pushAndRemoveUntil(
           PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left),
           (route) => false);

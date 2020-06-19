@@ -23,6 +23,18 @@
     "editDuaPage_ZikirDeleteButtonToolTip": "তথ্য মুছুন",
     "editDuaPage_ZikirEditButtonToolTip": "তথ্য সম্পাদনা করুন",
     "addDuaPage_TitleBarText":"নতুন দোয়া",
-    "duaListPage_createDuaButtonToolTip":"নতুন দোয়া"
+    "duaListPage_createDuaButtonToolTip":"নতুন দোয়া",
+    "duaName_requiredValidation":"দোয়ার নাম আবশ্যক",
+    "duaName_MinLengthValidation":"দোয়ার নাম অন্তত [minLength] অক্ষর বিশিষ্ট হতে হবে",
+    "duaName_MaxLengthValidation":"দোয়ার নাম [maxLength]  অক্ষরের বেশি হতে পারবে না",
+    "zikirName_requiredValidation":"জিকিরের  নাম আবশ্যক",
+    "zikirName_MinLengthValidation":"জিকিরের নাম অন্তত [minLength] অক্ষর বিশিষ্ট হতে হবে",
+    "zikirName_MaxLengthValidation":"জিকিরের নাম [maxLength] অক্ষরের বেশি হতে পারবে না",
+    "timeToRead_RequiredValidaton":"আবশ্যক",
+    "timeToRead_RangeValidation":"[minValue] - [maxValue] এর মাঝে যে কোন সংখ্যা",
+    "timeRead_RequiredValidaton":"আবশ্যক",
+    "timeRead_RangeValidation":"[minValue] - [maxValue] এর মাঝে যে কোন সংখ্যা"
+
+
 
 }

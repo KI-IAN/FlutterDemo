@@ -1,20 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Constants/LanguageFilePath.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/DuaListPageFutureProviderVM.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';
-import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:provider/provider.dart';
 
-class DuaListPage extends StatelessWidget {
+class DuaListPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DuaListPageState();
+}
+
+class DuaListPageState extends State<DuaListPage> {
+//# region : Testing only
+  bool isEnglish = true;
+  var isEnglishIcon = Icon(Icons.headset);
+//# endRegion
+
   @override
   Widget build(BuildContext context) {
+    //Initializing Multilanguage plugin
+    MultiLanguage.setLanguage(path: LanguageFilePath.english, context: context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('দোয়ার তালিকা'),
-        backgroundColor: randomColor(),
+        // title: Text('দোয়ার তালিকা'),
+        title: Text(getLanguageText('duaListPage_Title')),
+        // backgroundColor: randomColor(),
+        backgroundColor: Colors.lightGreen,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: RaisedButton(
+              child: Text('BN'),
+              elevation: 20,
+              onPressed: () async {
+                await MultiLanguage.resetLanguage(
+                    path: LanguageFilePath.bangla, context: context);
+                setState(() {});
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+                      child: RaisedButton(
+              child: Text('EN'),
+              elevation: 20,
+              onPressed: () async {
+                await MultiLanguage.resetLanguage(
+                    path: LanguageFilePath.english, context: context);
+                setState(() {});
+              },
+            ),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: DuaListPageFutureProviderVM().getDuaListPageData(),
@@ -55,7 +97,7 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              'বার পড়েছি',
+              getLanguageText('duaListPage_totalReadCount'),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
@@ -81,7 +123,7 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              'টি দোয়া',
+              getLanguageText('duaListPage_totalZikir'),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
@@ -96,7 +138,7 @@ class DuaCardView extends State<DuaListState> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              'দোয়ার নাম',
+              getLanguageText('duaListPage_duaName'),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -166,7 +208,7 @@ class DuaCardView extends State<DuaListState> {
         child: IconButton(
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
-          tooltip: 'তথ্য পরিবর্তন করুন',
+          tooltip: getLanguageText('duaListPage_editDataTooltip'),
           color: Colors.white,
           onPressed: () {
             Navigator.of(context)
@@ -184,7 +226,7 @@ class DuaCardView extends State<DuaListState> {
         child: IconButton(
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
-          tooltip: 'তথ্য মুছুন',
+          tooltip: getLanguageText('duaListPage_deleteDataTooltip'),
           color: Colors.white,
           onPressed: () {
             _showDeleteAlert(context, currentIndex, data);
@@ -199,7 +241,7 @@ class DuaCardView extends State<DuaListState> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('দোয়া মুছুন'),
+            title: Text(getLanguageText('duaListPage_deleteDuaButton')),
             actions: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -220,7 +262,7 @@ class DuaCardView extends State<DuaListState> {
               child: ListBody(
                 children: <Widget>[
                   Text('${data.duaName} এর ${data.totalZikirs}' +
-                      ' টি জিকির  মুছে ফেলবেন? একবার মুছে ফেলা হলে আর ফেরত পাওয়া যাবে না।'),
+                      getLanguageText('duaListPage_deleteDuaAlert')),
                 ],
               ),
             ),

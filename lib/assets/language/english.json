@@ -1,0 +1,10 @@
+{
+    "duaListPage_duaName": "Dua Name",
+    "duaListPage_totalZikir": "Total Zikir(s)",
+    "duaListPage_totalReadCount": "Total Read",
+    "duaListPage_Title": "Dua List",
+    "duaListPage_editDataTooltip": "Edit Data",
+    "duaListPage_deleteDataTooltip": "Delete Data",
+    "duaListPage_deleteDuaButton": "Delete Dua",
+    "duaListPage_deleteDuaAlert": " টি জিকির  মুছে ফেলবেন? Once deleted it can't be undone."
+}

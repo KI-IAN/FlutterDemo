@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Constants/LanguageFilePath.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
+import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
 import 'package:fluttertutorial/screen/AnimatedList/AnimatedListApp.dart';
 import 'package:fluttertutorial/screen/ChangeNotifiers/ViewModels/Screens/StudentPages.dart';
@@ -75,6 +77,7 @@ void main() async {
   // Avoid errors caused by flutter upgrade.
   // Importing 'package:flutter/widgets.dart' is required.
   WidgetsFlutterBinding.ensureInitialized();
+
 
   runApp(MaterialApp(
     title: 'Change Notifier',

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettings.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Constants/LanguageFilePath.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/DuaListPageFutureProviderVM.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
@@ -199,11 +201,14 @@ class DuaCardView extends State<DuaListState> {
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightBlue),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
           tooltip: getLanguageText('duaListPage_editDataTooltip'),
           color: Colors.white,
-          onPressed: () {
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+
             Navigator.of(context)
                 .push(PageTransition().createRoute(EditDuaPage(duaID)));
           },
@@ -221,7 +226,8 @@ class DuaCardView extends State<DuaListState> {
           alignment: Alignment.center,
           tooltip: getLanguageText('duaListPage_deleteDataTooltip'),
           color: Colors.white,
-          onPressed: () {
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
             _showDeleteAlert(context, currentIndex, data);
           },
         ),
@@ -268,7 +274,8 @@ class DuaCardView extends State<DuaListState> {
   }
 
   Widget _buildAlertBoxCancelButton() => RaisedButton(
-        onPressed: () {
+        onPressed: () async {
+          await GeneralAnimationSettings.buttonTapDelay();
           Navigator.pop(this.context);
         },
         padding: EdgeInsets.all(10),
@@ -279,7 +286,8 @@ class DuaCardView extends State<DuaListState> {
   Widget _buildAlertBoxDeleteButton(BuildContext context, int duaId,
           int currentIndex, DuaListViewModel data) =>
       RaisedButton(
-        onPressed: () {
+        onPressed: () async {
+          await GeneralAnimationSettings.buttonTapDelay();
           Provider.of<DuaPageViewModel>(this.context, listen: false)
               .removeDua(duaId);
           Navigator.pop(context);

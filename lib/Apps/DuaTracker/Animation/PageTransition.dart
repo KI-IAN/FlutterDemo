@@ -5,7 +5,7 @@ class PageTransition {
   Route createRoute(Widget secondPage, [SlideDirectionEnum slideDirection]) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => secondPage,
-      transitionDuration: Duration(milliseconds: 500),
+      transitionDuration: Duration(milliseconds: 700),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         Offset begin = Offset(1.0, 0.0);
 

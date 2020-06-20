@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettings.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Screens/AddDuaPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 
 class DuaListFloatingActionButton extends StatelessWidget {
   Widget _buildFabButton(BuildContext context) => FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
+          await GeneralAnimationSettings.buttonTapDelay();
           Navigator.of(context)
               .push(PageTransition().createRoute(AddDuaPage()));
         },
@@ -16,6 +19,7 @@ class DuaListFloatingActionButton extends StatelessWidget {
         ),
         backgroundColor: Colors.lightGreen,
         tooltip: getLanguageText('duaListPage_createDuaButtonToolTip'),
+        splashColor: GeneralStyles.buttonSplashColor(),
       );
 
   @override

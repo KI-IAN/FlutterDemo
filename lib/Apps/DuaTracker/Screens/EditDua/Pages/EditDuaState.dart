@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettings.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
@@ -8,6 +9,7 @@ import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Styles/EditDuaPa
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Validations/EditDuaPageValidator.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditDuaPageViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/ViewModels/EditZikirViewModel.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:provider/provider.dart';
 import 'editDuaPage.dart';
@@ -130,23 +132,27 @@ class EditDua extends State<EditDuaState> {
                     color: Colors.lightGreen,
                     size: 35,
                   ),
-                  onPressed: () {
-                    Provider.of<EditDuaPageViewModel>(context, listen: false)
-                        .temporaryZikirData = EditZikirViewModel();
-
-                    //Update Current Form Mode
-                    currentFormMode = FormCRUDModeEnum.Create;
-
-                    _showAddZikirForm(
-                        context,
-                        Provider.of<EditDuaPageViewModel>(context,
-                                listen: false)
-                            .temporaryZikirData);
+                  onPressed: () async {
+                    await GeneralAnimationSettings.buttonTapDelay();
+                    showZikirForm();
                   }),
             )
           ],
         ),
       );
+
+  void showZikirForm() {
+    Provider.of<EditDuaPageViewModel>(context, listen: false)
+        .temporaryZikirData = EditZikirViewModel();
+
+    //Update Current Form Mode
+    currentFormMode = FormCRUDModeEnum.Create;
+
+    _showAddZikirForm(
+        context,
+        Provider.of<EditDuaPageViewModel>(context, listen: false)
+            .temporaryZikirData);
+  }
 
   void editInDB() async {
     var isEditFormValid = editDuaFormState.currentState.validate();
@@ -353,61 +359,76 @@ class EditDua extends State<EditDuaState> {
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightGreen),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.save),
           alignment: Alignment.center,
           tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
-            var isFormValid = zikirFormState.currentState.validate();
-
-            if (isFormValid) {
-              Provider.of<EditDuaPageViewModel>(this.context, listen: false)
-                  .addNewZikir();
-
-              Navigator.pop(context);
-
-              animatedListKey.currentState.insertItem(
-                  Provider.of<EditDuaPageViewModel>(this.context, listen: false)
-                          .zikirUIList
-                          .length -
-                      1);
-            }
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+            createNewZikir();
           },
         ),
       ));
+
+  void createNewZikir() {
+    var isFormValid = zikirFormState.currentState.validate();
+
+    if (isFormValid) {
+      Provider.of<EditDuaPageViewModel>(this.context, listen: false)
+          .addNewZikir();
+
+      Navigator.pop(context);
+
+      animatedListKey.currentState.insertItem(
+          Provider.of<EditDuaPageViewModel>(this.context, listen: false)
+                  .zikirUIList
+                  .length -
+              1);
+    }
+  }
 
   Widget _buildZikirFormEditButton() => Center(
           child: Ink(
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightBlue),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
           tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
-            var isFormValid = zikirFormState.currentState.validate();
-
-            if (isFormValid) {
-              Provider.of<EditDuaPageViewModel>(this.context, listen: false)
-                  .updateZikir();
-
-              Navigator.pop(context);
-            }
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+            editZikir();
           },
         ),
       ));
+
+  void editZikir() {
+    var isFormValid = zikirFormState.currentState.validate();
+
+    if (isFormValid) {
+      Provider.of<EditDuaPageViewModel>(this.context, listen: false)
+          .updateZikir();
+
+      Navigator.pop(context);
+    }
+  }
 
   Widget _buildDeleteButton(int currentIndex) => Center(
           child: Ink(
         decoration:
             const ShapeDecoration(shape: CircleBorder(), color: Colors.red),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
           tooltip: getLanguageText('editDuaPage_ZikirDeleteButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+
             var selectedItem =
                 Provider.of<EditDuaPageViewModel>(context, listen: false)
                     .zikirUIList
@@ -431,11 +452,13 @@ class EditDua extends State<EditDuaState> {
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightBlue),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.edit),
           alignment: Alignment.center,
           tooltip: getLanguageText('editDuaPage_ZikirEditButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
             //Creating a new zikir model to break refereence issue that occurs when updating a zikir is incomplete.
             EditZikirViewModel currentData =
                 Provider.of<EditDuaPageViewModel>(context, listen: false)
@@ -591,8 +614,12 @@ class EditDua extends State<EditDuaState> {
       padding: EdgeInsets.all(15),
       alignment: Alignment.bottomRight,
       child: FloatingActionButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           backgroundColor: Colors.lightBlue,
-          onPressed: editInDB,
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+            editInDB();
+          },
           child: Icon(
             Icons.edit,
             color: Colors.white,

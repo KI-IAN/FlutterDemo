@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettings.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Enums/SlideDirectionEnum.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Styles/AddDuaPageStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Validations/AddDuaPageValidators.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
@@ -100,7 +102,8 @@ class AddDua extends State<AddDuaState> {
                       decoration: InputDecoration(
                         border: AddDuaPageStyles().textFieldBorderStyle(),
                         labelText: getLanguageText('editDuaPage_DuaNameLabel'),
-                        hintText: getLanguageText('editDuaPage_DuaNameHintText'),
+                        hintText:
+                            getLanguageText('editDuaPage_DuaNameHintText'),
                       ),
                     ),
                   ),
@@ -151,29 +154,33 @@ class AddDua extends State<AddDuaState> {
                 ),
               ),
             ),
-
-
             Padding(
               padding: EdgeInsets.all(5),
               child: IconButton(
+                  // splashColor: GeneralStyles.buttonSplashColor(),
                   icon: Icon(
                     Icons.add,
                     color: Colors.lightGreen,
                     size: 35,
                   ),
-                  onPressed: () {
-                    Provider.of<AddDuaViewModel>(context, listen: false)
-                        .temporaryZikirData = ZikirViewModel();
-
-                    _showAddZikirForm(
-                        context,
-                        Provider.of<AddDuaViewModel>(context, listen: false)
-                            .temporaryZikirData);
+                  onPressed: () async {
+                    await GeneralAnimationSettings.buttonTapDelay();
+                    createZikirForm();
                   }),
             )
           ],
         ),
       );
+
+  void createZikirForm() {
+    Provider.of<AddDuaViewModel>(context, listen: false).temporaryZikirData =
+        ZikirViewModel();
+
+    _showAddZikirForm(
+        context,
+        Provider.of<AddDuaViewModel>(context, listen: false)
+            .temporaryZikirData);
+  }
 
   void saveInDB() async {
     var isFormValid = addDuaFormState.currentState.validate();
@@ -264,8 +271,10 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
-                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
+                            labelText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadHintText'),
                             border: AddDuaPageStyles().textFieldBorderStyle(),
                           ),
                         ),
@@ -299,9 +308,10 @@ class AddDua extends State<AddDuaState> {
                       ],
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        labelText:
-                            getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
-                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
+                        labelText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadHintText'),
                         border: AddDuaPageStyles().textFieldBorderStyle(),
                       ),
                     ),
@@ -392,8 +402,10 @@ class AddDua extends State<AddDuaState> {
                           ],
                           style: AddDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
-                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
+                            labelText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadHintText'),
                             border: AddDuaPageStyles().textFieldBorderStyle(),
                           ),
                         ),
@@ -442,9 +454,10 @@ class AddDua extends State<AddDuaState> {
                       ],
                       style: AddDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
-                        labelText:
-                            getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
-                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
+                        labelText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadHintText'),
                         border: AddDuaPageStyles().textFieldBorderStyle(),
                       ),
                     ),
@@ -484,40 +497,48 @@ class AddDua extends State<AddDuaState> {
         decoration: const ShapeDecoration(
             shape: CircleBorder(), color: Colors.lightGreen),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.save),
           alignment: Alignment.center,
           tooltip: getLanguageText('editDuaPage_ZikirSaveButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
-            var isFormValid = addZikirFormState.currentState.validate();
-
-            if (isFormValid) {
-              Provider.of<AddDuaViewModel>(this.context, listen: false)
-                  .addNewZikir();
-
-              Navigator.pop(context);
-
-              animatedListKey.currentState.insertItem(
-                  Provider.of<AddDuaViewModel>(this.context, listen: false)
-                          .zikirs
-                          .length -
-                      1);
-            }
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+            createNewZikir();
           },
         ),
       ));
+
+  void createNewZikir() {
+    var isFormValid = addZikirFormState.currentState.validate();
+
+    if (isFormValid) {
+      Provider.of<AddDuaViewModel>(this.context, listen: false).addNewZikir();
+
+      Navigator.pop(context);
+
+      animatedListKey.currentState.insertItem(
+          Provider.of<AddDuaViewModel>(this.context, listen: false)
+                  .zikirs
+                  .length -
+              1);
+    }
+  }
 
   Widget _buildDeleteButton(int currentIndex) => Center(
           child: Ink(
         decoration:
             const ShapeDecoration(shape: CircleBorder(), color: Colors.red),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
           // tooltip: 'তথ্য মুছুন',
           tooltip: getLanguageText('editDuaPage_ZikirDeleteButtonToolTip'),
           color: Colors.white,
-          onPressed: () {
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+
             var selectedItem = getDataAt(
                 Provider.of<AddDuaViewModel>(context, listen: false).zikirs,
                 currentIndex);
@@ -589,16 +610,20 @@ class AddDua extends State<AddDuaState> {
 
   Widget _buildFABSave() {
     return Container(
-        padding: EdgeInsets.all(15),
-        alignment: Alignment.bottomRight,
-        child: FloatingActionButton(
-            backgroundColor: Colors.lightGreen,
-            onPressed: saveInDB,
-            child: Icon(
-              Icons.save,
-              color: Colors.white,
-            )),
-      );
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomRight,
+      child: FloatingActionButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
+          backgroundColor: Colors.lightGreen,
+          onPressed: () async {
+            await GeneralAnimationSettings.buttonTapDelay();
+            saveInDB();
+          },
+          child: Icon(
+            Icons.save,
+            color: Colors.white,
+          )),
+    );
   }
 
   ZikirViewModel getDataAt(List<ZikirViewModel> data, int selectedIndex) {

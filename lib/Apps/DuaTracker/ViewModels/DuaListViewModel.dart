@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/BaseViewModel.dart';
 
 class DuaListViewModel extends BaseViewModel {
@@ -22,7 +23,21 @@ class DuaListViewModel extends BaseViewModel {
     _duaName = value;
   }
 
-  String get duaName => _duaName;
+  String get duaName => this._duaName;
+
+  String get shortenDuaName {
+    int maxAllowedLength = 20;
+    int startIndex = 0;
+    int endIndex =
+        _duaName.length > maxAllowedLength ? maxAllowedLength : _duaName.length;
+
+    String dotsWhenNeeded = _duaName.length > maxAllowedLength ? '.....' : '';
+
+    String shortenDuaName =
+        '${_duaName.substring(startIndex, endIndex)} $dotsWhenNeeded';
+
+    return shortenDuaName;
+  }
 
   set duaID(int value) {
     _duaID = value;
@@ -56,14 +71,7 @@ class DuaListViewModel extends BaseViewModel {
 
 //endRegion
 
-
-
-
-
-
 //region : Event Handler
-
-
 
 //endRegion
 

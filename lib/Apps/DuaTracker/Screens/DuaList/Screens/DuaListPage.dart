@@ -138,7 +138,7 @@ class DuaCardView extends State<DuaListState> {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              '${data.duaName}',
+              '${data.shortenDuaName}',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 20,

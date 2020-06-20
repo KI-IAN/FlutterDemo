@@ -6,7 +6,7 @@
     "duaListPage_editDataTooltip": "Edit Data",
     "duaListPage_deleteDataTooltip": "Delete Data",
     "duaListPage_deleteDuaButton": "Delete Dua",
-    "duaListPage_deleteDuaAlert": "Do you want to delete [totalZikirCount] zikir[pluralForm] of [DuaName]? Once deleted it can't be undone.",
+    "duaListPage_deleteDuaAlert": "Do you want to delete [totalZikirCount] zikir[pluralForm] of [DuaName] ? Once deleted it can't be undone.",
     "editDuaPage_TitleBar": "Edit Dua",
     "editDuaPage_DuaNameLabel": "Dua Name",
     "editDuaPage_DuaNameHintText": "Reason for saying this dua",

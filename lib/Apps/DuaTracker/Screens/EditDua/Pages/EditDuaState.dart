@@ -70,7 +70,8 @@ class EditDua extends State<EditDuaState> {
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
                         labelText: getLanguageText('editDuaPage_DuaNameLabel'),
-                        hintText: getLanguageText('editDuaPage_DuaNameHintText'),
+                        hintText:
+                            getLanguageText('editDuaPage_DuaNameHintText'),
                       ),
                     ),
                   ),
@@ -251,9 +252,11 @@ class EditDua extends State<EditDuaState> {
                           ],
                           style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
-                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
+                            labelText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadLabel'),
                             border: EditDuaPageStyles().textFieldBorderStyle(),
-                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
+                            hintText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadHintText'),
                           ),
                         ),
                       ),
@@ -304,8 +307,10 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText: getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
-                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
+                        labelText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadHintText'),
                       ),
                     ),
                   ),
@@ -431,13 +436,21 @@ class EditDua extends State<EditDuaState> {
           tooltip: getLanguageText('editDuaPage_ZikirEditButtonToolTip'),
           color: Colors.white,
           onPressed: () {
+            //Creating a new zikir model to break refereence issue that occurs when updating a zikir is incomplete.
+            EditZikirViewModel currentData =
+                Provider.of<EditDuaPageViewModel>(context, listen: false)
+                    .getACopyOf(data);
+
             Provider.of<EditDuaPageViewModel>(context, listen: false)
-                .temporaryZikirData = data;
+                .temporaryZikirData = currentData;
 
             //Update current Form Mode
             currentFormMode = FormCRUDModeEnum.Update;
 
-            _showAddZikirForm(context, data);
+            _showAddZikirForm(
+                context,
+                Provider.of<EditDuaPageViewModel>(context, listen: false)
+                    .temporaryZikirData);
           },
         ),
       ));
@@ -485,8 +498,10 @@ class EditDua extends State<EditDuaState> {
                           style: EditDuaPageStyles().dataLabelTextStyle(),
                           decoration: InputDecoration(
                             border: EditDuaPageStyles().textFieldBorderStyle(),
-                            labelText: getLanguageText('editDuaPage_NumberOfTimesWantToReadLabel'),
-                            hintText: getLanguageText('editDuaPage_NumberOfTimesWantToReadHintText'),
+                            labelText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadLabel'),
+                            hintText: getLanguageText(
+                                'editDuaPage_NumberOfTimesWantToReadHintText'),
                           ),
                         ),
                       ),
@@ -519,8 +534,10 @@ class EditDua extends State<EditDuaState> {
                       style: EditDuaPageStyles().dataLabelTextStyle(),
                       decoration: InputDecoration(
                         border: EditDuaPageStyles().textFieldBorderStyle(),
-                        labelText: getLanguageText('editDuaPage_NumberOfTimesReadLabel'),
-                        hintText: getLanguageText('editDuaPage_NumberOfTimesReadHintText'),
+                        labelText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadLabel'),
+                        hintText: getLanguageText(
+                            'editDuaPage_NumberOfTimesReadHintText'),
                       ),
                     ),
                   ),

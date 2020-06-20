@@ -44,7 +44,7 @@ class EditDuaPage extends StatelessWidget {
 
 // #region : Constructor
 
-  EditDuaPage(@required int duaID) {
+  EditDuaPage(int duaID) {
     this.duaID = duaID;
   }
 
@@ -55,34 +55,6 @@ class EditDuaPage extends StatelessWidget {
         backgroundColor: Colors.lightBlue[300],
       );
 
-  Widget _buildFAB() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(0),
-          child: FloatingActionButton(
-            onPressed: () {
-              var isEditFormValid = editDuaFormState.currentState.validate();
-
-              if (isEditFormValid) {
-
-                Navigator.of(this.currentWidgetBuildContext).pushAndRemoveUntil(
-                    PageTransition()
-                        .createRoute(DuaListPage(), SlideDirectionEnum.Left),
-                    (route) => false);
-              }
-            },
-            child: Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.lightBlue,
-          ),
-        )
-      ],
-    );
-  }
 
   Widget _buildBody() {
     //Solution to async operation / FutureProvider is FutureBuilder!!!

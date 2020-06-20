@@ -76,9 +76,8 @@ class EditDuaPageViewModel extends BaseViewModel {
     this.invokeChanges();
   }
 
-
   String get zikirCreateDescription {
-        return zikirUIList.length == 0
+    return zikirUIList.length == 0
         ? getLanguageText('createNewZikirLabel')
         : getLanguageText('createNewZikir_AddMoreZikirLabel')
             .toString()
@@ -187,6 +186,21 @@ class EditDuaPageViewModel extends BaseViewModel {
 // #endRegion
 
 // #region : Other Functions
+
+  EditZikirViewModel getACopyOf(EditZikirViewModel data) {
+    EditZikirViewModel newData = EditZikirViewModel();
+    newData
+      ..crudFlag = data.crudFlag
+      ..duaCreationDateTime = data.duaCreationDateTime
+      ..duaID = data.duaID
+      ..duaName = data.duaName
+      ..numberOfTimesRead = data.numberOfTimesRead
+      ..numberOfTimesWantToRead = data.numberOfTimesWantToRead
+      ..zikirID = data.zikirID
+      ..zikirName = data.zikirName
+      ..zikirUniqueID = data.zikirUniqueID;
+    return newData;
+  }
 
 // #endRegion
 

@@ -38,6 +38,8 @@ class EditZikirViewModel extends ZikirViewModel {
 
   UniqueKey get zikirUniqueID => this._zikirUniqueID;
 
+  set zikirUniqueID(UniqueKey value) => this._zikirUniqueID = value;
+
 // #endRegion
 
 }

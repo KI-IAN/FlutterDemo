@@ -4,7 +4,6 @@ import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettin
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/AddDua/Screens/AddDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
-import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 
 class DuaListFloatingActionButton extends StatelessWidget {
   Widget _buildFabButton(BuildContext context) => FloatingActionButton(
@@ -18,7 +17,7 @@ class DuaListFloatingActionButton extends StatelessWidget {
           color: Colors.white,
         ),
         backgroundColor: Colors.lightGreen,
-        tooltip: getLanguageText('duaListPage_createDuaButtonToolTip'),
+        // tooltip: getLanguageText('duaListPage_createDuaButtonToolTip'),
         splashColor: GeneralStyles.buttonSplashColor(),
       );
 

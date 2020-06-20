@@ -19,75 +19,65 @@ class DuaListPage extends StatefulWidget {
 class DuaListPageState extends State<DuaListPage> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: MultiLanguage.setLanguage(
-          path: LanguageFilePath.english, context: context),
-      builder: (context, snapShot) {
-        if (snapShot.connectionState == ConnectionState.done) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(getLanguageText('duaListPage_Title')),
-              backgroundColor: Colors.blueGrey[300],
-              actions: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: RaisedButton(
-                    child: Text('BN'),
-                    elevation: 20,
-                    onPressed: () async {
-                      await MultiLanguage.resetLanguage(
-                          path: LanguageFilePath.bangla, context: context);
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: RaisedButton(
-                    child: Text('EN'),
-                    elevation: 20,
-                    onPressed: () async {
-                      await MultiLanguage.resetLanguage(
-                          path: LanguageFilePath.english, context: context);
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
-            ),
-            body: FutureBuilder(
-              future: DuaListPageFutureProviderVM().getDuaListPageData(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return ChangeNotifierProvider<DuaPageViewModel>(
-                    create: (context) => snapshot.data,
-                    child: DuaListState(),
-                  );
-                } else {
-                  return Container(
-                      color: Colors.white,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ));
-                }
+    return Scaffold(
+      appBar: AppBar(
+        title: FutureBuilder(
+          future: MultiLanguage.setLanguage(
+              path: LanguageFilePath.english, context: context),
+          builder: (context, snapShot) {
+            if (snapShot.connectionState == ConnectionState.done) {
+              return Text(getLanguageText('duaListPage_Title'));
+            } else {
+              return Text('');
+            }
+          },
+        ),
+        backgroundColor: Colors.blueGrey[300],
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: RaisedButton(
+              child: Text('BN'),
+              elevation: 20,
+              onPressed: () async {
+                await MultiLanguage.resetLanguage(
+                    path: LanguageFilePath.bangla, context: context);
+                setState(() {});
               },
             ),
-            floatingActionButton: DuaListFloatingActionButton(),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.blueGrey[300],
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: RaisedButton(
+              child: Text('EN'),
+              elevation: 20,
+              onPressed: () async {
+                await MultiLanguage.resetLanguage(
+                    path: LanguageFilePath.english, context: context);
+                setState(() {});
+              },
             ),
-            body: Container(
-              color: Colors.white,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
+      body: FutureBuilder(
+        future: DuaListPageFutureProviderVM().getDuaListPageData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ChangeNotifierProvider<DuaPageViewModel>(
+              create: (context) => snapshot.data,
+              child: DuaListState(),
+            );
+          } else {
+            return Container(
+                color: Colors.white,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ));
+          }
+        },
+      ),
+      floatingActionButton: DuaListFloatingActionButton(),
     );
   }
 }

@@ -78,10 +78,9 @@ void main() async {
   // Importing 'package:flutter/widgets.dart' is required.
   WidgetsFlutterBinding.ensureInitialized();
 
-
   runApp(MaterialApp(
     title: 'Change Notifier',
-
+    debugShowCheckedModeBanner: false,
     theme: ThemeData(fontFamily: 'Atma'),
     // home: RowColumnDemo(),
     // home: MainPage('Bottom Navigation Bar', BottomNavigationBarDemo()),

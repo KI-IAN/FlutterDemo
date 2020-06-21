@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Constants/LanguageFilePath.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListPage.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/LanguageChangeViewModel.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
 import 'package:fluttertutorial/PubPackages/CircularText/CircularText.dart';
 import 'package:fluttertutorial/screen/AnimatedList/AnimatedListApp.dart';
@@ -87,11 +88,12 @@ void main() async {
     // home: BottomNavigationBarApp(),
     // home : TransformAnimationApp(),
     // home: AddDuaPage(),
-    home: DuaListPage(),
+    // child: DuaListPage()),
     // home: Page1(),
     // home: ValidateFormPage(),
     // home: AnimatedListApp(),
     // home: CircularTextPage(),
+    home: DuaListPage(),
   ));
 }
 

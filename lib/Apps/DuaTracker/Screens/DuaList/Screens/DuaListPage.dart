@@ -1,81 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/GeneralAnimationSettings.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Animation/PageTransition.dart';
-import 'package:fluttertutorial/Apps/DuaTracker/Constants/LanguageFilePath.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/Screens/DuaListFloatingActionButton.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/DuaListPageFutureProviderVM.dart';
+import 'package:fluttertutorial/Apps/DuaTracker/Screens/DuaList/ViewModels/LanguageChangeViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Screens/EditDua/Pages/EditDuaPage.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaListViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/DuaPageViewModel.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
+import 'package:fswitch/fswitch.dart';
 import 'package:provider/provider.dart';
 
-class DuaListPage extends StatefulWidget {
+class DuaListPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<LanguageChangeViewModel>(
+      create: (BuildContext context) {
+        return LanguageChangeViewModel();
+      },
+      builder: (context, child) {
+        return FutureBuilder(
+          future: LanguageChangeViewModel().initializeLanguage(context),
+          builder: (context, snapShot) {
+            if (snapShot.connectionState == ConnectionState.done) {
+              return DuaList();
+            } else {
+              return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ));
+            }
+          },
+        );
+      },
+    );
+  }
+}
+
+class DuaList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DuaListPageState();
 }
 
-class DuaListPageState extends State<DuaListPage> {
+class DuaListPageState extends State<DuaList> {
+  // bool switchValue = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FutureBuilder(
-          future: MultiLanguage.setLanguage(
-              path: LanguageFilePath.english, context: context),
-          builder: (context, snapShot) {
-            if (snapShot.connectionState == ConnectionState.done) {
-              return Text(getLanguageText('duaListPage_Title'));
-            } else {
-              return Text('');
-            }
-          },
-        ),
+        title:
+            Consumer<LanguageChangeViewModel>(builder: (context, model, child) {
+          return Text(getLanguageText('duaListPage_Title'));
+        }),
         backgroundColor: Colors.blueGrey[300],
         actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: RaisedButton(
-              child: Text('BN'),
-              elevation: 20,
-              onPressed: () async {
-                await MultiLanguage.resetLanguage(
-                    path: LanguageFilePath.bangla, context: context);
-                setState(() {});
-              },
+          Visibility(
+            visible: false,
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: null,
             ),
           ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: RaisedButton(
-              child: Text('EN'),
-              elevation: 20,
-              onPressed: () async {
-                await MultiLanguage.resetLanguage(
-                    path: LanguageFilePath.english, context: context);
-                setState(() {});
+            child: FSwitch(
+              openColor: Colors.blueGrey[400],
+              color: Colors.blueGrey[400],
+              sliderColor: Colors.white60,
+              // sliderColor: randomColor(),
+              width: 90,
+              height: 36,
+              open: Provider.of<LanguageChangeViewModel>(context, listen: false)
+                  .switchValue,
+              onChanged: (value) async {
+                await Provider.of<LanguageChangeViewModel>(context,
+                        listen: false)
+                    .resetLanguageFile(value, context);
               },
+              closeChild: Text(
+                "English",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+              openChild: Text(
+                "বাংলা",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
             ),
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: DuaListPageFutureProviderVM().getDuaListPageData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return ChangeNotifierProvider<DuaPageViewModel>(
-              create: (context) => snapshot.data,
-              child: DuaListState(),
-            );
-          } else {
-            return Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ));
-          }
+      body: Consumer<LanguageChangeViewModel>(
+        builder: (context, model, child) {
+          return FutureBuilder(
+            future: DuaListPageFutureProviderVM().getDuaListPageData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return ChangeNotifierProvider<DuaPageViewModel>(
+                  create: (context) => snapshot.data,
+                  child: DuaListState(),
+                );
+              } else {
+                return Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ));
+              }
+            },
+          );
         },
+        // child:
       ),
       floatingActionButton: DuaListFloatingActionButton(),
     );
@@ -233,6 +277,7 @@ class DuaCardView extends State<DuaListState> {
         decoration:
             const ShapeDecoration(shape: CircleBorder(), color: Colors.red),
         child: IconButton(
+          splashColor: GeneralStyles.buttonSplashColor(),
           icon: Icon(Icons.delete_forever),
           alignment: Alignment.center,
           tooltip: getLanguageText('duaListPage_deleteDataTooltip'),

@@ -10,7 +10,6 @@ import 'package:fluttertutorial/Apps/DuaTracker/Styles/GeneralStyles.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/AddDuaViewModel.dart';
 import 'package:fluttertutorial/Apps/DuaTracker/ViewModels/ZikirViewModel.dart';
 import 'package:fluttertutorial/Apps/PotentialPlugins/MultiLanguageProvider/MultiLanguageProvider.dart';
-import 'package:fluttertutorial/screen/ImplicitAnimation/AnimatedContainerDemo.dart';
 import 'package:provider/provider.dart';
 
 //region : Validation Logic (Should find a better maintainable way)
@@ -57,7 +56,7 @@ class AddDuaPage extends StatelessWidget {
 
       //To know how  pushAndRemoveUntil works : https://stackoverflow.com/questions/45889341/flutter-remove-all-routes
       Navigator.of(_currentContext).pushAndRemoveUntil(
-          PageTransition().createRoute(DuaListPage(), SlideDirectionEnum.Left),
+          PageTransition().createRoute(DuaList(), SlideDirectionEnum.Left),
           (route) => false);
     }
   }

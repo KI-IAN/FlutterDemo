@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// GitHub : https://github.com/misaelriojasm/Multilanguage
 /// I have made some modifications to this package and that's why instead of getting it from pub; I am using the updated source code directly in my project.
 
-
 /// THE NAME OF CURRENT JSON FILE INSIDE THE APP CACHE
 String _languageFilePathKey = 'languageFilePath';
 
@@ -19,7 +18,9 @@ class MultiLanguage {
   ///It directly updates the languageFilePathKey value inside shared preference with choosen language file
   ///It normally happens when user wants to choose their preferred language runtime.
   static resetLanguage(
-      {@required String path, @required BuildContext context}) async {
+      {@required String path,
+    
+      @required BuildContext context}) async {
     /// GETS THE SHARE PREFERENCES INSTANCE
     final prefs = await SharedPreferences.getInstance();
 
@@ -31,8 +32,10 @@ class MultiLanguage {
   /// USES PATH FROM [LANGUAGES] TO GET THE FILE
   /// USES CONTEXT TO GET THE FULL PATH
   /// WHEN LANGUAGE FILE WAS PREVIOUSLY LOADED; IT
-  static setLanguage(
-      {@required String path, @required BuildContext context}) async {
+  static initializeLanguage(
+      {@required String path,
+    
+      @required BuildContext context}) async {
     /// GETS THE SHARE PREFERENCES INSTANCE
     final prefs = await SharedPreferences.getInstance();
 
@@ -46,16 +49,16 @@ class MultiLanguage {
     }
 
     /// LOAD LANGUAGE FILE AND PARSE IT INTO A MAP
-    await _loadLanguageFIle(context, path, prefs);
+    await _loadLanguageFIle(context, path,  prefs);
   }
 
-  static Future _loadLanguageFIle(
-      BuildContext context, String path, SharedPreferences prefs) async {
+  static Future _loadLanguageFIle(BuildContext context, String path,
+       SharedPreferences prefs) async {
     /// GETS THE FILE PATH
     var file = await DefaultAssetBundle.of(context).loadString(path);
 
     /// SETS THE FILE PATH INSIDE THE PHONE
-    prefs.setString(_languageFilePathKey, path);
+    var canSetLangFilePath = await prefs.setString(_languageFilePathKey, path);
 
     /// LOADS THE JSON FILE INSIDE THE MULTILANG
     multilang = MultiLanguage(jsonDecode(file));

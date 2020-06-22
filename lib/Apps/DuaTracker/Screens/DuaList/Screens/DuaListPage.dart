@@ -15,25 +15,22 @@ import 'package:provider/provider.dart';
 class DuaListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LanguageChangeViewModel>(
-      create: (BuildContext context) {
-        return LanguageChangeViewModel();
-      },
-      builder: (context, child) {
-        return FutureBuilder(
-          future: LanguageChangeViewModel().initializeLanguage(context),
-          builder: (context, snapShot) {
-            if (snapShot.connectionState == ConnectionState.done) {
-              return DuaList();
-            } else {
-              return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ));
-            }
-          },
-        );
+    return FutureBuilder(
+      future: LanguageChangeViewModel().initializeLanguage(context),
+      builder: (context, snapShot) {
+        if (snapShot.connectionState == ConnectionState.done) {
+          return ChangeNotifierProvider<LanguageChangeViewModel>(
+              create: (BuildContext context) {
+                return snapShot.data;
+              },
+              child: DuaList());
+        } else {
+          return Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ));
+        }
       },
     );
   }
